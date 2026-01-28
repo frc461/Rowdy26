@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.vision;
 
 import edu.wpi.first.math.geometry.Transform2d;
 import org.photonvision.targeting.TargetCorner;
@@ -6,8 +6,9 @@ import java.util.List;
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
+import edu.wpi.first.math.geometry.Transform3d;
 
-public final class vision {
+public final class Vision {
     private final PhotonCamera camera = new PhotonCamera("camera1");
     private List<PhotonPipelineResult> lastResults;
 
@@ -25,8 +26,16 @@ public final class vision {
         }
         return false;
     }
-    public static void processTargets(PhotonPipelineResult result){
-        static getCameraToTarget(PhotonPipelineResult result){
+    
+    
+    public List<PhotonPipelineResult> getCameraToTarget() {
+        
+
+    }
+    
+    public void processTargets(PhotonPipelineResult result){
+        getCameraToTarget();{
+           
          }  
      {
 
@@ -38,6 +47,12 @@ public final class vision {
                 double skew = target.getSkew();
                 Transform2d pose = target.getCameraToTarget();
                 List<TargetCorner> corners = target.getCorners();
+                // get info from target
+                int targetID = target.getFiducicialID();
+                double poseAmbiguity = target.getPoseAmbiguity();
+                Transform3d bestCameraToTarget = target.getBestCameraToTarget();
+                Transform3d alternateCameraToTarget = target.getAlternateCameraToTarget();
+
                 // Add additional processing as needed
 
     

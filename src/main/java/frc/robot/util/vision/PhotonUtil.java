@@ -1,8 +1,11 @@
-package frc.robot.vision;
+package frc.robot.util.vision;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d; //rotation2d
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 
@@ -16,6 +19,8 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.util.EstimatedRobotPose;
 import frc.robot.util.FieldUtil;
+import frc.robot.util.vision.PhotonUtil.BW;
+import frc.robot.util.vision.PhotonUtil.BW.BWCamera;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +30,9 @@ import java.util.concurrent.atomic.AtomicReference;
 public final class PhotonUtil {
     public static void updateResults(Rotation2d heading){ 
         BW.updateResults(heading);
+
     }
+
 
     public static final class BW{
         public enum TargetClass {
@@ -50,7 +57,16 @@ public final class PhotonUtil {
             return latestResult.hasTargets();
         }
 
-        
+        private static final Transform3d robotToCameraOffset = new Transform3d(
+                Constants.VisionConstants.PhotonConstants.COLOR_FORWARD,
+                Constants.VisionConstants.PhotonConstants.COLOR_LEFT,
+                Constants.VisionConstants.PhotonConstants.COLOR_UP,
+                new Rotation3d(
+                        Units.degreesToRadians(Constants.VisionConstants.PhotonConstants.COLOR_ROLL),
+                        Units.degreesToRadians(Constants.VisionConstants.PhotonConstants.COLOR_PITCH),
+                        Units.degreesToRadians(Constants.VisionConstants.PhotonConstants.COLOR_YAW)
+                )
+        );
         public static boolean hasTargets(BW.TargetClass targetClass) {
             if (hasTargets()) {
                 for (PhotonTrackedTarget target : latestResult.getTargets()) {
@@ -78,7 +94,7 @@ public final class PhotonUtil {
         }
 
         public static BW.TargetClass getBestObjectClass() {
-            return getBestObject().map(bestObject -> TargetClass.fromID(bestObject,getdectedObjectClassID()))
+            return getBestObject().map(bestObject -> TargetClass.fromID(bestObject.getDetectedObjectClassID()))
             .orElse(BW.TargetClass.NONE);
         }
 
@@ -130,7 +146,7 @@ public final class PhotonUtil {
         }
 
         public static void updateResults(){
-            List<PhotonPipelineresult> result = BW.getAllUnreadResults();
+            List<PhotonPipelineResult> result = BW.getAllUnreadResults();
             if(!results.isEmpty()) {
                 latestResult = result.get(results.size() -1);
             }
@@ -180,7 +196,7 @@ public final class PhotonUtil {
 
             }
 
-            public PhotonCamer getCamera() {
+            public PhotonCamera getCamera() {
                 return Camera;
             }
 
@@ -287,11 +303,11 @@ public final class PhotonUtil {
                     poseToReturn,
                     result.getTimestampSeconds(),
                     result.getTargets(),
-                    Constants.VisionConstants.VISION_STD_DEV_FUNCTION.apply(dist to apply)
+                    Constants.VisionConstants.VISION_STD_DEV_FUNCTION.apply(getBestTagDist(camera))
             ));
         }
 
-        private static Optional<EstimatedRobotPose> getSingleTagPose(BWCamer camer) {
+        private static Optional<EstimatedRobotPose> getSingleTagPose(BWCamera camera) {
             if (!hasTargets(camera)) {
                 return Optional.empty();
             }
@@ -311,7 +327,7 @@ public final class PhotonUtil {
                             new Translation3d(bestTarget.getBestCameraToTarget().getTranslation().getNorm(), 0, 0),
                             rotation3d.kZero
                     )
-            )getTranslation3d();
+            );getTranslation3d();
 
             if(headingsBuffer.getSample(result.getTimestampSeconds()).isEmpty()) {
                 return Optional.empty();
@@ -327,14 +343,61 @@ public final class PhotonUtil {
                 return Optional.empty();
             }
                 
+            FieldUtil.AprilTag tag = fieldUtil.AprilTag.getTagPose(bestTarget.getFiducialId());
 
+            if (!FieldUtil.AprilTag.FILTER.contains(tag)) {
+                return Optional.empty();
+            }
 
+            Pose2d tagPose2d = tag.pose2d;
 
+            Translation2d fieldToCameraTranslation = 
+                    new Pose2d(tagPose2d.getTranslation(), camToTagRotaion.plus(Rotationd.kPi))
+                            .transformBy(new  Transform2d(camToTagTranslation.getNorm(), 0, Rotation2d.kZero))
+                            .getTranslation();
+                             Pose2d robotPose = new Pose2d(
+                    new Pose2d(
+                            fieldToCameraTranslation,
+                            headingSample.plus(camera.robotToCameraOffset.getRotation().toRotation2d())
+                    ).transformBy(
+                            new Transform2d(
+                                    new Pose3d(
+                                            camera.robotToCameraOffset.getTranslation(),
+                                            camera.robotToCameraOffset.getRotation()
+                                    ).toPose2d(),
+                                    Pose2d.kZero
+                            )
+                    ).getTranslation(),
+                    headingSample
+            );
 
+            return Optional.of(
+                    new EstimatedRobotPose(
+                            new Pose3d(robotPose),
+                            result.getTimestampSeconds(),
+                            result.getTargets(),
+                            Constants.VisionConstants.VISION_STD_DEV_FUNCTION.apply(camToTagTranslation.getNorm())
+                    )
+            );
         }
+   
+        public static Optional<EstimatedRobotPose> getBestTagPose(BWCamera camera) {
+                    return BW.isMultiTag(camera) ? getMultiTagPose(camera) : getSingleTagPose(camera);
+                }
 
+                public static void updateResults(Rotation2d heading) {
+                    headingBuffer.addSample(Timer.getFPGATimestamp(), heading);
+                    for (BWCamera camera : BWCamera.values()) {
+                        List<PhotonPipelineResult> results = camera.camera.getAllUnreadResults();
 
-
-    
+                        if (!results.isEmpty()) {
+                            switch (camera) {
+                                case FRONT -> latestResultFront = results.get(results.size() - 1);
+                                case BACK -> latestResultBack = results.get(results.size() - 1);
+                           
+                            }
+                        }
+                    }
+                }
     }
 }

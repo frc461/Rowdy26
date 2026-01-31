@@ -16,7 +16,7 @@ import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.math.interpolation.TimeInterpolatableBuffer;
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.constants.Constants;
+import frc.robot.constants.variants.TutorialConstants;
 import frc.robot.util.EstimatedRobotPose;
 import frc.robot.util.FieldUtil;
 import frc.robot.util.vision.PhotonUtil.BW;
@@ -168,7 +168,7 @@ public final class PhotonUtil {
                             new Rotation3d(
                                 Units.degreesToRadians(Constants.VisionConstants.PhotonConstants.BW_FRONT_ROLL),
                                 Units.degreesToRadians(Constants.VisionConstants.PhotonConstants.BW_FRONT_PITCH),
-                                Units.degreesToRadians(Constants.VisionConstants.PhotonConstants.BW_FRONT_YAW),
+                                Units.degreesToRadians(Constants.VisionConstants.PhotonConstants.BW_FRONT_YAW)
 
                             )
                     )
@@ -182,7 +182,7 @@ public final class PhotonUtil {
                             new Rotation3d(
                                 Units.degreesToRadians(Constants.VisionConstants.PhotonConstants.BW_BACK_ROLL),
                                 Units.degreesToRadians(Constants.VisionConstants.PhotonConstants.BW_BACK_PITCH),
-                                Units.degreesToRadians(Constants.VisionConstants.PhotonConstants.BW_BACK_YAW),
+                                Units.degreesToRadians(Constants.VisionConstants.PhotonConstants.BW_BACK_YAW)
 
                             )
                     )

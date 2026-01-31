@@ -16,15 +16,15 @@ import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.math.interpolation.TimeInterpolatableBuffer;
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.constants.variants.TutorialConstants;
+import frc.robot.constants.Constants;
 import frc.robot.util.EstimatedRobotPose;
 import frc.robot.util.FieldUtil;
-import frc.robot.util.vision.PhotonUtil.BW;
-import frc.robot.util.vision.PhotonUtil.BW.BWCamera;
+//import frc.robot.util.vision.PhotonUtil.BW;
+//import frc.robot.util.vision.PhotonUtil.BW.BWCamera;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
+//import java.util.concurrent.atomic.AtomicReference;
 
 
 public final class PhotonUtil {
@@ -34,7 +34,7 @@ public final class PhotonUtil {
     }
 
 
-    public static final class BW{
+    public static final class Color{
         public enum TargetClass {
             FUEL(0),
             NONE(-1);
@@ -44,13 +44,16 @@ public final class PhotonUtil {
             TargetClass(int id) {
                 this.id = id;
             }
-            public static BW.TargetClass fromID(int id) {
+            public static Color.TargetClass fromID(int id) {
                 return switch (id) {
                     case 0 -> FUEL;
                     default -> NONE;
                 };
             }
         }
+
+
+        private static final PhotonCamera COLOR = new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.PhotonConstants.COLOR_NAME);
         private static PhotonPipelineResult latestResult = new PhotonPipelineResult();
 
         public static boolean hasTargets() {
@@ -67,88 +70,89 @@ public final class PhotonUtil {
                         Units.degreesToRadians(Constants.VisionConstants.PhotonConstants.COLOR_YAW)
                 )
         );
-        public static boolean hasTargets(BW.TargetClass targetClass) {
-            if (hasTargets()) {
-                for (PhotonTrackedTarget target : latestResult.getTargets()) {
-                    if (target.getDetectedObjectClassID() == targetClass.id) {
-                        return true;
+                private static final List<PhotonTrackedTarget> results = null;
+                public static boolean hasTargets(Color.TargetClass targetClass) {
+                    if (hasTargets()) {
+                        for (PhotonTrackedTarget target : latestResult.getTargets()) {
+                            if (target.getDetectedObjectClassID() == targetClass.id) {
+                                return true;
+                            }
+                        }
                     }
+                    return false;
                 }
-            }
-            return false;
-        }
-
-        public static Optional<PhotonTrackedTarget> getBestObject() {
-            return hasTargets() ? Optional.of(latestResult.getBestTarget()) : Optional.empty();
-        }
         
-        public static Optional<PhotonTrackedTarget> getBestObject(BW.TargetClass targetClass) {
-            if(hasTargets(targetClass)){ 
-                for (PhotonTrackedTarget target : latestResult.getTargets()) {
-                    if (target.getDetectedObjectClassID() == targetClass.id) {
-                        return Optional.of(target);
-                    }
+                public static Optional<PhotonTrackedTarget> getBestObject() {
+                    return hasTargets() ? Optional.of(latestResult.getBestTarget()) : Optional.empty();
                 }
-            }
-            return Optional.empty();
-        }
-
-        public static BW.TargetClass getBestObjectClass() {
-            return getBestObject().map(bestObject -> TargetClass.fromID(bestObject.getDetectedObjectClassID()))
-            .orElse(BW.TargetClass.NONE);
-        }
-
-        public static double getBestObjectYaw() {
-            return getBestObject().map(PhotonTrackedTarget::getYaw).orElse(0.0);
-        }
-
-        public static double getBestObjectPitch() {
-            return getBestObject().map(PhotonTrackedTarget::getPitch).orElse(0.0);
-        }
-
-        public static double getBestObjectYaw(BW.TargetClass targetClass) {
-            return getBestObject(targetClass).map(PhotonTrackedTarget::getYaw).orElse(0.0);
-        }
-
-        public static double getBestObjectPitch(BW.TargetClass targetClass) {
-            return getBestObject(targetClass).map(PhotonTrackedTarget::getPitch).orElse(0.0);
-        }
-
-        public static Optional<Translation2d> getRobotToBestObject(TargetClass targetClass) {
-        if (!hasTargets(targetClass)|| getBestObject(targetClass).isEmpty()) {
-
-        }
-        PhotonTrackedTarget bestTarget = getBestObject(targetClass).get();
-
-        Translation2d camToObjectTranslation = new Pose3d(
-            Translation3d.kZero,
-            new Rotation3d(
-                0,
-                -Math.toRadians(bestTarget.getPitch()),
-                -Math.toRadians(bestTarget.getYaw())
-            )
-        ).transformBy(
-                    new Transform3d(
-                        new Translation3d(bestTarget.getBestCameraToTarget().getTranslation().getNorm(), 0, 0),
-                        Rotation3d.kZero
-                    )        
-        ).getTranslation().rotateBy(
-            new Rotation3d(
-                robotToCameraOffset.getRotation().getX(),
-                robotToCameraOffset.getRotation().getY(),
-                0
-            )
-        ).toTranslation2d();
-
-        return Optional.of(new Translation2d(robotToCameraOffset.getX(), robotToCameraOffset().getY())
-                .plus(camToObjectTranslation.rotateBy(robotToCameraOffset.getRotation().toRotation2d().unaryMinus())));
-
-        }
-
-        public static void updateResults(){
-            List<PhotonPipelineResult> result = BW.getAllUnreadResults();
-            if(!results.isEmpty()) {
-                latestResult = result.get(results.size() -1);
+                
+                public static Optional<PhotonTrackedTarget> getBestObject(Color.TargetClass targetClass) {
+                    if(hasTargets(targetClass)){ 
+                        for (PhotonTrackedTarget target : latestResult.getTargets()) {
+                            if (target.getDetectedObjectClassID() == targetClass.id) {
+                                return Optional.of(target);
+                            }
+                        }
+                    }
+                    return Optional.empty();
+                }
+        
+                public static Color.TargetClass getBestObjectClass() {
+                    return getBestObject().map(bestObject -> TargetClass.fromID(bestObject.getDetectedObjectClassID()))
+                    .orElse(Color.TargetClass.NONE);
+                }
+        
+                public static double getBestObjectYaw() {
+                    return getBestObject().map(PhotonTrackedTarget::getYaw).orElse(0.0);
+                }
+        
+                public static double getBestObjectPitch() {
+                    return getBestObject().map(PhotonTrackedTarget::getPitch).orElse(0.0);
+                }
+        
+                public static double getBestObjectYaw(Color.TargetClass targetClass) {
+                    return getBestObject(targetClass).map(PhotonTrackedTarget::getYaw).orElse(0.0);
+                }
+        
+                public static double getBestObjectPitch(Color.TargetClass targetClass) {
+                    return getBestObject(targetClass).map(PhotonTrackedTarget::getPitch).orElse(0.0);
+                }
+        
+                public static Optional<Translation2d> getRobotToBestObject(TargetClass targetClass) {
+                if (!hasTargets(targetClass)|| getBestObject(targetClass).isEmpty()) {
+        
+                }
+                PhotonTrackedTarget bestTarget = getBestObject(targetClass).get();
+        
+                Translation2d camToObjectTranslation = new Pose3d(
+                    Translation3d.kZero,
+                    new Rotation3d(
+                        0,
+                        -Math.toRadians(bestTarget.getPitch()),
+                        -Math.toRadians(bestTarget.getYaw())
+                    )
+                ).transformBy(
+                            new Transform3d(
+                                new Translation3d(bestTarget.getBestCameraToTarget().getTranslation().getNorm(), 0, 0),
+                                Rotation3d.kZero
+                            )        
+                ).getTranslation().rotateBy(
+                    new Rotation3d(
+                        robotToCameraOffset.getRotation().getX(),
+                        robotToCameraOffset.getRotation().getY(),
+                        0
+                    )
+                ).toTranslation2d();
+        
+                return Optional.of(new Translation2d(robotToCameraOffset.getX(), robotToCameraOffset.getY())
+                        .plus(camToObjectTranslation.rotateBy(robotToCameraOffset.getRotation().toRotation2d().unaryMinus())));
+        
+                }
+        
+                public static void updateResults(){
+                    List<PhotonPipelineResult> result = COLOR.getAllUnreadResults();
+                    if(!results.isEmpty()) {
+                        latestResult = result.get(results.size() -1);
             }
         }
     
@@ -159,10 +163,11 @@ public final class PhotonUtil {
                 TimeInterpolatableBuffer.createBuffer(1.0);
 
         public enum BWCamera {
+    
             FRONT(
-                    new PhotonCamera(Constant.NT_INSTANCE, Constants.VisionConstants.PhotonConstants.BW_FRONT_NAME),
+                    new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.PhotonConstants.BW_FRONT_NAME),
                     new Transform3d(
-                        Constants.VisionConstants.PhotonCamera.BW_FRONT_FORWARD,
+                        Constants.VisionConstants.PhotonConstants.BW_FRONT_FORWARD,
                         Constants.VisionConstants.PhotonConstants.BW_FRONT_LEFT,
                         Constants.VisionConstants.PhotonConstants.BW_FRONT_UP,
                             new Rotation3d(
@@ -174,9 +179,9 @@ public final class PhotonUtil {
                     )
             ),
             BACK(
-                    new PhotonCamera(Constant.NT_INSTANCE, Constants.VisionConstants.PhotonConstants.BW_BACK_NAME),
+                    new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.PhotonConstants.BW_BACK_NAME),
                     new Transform3d(
-                        Constants.VisionConstants.PhotonCamera.BW_BACK_FORWARD,
+                        Constants.VisionConstants.PhotonConstants.BW_BACK_FORWARD,
                         Constants.VisionConstants.PhotonConstants.BW_BACK_LEFT,
                         Constants.VisionConstants.PhotonConstants.BW_BACK_UP,
                             new Rotation3d(
@@ -190,14 +195,15 @@ public final class PhotonUtil {
 
             final PhotonCamera camera; 
             final Transform3d robotToCameraOffset;
-            BW(PhotonCamera camera, Transform3d robotToCameraOffset) {
+            
+            BWCamera(PhotonCamera camera, Transform3d robotToCameraOffset) {
                 this.camera = camera;
                 this.robotToCameraOffset = robotToCameraOffset;
 
             }
 
             public PhotonCamera getCamera() {
-                return Camera;
+                return camera;
             }
 
             public Transform3d getRobotToCameraOffset() {
@@ -215,33 +221,40 @@ public final class PhotonUtil {
             };
         }
 
+        public static boolean hasTargets(BWCamera camera) {
+            return switch (camera) {
+                case FRONT -> latestResultFront.hasTargets();
+                case BACK -> latestResultBack.hasTargets();
+            };
+        }
+
         public static double getLatestResultTimestamp(BWCamera camera) {
             return switch (camera) {
-                case FRONT -> latestResultFront.getLatestResultTimestampSeconds(); 
-                case BACK -> latestResultBack.getLatestResultTimestampSeconds();
+                case FRONT -> latestResultFront.getTimestampSeconds(); 
+                case BACK -> latestResultBack.getTimestampSeconds();
             };
         }
 
         public static double getBestTagID(BWCamera camera) {
-            return hasTargets(CAMERA) ? getLatestResult(camera).getBestTarget().getFiducialId() : 0.0;
+            return hasTargets(camera) ? getLatestResult(camera).getBestTarget().getFiducialId() : 0.0;
         }
-
-        public static double getBestTagID(BWCamera camera) {
+        
+        public static double getBestTagDist(BWCamera camera) {
             return hasTargets(camera)
-            ? getLatestResult(camera).getBestTarget().getBestCameraToTarget().getTranslation().toTranslation2d().getNorm()
-            :0.0;
+                    ? getLatestResult(camera).getBestTarget().getBestCameraToTarget().getTranslation().toTranslation2d().getNorm()
+                    : 0.0;
         }
 
         public static boolean isMultiTag(BWCamera camera) {
             return getLatestResult(camera).getTargets().size() >=2;
         }
 
-        public static double isTagClear(BWCamera camera) {
-            return hasTargets(camera) && getBestTagDist(camera) < Constants.VisionConstanrs.PhotonConstanrs.BW_MAX_TAG_CLEAR_DIST;
+        public static boolean isTagClear(BWCamera camera) {
+            return hasTargets(camera) && getBestTagDist(camera) < Constants.VisionConstants.PhotonConstants.BW_MAX_TAG_CLEAR_DIST;
         }
 
-        public static double isTagClear() {
-            return isTagClear(BWCamera.Front) || isTagClear(BWCamera.Back);
+        public static boolean isTagClear() {
+            return isTagClear(BWCamera.FRONT) || isTagClear(BWCamera.BACK);
         }
 
         public static Optional<EstimatedRobotPose> getMultiTagPose(BWCamera camera) {
@@ -251,7 +264,7 @@ public final class PhotonUtil {
                         Pose3d bestPose = new Pose3d().plus(multiTargetPNPResult.estimatedPose.best).relativeTo(FieldUtil.ORIGIN).plus(camera.robotToCameraOffset.inverse());
                         return new EstimatedRobotPose(
                             bestPose,
-                            getLatestResultTimestamp(cmaera),
+                            getLatestResultTimestamp(camera),
                             getLatestResult(camera).getTargets(),
                             Constants.VisionConstants.VISION_STD_DEV_MULTITAG_FUNCTION.apply(getBestTagDist(camera))
                         );
@@ -259,12 +272,12 @@ public final class PhotonUtil {
             );
         }
 
-        public static Optional<EstimatedRobotPose> getSingleTagPose(BW camera, Pose2d currentPose){
+        public static Optional<EstimatedRobotPose> getSingleTagPose(BWCamera camera, Pose2d currentPose){
             if (!hasTargets(camera)) {
                 return Optional.empty();
             }
 
-            Pose3d tagPose = FieldUtil.AprilTag(getBestTagID(camera)).pose3d;
+            Pose3d tagPose = FieldUtil.AprilTag.getTag(getBestTagID(camera)).pose3d;
             PhotonPipelineResult result = getLatestResult(camera);
 
             Transform3d cameraToTargetBest = result.getBestTarget().getBestCameraToTarget();
@@ -325,25 +338,31 @@ public final class PhotonUtil {
             ).transformBy(
                     new Transform3d(
                             new Translation3d(bestTarget.getBestCameraToTarget().getTranslation().getNorm(), 0, 0),
-                            rotation3d.kZero
+                            Rotation3d.kZero
                     )
-            );getTranslation3d();
+            ).getTranslation().rotateBy(
+                    new Rotation3d(
+                            camera.robotToCameraOffset.getRotation().getX(),
+                            camera.robotToCameraOffset.getRotation().getY(),
+                            0
+                    )
+            ).toTranslation2d();
 
-            if(headingsBuffer.getSample(result.getTimestampSeconds()).isEmpty()) {
+            if(headingBuffer.getSample(result.getTimestampSeconds()).isEmpty()) {
                 return Optional.empty();
             }
 
             Rotation2d headingSample = headingBuffer.getSample(result.getTimestampSeconds()).get();
 
             Rotation2d camToTagRotation = headingSample.plus(
-                    camera.robotToCameraOffset.getRotation().getRotation2d().plus(camToTagTranslation.getAngle())
+                    camera.robotToCameraOffset.getRotation().toRotation2d().plus(camToTagTranslation.getAngle())
             );
 
-            if (FieldUtil.layout2025.getTagPose(bestTarget.getFiducialId().isEmpty())) {
+            if (FieldUtil.layout2025.getTagPose(bestTarget.getFiducialId()).isEmpty()) {
                 return Optional.empty();
             }
                 
-            FieldUtil.AprilTag tag = fieldUtil.AprilTag.getTagPose(bestTarget.getFiducialId());
+            FieldUtil.AprilTag tag = FieldUtil.AprilTag.getTag(bestTarget.getFiducialId());
 
             if (!FieldUtil.AprilTag.FILTER.contains(tag)) {
                 return Optional.empty();
@@ -352,7 +371,7 @@ public final class PhotonUtil {
             Pose2d tagPose2d = tag.pose2d;
 
             Translation2d fieldToCameraTranslation = 
-                    new Pose2d(tagPose2d.getTranslation(), camToTagRotaion.plus(Rotationd.kPi))
+                    new Pose2d(tagPose2d.getTranslation(), camToTagRotation.plus(Rotation2d.kPi))
                             .transformBy(new  Transform2d(camToTagTranslation.getNorm(), 0, Rotation2d.kZero))
                             .getTranslation();
                              Pose2d robotPose = new Pose2d(
@@ -382,22 +401,22 @@ public final class PhotonUtil {
         }
    
         public static Optional<EstimatedRobotPose> getBestTagPose(BWCamera camera) {
-                    return BW.isMultiTag(camera) ? getMultiTagPose(camera) : getSingleTagPose(camera);
-                }
+            return BW.isMultiTag(camera) ? getMultiTagPose(camera) : getSingleTagPose(camera);
+        }
 
-                public static void updateResults(Rotation2d heading) {
-                    headingBuffer.addSample(Timer.getFPGATimestamp(), heading);
-                    for (BWCamera camera : BWCamera.values()) {
-                        List<PhotonPipelineResult> results = camera.camera.getAllUnreadResults();
+        public static void updateResults(Rotation2d heading) {
+            headingBuffer.addSample(Timer.getFPGATimestamp(), heading);
+            for (BWCamera camera : BWCamera.values()) {
+                List<PhotonPipelineResult> results = camera.camera.getAllUnreadResults();
 
-                        if (!results.isEmpty()) {
-                            switch (camera) {
-                                case FRONT -> latestResultFront = results.get(results.size() - 1);
-                                case BACK -> latestResultBack = results.get(results.size() - 1);
-                           
-                            }
-                        }
+                if (!results.isEmpty()) {
+                    switch (camera) {
+                        case FRONT -> latestResultFront = results.get(results.size() - 1);
+                        case BACK -> latestResultBack = results.get(results.size() - 1);
+                    
                     }
                 }
+            }
+        }
     }
 }

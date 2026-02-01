@@ -2,7 +2,7 @@ package frc.robot.util.vision;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Rotation2d; //rotation2d
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -19,8 +19,8 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.constants.Constants;
 import frc.robot.util.EstimatedRobotPose;
 import frc.robot.util.FieldUtil;
-//import frc.robot.util.vision.PhotonUtil.BW;
-//import frc.robot.util.vision.PhotonUtil.BW.BWCamera;
+import frc.robot.util.vision.PhotonUtil.BW;
+import frc.robot.util.vision.PhotonUtil.BW.BWCamera;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +32,6 @@ public final class PhotonUtil {
         BW.updateResults(heading);
 
     }
-
 
     public static final class Color{
         public enum TargetClass {
@@ -52,7 +51,6 @@ public final class PhotonUtil {
             }
         }
 
-
         private static final PhotonCamera COLOR = new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.PhotonConstants.COLOR_NAME);
         private static PhotonPipelineResult latestResult = new PhotonPipelineResult();
 
@@ -69,7 +67,7 @@ public final class PhotonUtil {
                         Units.degreesToRadians(Constants.VisionConstants.PhotonConstants.COLOR_PITCH),
                         Units.degreesToRadians(Constants.VisionConstants.PhotonConstants.COLOR_YAW)
                 )
-        );
+            );
                 private static final List<PhotonTrackedTarget> results = null;
                 public static boolean hasTargets(Color.TargetClass targetClass) {
                     if (hasTargets()) {
@@ -146,16 +144,14 @@ public final class PhotonUtil {
         
                 return Optional.of(new Translation2d(robotToCameraOffset.getX(), robotToCameraOffset.getY())
                         .plus(camToObjectTranslation.rotateBy(robotToCameraOffset.getRotation().toRotation2d().unaryMinus())));
-        
                 }
         
                 public static void updateResults(){
                     List<PhotonPipelineResult> result = COLOR.getAllUnreadResults();
                     if(!results.isEmpty()) {
                         latestResult = result.get(results.size() -1);
-            }
+             }
         }
-    
     }
 
     public static final class BW { 
@@ -293,6 +289,7 @@ public final class PhotonUtil {
             double distToApply;
 
             //tweak numbers :(
+            //pose determiation
             double ambiguity = getLatestResult(camera).getBestTarget().getPoseAmbiguity();
             if (ambiguity < 0.15) {
                 poseToReturn = poseBest; 

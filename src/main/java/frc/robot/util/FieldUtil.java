@@ -28,7 +28,9 @@ public final class FieldUtil {
     public static DriverStation.Alliance getAllianceSide(Pose2d currentPose) {
         return currentPose.getX() < FIELD_LENGTH / 2 ? DriverStation.Alliance.Blue : DriverStation.Alliance.Red;
     }
-
+// TODO LIST:
+//Fix all the the incorrect years and change the field layout 
+//Take out the 2025 specific code and create the new 2026 code
     public enum AprilTag {
         ID_1(layout2025.getTagPose(1).orElse(new Pose3d())),
         ID_2(layout2025.getTagPose(2).orElse(new Pose3d())),

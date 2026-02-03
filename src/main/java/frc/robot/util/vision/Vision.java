@@ -1,17 +1,6 @@
 package frc.robot.util.vision;
 
 import edu.wpi.first.math.geometry.Transform2d;
-<<<<<<< HEAD
-import java.util.List;
-import edu.wpi.first.math.geometry.Transform3d;
-
-import org.photonvision.PhotonCamera;
-import org.photonvision.targeting.PhotonPipelineResult;
-import org.photonvision.targeting.PhotonTrackedTarget;
-import org.photonvision.targeting.TargetCorner;
-
-
-=======
 import org.photonvision.targeting.TargetCorner;
 
 import java.lang.ProcessBuilder.Redirect;
@@ -22,19 +11,10 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.math.geometry.Transform3d;
->>>>>>> f51328517b916fc621ba03c74f510fd447d8cf3f
 
 public final class Vision {
     private final PhotonCamera camera = new PhotonCamera("camera1");
     private List<PhotonPipelineResult> lastResults;
-<<<<<<< HEAD
-
-    public List<PhotonPipelineResult> getVision() {
-        lastResults = camera.getAllUnreadResults();
-        return lastResults;
-    }
-    
-=======
     
 
     public List<PhotonPipelineResult> getVision() {
@@ -42,7 +22,6 @@ public final class Vision {
         return lastResults;
     }
     
->>>>>>> f51328517b916fc621ba03c74f510fd447d8cf3f
     public boolean hasTargets() {
         if (lastResults == null || lastResults.isEmpty()) {
             return false;
@@ -63,30 +42,6 @@ public final class Vision {
             
         }  
      {
-<<<<<<< HEAD
-
-     List<PhotonTrackedTarget> targets = result.getTargets();{
-            for (PhotonTrackedTarget target : targets) {
-                double yaw = target.getYaw();
-                double pitch = target.getPitch();
-                double area = target.getArea();
-                double skew = target.getSkew();
-                //Transform2d pose = target.getCameraToTarget();
-                //List<TargetCorner> corners = target.getCorners();
-                // get info from target
-                //int targetID = target.getFiducicialID();
-                double poseAmbiguity = target.getPoseAmbiguity();
-                Transform3d bestCameraToTarget = target.getBestCameraToTarget();
-                Transform3d alternateCameraToTarget = target.getAlternateCameraToTarget();
-
-                // Add additional processing as needed
-        }       
-    }
-    }
-    }
-    
-}
-=======
 
      List<PhotonTrackedTarget> targets = result.getTargets();{
             for (PhotonTrackedTarget target : targets) {
@@ -122,5 +77,4 @@ public final class Vision {
 
 
         
->>>>>>> f51328517b916fc621ba03c74f510fd447d8cf3f
 

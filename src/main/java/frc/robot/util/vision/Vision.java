@@ -125,6 +125,9 @@ public final class Vision {
 
 
     } 
+    public static PhotonPipelineResult latestResultCameraRed = new PhotonPipelineResult();
+    public static PhotonPipelineResult latestResultCameraGray = new PhotonPipelineResult();
+
     public static PhotonPipelineResult getLatestResult(BWCamera camera){
         return switch (camera){
             case CAMERA_RED -> latestResultCameraRed;
@@ -133,10 +136,13 @@ public final class Vision {
     }
     public static boolean hasTargets(BWCamera camera) {
         return switch (camera) {
-            case CAMERA_RED -> latestResultsCameraRed.hasTargets();
-            case CAMERA_GRAY -> latestResultsCameraRed.hasTargets();
+            case CAMERA_RED -> latestResultCameraRed.hasTargets();
+            case CAMERA_GRAY -> latestResultCameraRed.hasTargets();
         };
         
     }
+
+    //single tag pose
+    
     
 }

@@ -78,7 +78,7 @@ public final class Vision {
     public static final class BW {
         public enum BWCamera {
             CAMERA_RED (
-                new PhotonCamera(Constants.VisionConstants.CAMERA_RED_NAME),
+                new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.CAMERA_RED_NAME),
                 new Transform3d(
                     Constants.VisionConstants.CAMERA_RED_FORWARD,
                     Constants.VisionConstants.CAMERA_RED_LEFT,
@@ -92,7 +92,7 @@ public final class Vision {
             ),
             
             CAMERA_GRAY (
-                new PhotonCamera(Constants.VisionConstants.CAMERA_GRAY_NAME),
+                new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.CAMERA_GRAY_NAME),
                 new Transform3d(
                     Constants.VisionConstants.CAMERA_GRAY_FORWARD,
                     Constants.VisionConstants.CAMERA_GRAY_LEFT,

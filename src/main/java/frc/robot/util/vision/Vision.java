@@ -63,7 +63,7 @@ public final class Vision {
                 //Transform2d pose = target.getCameraToTarget();
                 //List<TargetCorner> corners = target.getCorners();
                 // get info from target
-                //int targetID = target.getFiducicialID();
+                int targetId = target.getFiducialId();
                 double poseAmbiguity = target.getPoseAmbiguity();
                 Transform3d bestCameraToTarget = target.getBestCameraToTarget();
                 Transform3d alternateCameraToTarget = target.getAlternateCameraToTarget();
@@ -142,7 +142,6 @@ public final class Vision {
         
     }
 
-    public static final AprilTag
 
     //single tag pose
     

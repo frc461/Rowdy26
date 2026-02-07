@@ -5,14 +5,18 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import org.photonvision.targeting.TargetCorner;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.math.geometry.Pose2d;
 
 import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ForkJoinTask;
 
 import org.photonvision.PhotonCamera;
 import frc.robot.constants.Constants;
 import frc.robot.util.vision.Vision.BW.BWCamera;
+//import frc.robot.util.EstimatedRobotPose;
+import frc.robot.util.FieldUtil;
 
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
@@ -142,8 +146,18 @@ public final class Vision {
         
     }
 
-
     //single tag pose
-    
+    // public static Optional<EstimatedRobotPose> getSingleTagPose(BWCamera camera, Pose2d currentPose){
+    //     //checks for targets
+    //     if(!hasTargets(camera)){
+    //         return Optional.empty();
+    //     }
+
+    //     //makes sure bot is in field
+    //     if(!FieldUtil.isInField().poseToReturn){
+    //         return Optional.empty();
+    //     }
+
+    //} 
     
 }

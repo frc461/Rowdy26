@@ -142,7 +142,7 @@ public final class Vision {
         
     }
 
-    public static final AprilTag
+   // public static final AprilTag
 
     //single tag pose
     

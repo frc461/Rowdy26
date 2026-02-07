@@ -2,6 +2,7 @@ package frc.robot.util.vision;
 
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.math.geometry.Rotation3d;
 import org.photonvision.targeting.TargetCorner;
 import edu.wpi.first.math.util.Units;
@@ -125,8 +126,6 @@ public final class Vision {
             }
         }
 
-        
-
 
     } 
     public static PhotonPipelineResult latestResultCameraRed = new PhotonPipelineResult();
@@ -145,6 +144,7 @@ public final class Vision {
         };
         
     }
+
 
     //single tag pose
     // public static Optional<EstimatedRobotPose> getSingleTagPose(BWCamera camera, Pose2d currentPose){

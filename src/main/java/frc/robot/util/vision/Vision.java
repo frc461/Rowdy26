@@ -142,10 +142,6 @@ public final class Vision {
         
     }
 
-<<<<<<< HEAD
-   // public static final AprilTag
-=======
->>>>>>> b8d98a1a31afdbce841f1d87ba12a6d9e14fc31c
 
     //single tag pose
     

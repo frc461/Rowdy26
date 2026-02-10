@@ -1,26 +1,42 @@
 package frc.robot.util.vision;
 
 import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.apriltag.AprilTag;
+import edu.wpi.first.math.geometry.Rotation3d;
 import org.photonvision.targeting.TargetCorner;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.math.geometry.Pose2d;
 
 import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ForkJoinTask;
 
 import org.photonvision.PhotonCamera;
+import frc.robot.constants.Constants;
+import frc.robot.util.vision.Vision.BW.BWCamera;
+//import frc.robot.util.EstimatedRobotPose;
+import frc.robot.util.FieldUtil;
+
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
-import edu.wpi.first.math.geometry.Transform3d;
 
 public final class Vision {
-    private final PhotonCamera camera = new PhotonCamera("camera1");
+    // private final PhotonCamera REDcamera = new PhotonCamera("RED");
+    // private final PhotonCamera GRAYcamera = new PhotonCamera("GRAY");
+
     private List<PhotonPipelineResult> lastResults;
+
+    public static PhotonPipelineResult lastResultRed = new PhotonPipelineResult();
+    public static PhotonPipelineResult lastResultGray = new PhotonPipelineResult();
+
     
 
-    public List<PhotonPipelineResult> getVision() {
-        lastResults = camera.getAllUnreadResults();
-        return lastResults;
-    }
+    // public List<PhotonPipelineResult> getVision() {
+    //     lastResults = REDcamera.getAllUnreadResults();
+    //     return lastResults;
+    // }
     
     public boolean hasTargets() {
         if (lastResults == null || lastResults.isEmpty()) {
@@ -52,7 +68,7 @@ public final class Vision {
                 //Transform2d pose = target.getCameraToTarget();
                 //List<TargetCorner> corners = target.getCorners();
                 // get info from target
-                //int targetID = target.getFiducicialID();
+                int targetId = target.getFiducialId();
                 double poseAmbiguity = target.getPoseAmbiguity();
                 Transform3d bestCameraToTarget = target.getBestCameraToTarget();
                 Transform3d alternateCameraToTarget = target.getAlternateCameraToTarget();
@@ -64,17 +80,84 @@ public final class Vision {
     }
 
 
-    public void BWCamera( ) {
-        //RED
+    public static final class BW {
+        public enum BWCamera {
+            CAMERA_RED (
+                new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.CAMERA_RED_NAME),
+                new Transform3d(
+                    Constants.VisionConstants.CAMERA_RED_FORWARD,
+                    Constants.VisionConstants.CAMERA_RED_LEFT,
+                    Constants.VisionConstants.CAMERA_RED_UP,
+                    new Rotation3d(
+                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_RED_PITCH),
+                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_RED_ROLL),
+                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_RED_YAW)
+                    )
+                )
+            ),
+            
+            CAMERA_GRAY (
+                new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.CAMERA_GRAY_NAME),
+                new Transform3d(
+                    Constants.VisionConstants.CAMERA_GRAY_FORWARD,
+                    Constants.VisionConstants.CAMERA_GRAY_LEFT,
+                    Constants.VisionConstants.CAMERA_GRAY_UP,
+                    new Rotation3d(
+                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_GRAY_PITCH),
+                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_GRAY_ROLL),
+                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_GRAY_YAW)
+                    )
+                )
+            );
 
-        //GRAY 
+            final PhotonCamera camera; 
+            final Transform3d robotToCameraOffset;
+            BWCamera(PhotonCamera camera, Transform3d robotToCameraOffset) {
+                this.camera = camera; 
+                this.robotToCameraOffset = robotToCameraOffset;
+            }
+
+            public PhotonCamera getCamera(){
+                return camera;
+            }
+            
+            public Transform3d getRobotToCameraOffset(){
+                return robotToCameraOffset;
+            }
+        }
+
 
     } 
-}
+    public static PhotonPipelineResult latestResultCameraRed = new PhotonPipelineResult();
+    public static PhotonPipelineResult latestResultCameraGray = new PhotonPipelineResult();
 
-    
-
-
-
+    public static PhotonPipelineResult getLatestResult(BWCamera camera){
+        return switch (camera){
+            case CAMERA_RED -> latestResultCameraRed;
+            case CAMERA_GRAY -> latestResultCameraGray;
+        };
+    }
+    public static boolean hasTargets(BWCamera camera) {
+        return switch (camera) {
+            case CAMERA_RED -> latestResultCameraRed.hasTargets();
+            case CAMERA_GRAY -> latestResultCameraRed.hasTargets();
+        };
         
+    }
 
+
+    //single tag pose
+    // public static Optional<EstimatedRobotPose> getSingleTagPose(BWCamera camera, Pose2d currentPose){
+    //     //checks for targets
+    //     if(!hasTargets(camera)){
+    //         return Optional.empty();
+    //     }
+
+    //     //makes sure bot is in field
+    //     if(!FieldUtil.isInField().poseToReturn){
+    //         return Optional.empty();
+    //     }
+
+    //} 
+    
+}

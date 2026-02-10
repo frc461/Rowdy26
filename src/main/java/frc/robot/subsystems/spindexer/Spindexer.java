@@ -1,19 +1,19 @@
-package frc.robot.subsystems.intake;
+package frc.robot.subsystems.spindexer;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 
-import frc.robot.subsystems.spindexer.Spindexer;
-
-public class Intake {
+public class Spindexer {
     private final TalonFX Kraken = new TalonFX(0);
 
-    public Intake() {
+    public Spindexer() {
         TalonFXConfiguration config = new TalonFXConfiguration();
-        
+        config.CurrentLimits.SupplyCurrentLimitEnable = true;
+        config.CurrentLimits.SupplyCurrentLimit = 40;
     }
+
     private final VoltageOut voltageControl = new VoltageOut(0);
 
     public void setVoltage(double volts) {
@@ -29,4 +29,7 @@ public class Intake {
             velocityControl.withVelocity(rotationsPerSecond)
         );
     }
+
 }
+
+ 

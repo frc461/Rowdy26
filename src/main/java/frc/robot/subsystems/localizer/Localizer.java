@@ -1,20 +1,43 @@
 package frc.robot.subsystems.localizer;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
+import org.photonvision.PhotonUtils;
+import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import frc.robot.Robot;
+import frc.robot.util.vision.Vision;
 
 public class Localizer {
+
+    private List<PhotonPipelineResult> lastResults;
+
+    
+
+    public boolean hasTargets() {
+        if (lastResults == null || lastResults.isEmpty()) {
+            return false;
+        }
+        for (PhotonPipelineResult r : lastResults) {
+            if (r.hasTargets()) return true;
+        }
+        return false;
+    }
+
 
     private final SwerveDrivePoseEstimator poseEstimator;
 
@@ -104,9 +127,23 @@ public class Localizer {
 
     }
 
+//Only FR camera
+    public void GetCoordinateValues(){
+        if (frEstimator.hasTarget()) { 
+            PhotonTrackedTarget target = result.getTarget();
+            Transform3d cameraToTarget = target.getCameraToTarget();
+            double distanceX = cameraToTarget.getX();
+        }
+        return frEstimator.getX();
+    }
 
+
+  
+//ALL CAMERAS
+    public AveragePhotonPose() {
+        double xValue = (frCam.getX() + flCam.getX() + brCam.getX() + blCam.getX())/4;
+        double yValue = (frCam.getX() + flCam.getX() + brCam.getX() + blCam.getX())/4;
+        double zValue = (frCam.getX() + flCam.getX() + brCam.getX() + blCam.getX())/4;
+    }
     
-
-
-
 }

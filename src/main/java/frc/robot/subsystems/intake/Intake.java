@@ -11,8 +11,9 @@ public class Intake {
     private final TalonFX Kraken = new TalonFX(0);
 
     public Intake() {
+        Kraken.getConfigurator().apply(new TalonFXConfiguration());
         TalonFXConfiguration config = new TalonFXConfiguration();
-        
+        Kraken.getConfigurator().apply(config);        
     }
     private final VoltageOut voltageControl = new VoltageOut(0);
 

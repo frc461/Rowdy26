@@ -117,10 +117,10 @@ public class Localizer {
             return null;
         }
     }        
-    
+
     public void updatePhotonEstimation() {
         var frEst = cameraEstimate(frCam, frEstimator);
-        var flEst = cameraEstimate(frCam, frEstimator);
+        var flEst = cameraEstimate(flCam, frEstimator);
         var blEst = cameraEstimate(blCam, blEstimator);
         var brEst = cameraEstimate(brCam, brEstimator);
 

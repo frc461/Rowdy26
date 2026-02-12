@@ -4,11 +4,13 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class Launcher {
     private final TalonFX Kraken = new TalonFX(0);
 
     public Launcher() {
+        Kraken.getConfigurator().apply(new TalonFXConfiguration());
         TalonFXConfiguration config = new TalonFXConfiguration();
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.CurrentLimits.SupplyCurrentLimit = 40;
@@ -16,6 +18,7 @@ public class Launcher {
         config.Slot0.kI = 0.0;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.12;
+        Kraken.getConfigurator().apply(config);
     }
 
     private final VoltageOut voltageControl = new VoltageOut(0);

@@ -5,6 +5,7 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 
@@ -99,9 +100,9 @@ public class RobotContainer {
 
         SignalLogger.setPath("/media/sda1/ctre-logs/");
         
-        drjoystick.leftBumper().onTrue(Commands.runOnce(SignalLogger::start));
+        // drjoystick.leftBumper().onTrue(Commands.runOnce(SignalLogger::start));
      
-        drjoystick.rightBumper().onTrue(Commands.runOnce(SignalLogger::stop));
+        // drjoystick.rightBumper().onTrue(Commands.runOnce(SignalLogger::stop));
         
 
 
@@ -111,16 +112,21 @@ public class RobotContainer {
         * drjoystick B = dynamic forward
         * drjoystick X = dyanmic reverse
         */
-        drjoystick.y().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
-        drjoystick.a().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
-        drjoystick.b().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kForward));
-        drjoystick.x().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
+        // drjoystick.y().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
+        // drjoystick.a().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
+        // drjoystick.b().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kForward));
+        // drjoystick.x().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
         // Reset the field-centric heading on left bumper press.
         drjoystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
-        opjoystick.rightBumper().onTrue(new LauncherCommand(launcher));
+        double launcherRPM = SmartDashboard.getNumber("Launcher RPM", 0.0);
+        double kickerRPM = SmartDashboard.getNumber("Kicker RPM", 0.0);
+        drjoystick.rightBumper().onTrue(Commands.run(()-> {
+          launcher.setFlywheelVelocity(launcherRPM);
+          launcher.setKickerVelocity(kickerRPM);},
+          launcher));
 
 
-        drivetrain.registerTelemetry(logger::telemeterize);
+        // drivetrain.registerTelemetry(logger::telemeterize);
 
         opjoystick.x().whileTrue(
             Commands.startEnd(

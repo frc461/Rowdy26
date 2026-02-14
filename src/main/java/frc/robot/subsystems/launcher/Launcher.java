@@ -61,7 +61,6 @@ public class Launcher extends SubsystemBase {
 
     public void setKickerVoltage(double volts) {
         KickerKraken.setControl(voltageControl.withOutput(volts));
-        HoodKraken.setControl(voltageControl.withOutput(volts));
     }
 
 

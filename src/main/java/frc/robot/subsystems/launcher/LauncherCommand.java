@@ -21,6 +21,8 @@ public class LauncherCommand extends Command {
     public void execute() {
         double launcherRPM = SmartDashboard.getNumber(KEY_FLY_RPM, 0.0);
         double kickerRPM = SmartDashboard.getNumber(KEY_KICKER_RPM, 0.0);
+        System.out.println("Launcher Command execute:");
+        System.out.println(kickerRPM);
 
         // launcherRPM = (launcherRPM > 6000) ? 6000 : ((launcherRPM < 0) ? 0 : launcherRPM);
         // kickerRPM = (kickerRPM > 6000) ? 6000 : ((kickerRPM < 0) ? 0 : kickerRPM);

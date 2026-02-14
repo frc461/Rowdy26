@@ -118,12 +118,9 @@ public class RobotContainer {
         // drjoystick.x().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
         // Reset the field-centric heading on left bumper press.
         drjoystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
-        double launcherRPM = SmartDashboard.getNumber("Launcher RPM", 0.0);
-        double kickerRPM = SmartDashboard.getNumber("Kicker RPM", 0.0);
-        drjoystick.rightBumper().onTrue(Commands.run(()-> {
-          launcher.setFlywheelVelocity(launcherRPM);
-          launcher.setKickerVelocity(kickerRPM);},
-          launcher));
+
+        LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
+        drjoystick.rightBumper().onTrue(m_LauncherCommand);
 
 
         // drivetrain.registerTelemetry(logger::telemeterize);

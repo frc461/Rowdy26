@@ -15,8 +15,7 @@ public class Launcher extends SubsystemBase {
     private final TalonFX KickerKraken = new TalonFX(55);
     private final TalonFX HoodKraken = new TalonFX(57);
 
-    private double rotationsPerMinute;
-    private double targetFlywheelRPM;
+    private double targetFlywheelRPM = 0.0;
 
     private final VelocityVoltage velocityControl = new VelocityVoltage(0);
 
@@ -48,11 +47,16 @@ public class Launcher extends SubsystemBase {
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.12;
         FlywheelBKraken.getConfigurator().apply(config);
+
+        KickerKraken.getConfigurator().apply(new TalonFXConfiguration());
+        config.CurrentLimits.SupplyCurrentLimitEnable = true;
+        config.CurrentLimits.SupplyCurrentLimit = 40;
+        KickerKraken.getConfigurator().apply(config);
     }
 
     private final VoltageOut voltageControl = new VoltageOut(0);
 
-    public void setFlyWheelAVoltage(double volts) {
+    public void setVoltage(double volts) {
         FlywheelAKraken.setControl(voltageControl.withOutput(volts));
     }
 
@@ -62,6 +66,7 @@ public class Launcher extends SubsystemBase {
 
     public void setKickerVoltage(double volts) {
         KickerKraken.setControl(voltageControl.withOutput(volts));
+
     }
 
 

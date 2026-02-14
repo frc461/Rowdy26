@@ -7,33 +7,65 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class Launcher {
-    private final TalonFX Kraken = new TalonFX(0);
+    private final TalonFX FlywheelAKraken = new TalonFX(61);
+    private final TalonFX FlywhellBKraken = new TalonFX(62);
+    private final TalonFX KickerKraken = new TalonFX(55);
+    private final TalonFX HoodKraken = new TalonFX(57);
 
     public Launcher() {
-        Kraken.getConfigurator().apply(new TalonFXConfiguration());
         TalonFXConfiguration config = new TalonFXConfiguration();
+        HoodKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.CurrentLimits.SupplyCurrentLimit = 40;
         config.Slot0.kP = 0.1;
         config.Slot0.kI = 0.0;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.12;
-        Kraken.getConfigurator().apply(config);
+        HoodKraken.getConfigurator().apply(config);
+
+        FlywheelAKraken.getConfigurator().apply(new TalonFXConfiguration());
+        config.CurrentLimits.SupplyCurrentLimitEnable = true;
+        config.CurrentLimits.SupplyCurrentLimit = 40;
+        config.Slot0.kP = 0.1;
+        config.Slot0.kI = 0.0;
+        config.Slot0.kD = 0.0;
+        config.Slot0.kV = 0.12;
+        FlywheelAKraken.getConfigurator().apply(config);
+
+        FlywhellBKraken.getConfigurator().apply(new TalonFXConfiguration());
+        config.CurrentLimits.SupplyCurrentLimitEnable = true;
+        config.CurrentLimits.SupplyCurrentLimit = 40;
+        config.Slot0.kP = 0.1;
+        config.Slot0.kI = 0.0;
+        config.Slot0.kD = 0.0;
+        config.Slot0.kV = 0.12;
+        FlywhellBKraken.getConfigurator().apply(config);
     }
 
     private final VoltageOut voltageControl = new VoltageOut(0);
 
     public void setVoltage(double volts) {
-        Kraken.setControl(voltageControl.withOutput(volts));
-        final VelocityVoltage velocityControl = new VelocityVoltage(0);
+        FlywheelAKraken.setControl(voltageControl.withOutput(volts));
+        FlywhellBKraken.setControl(voltageControl.withOutput(volts));
+        KickerKraken.setControl(voltageControl.withOutput(volts));
+        HoodKraken.setControl(voltageControl.withOutput(volts));
     }
 
     private final VelocityVoltage velocityControl = new VelocityVoltage(0);
 
 
     public void setVelocity(double rotationsPerSecond) {
-        Kraken.setControl(
+        FlywheelAKraken.setControl(
             velocityControl.withVelocity(rotationsPerSecond)
+        );
+        FlywhellBKraken.setControl(
+            velocityControl.withVelocity(rotationsPerSecond)
+        );
+        HoodKraken.setControl(
+            velocityControl.withVelocity(rotationsPerSecond)
+        );
+        KickerKraken.setControl(
+                velocityControl.withVelocity(rotationsPerSecond)
         );
     }
 }

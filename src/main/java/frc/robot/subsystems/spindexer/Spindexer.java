@@ -6,7 +6,7 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 public class Spindexer {
-    private final TalonFX Kraken = new TalonFX(0);
+    private final TalonFX Kraken = new TalonFX(50);
 
     public Spindexer() {
         Kraken.getConfigurator().apply(new TalonFXConfiguration());

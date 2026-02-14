@@ -33,8 +33,10 @@ public class RobotContainer {
 
   private final Intake intake = new Intake();
 
-  private final CommandXboxController opXbox =
-          new CommandXboxController(1); // operator controller port
+  private final CommandXboxController opjoystick = new CommandXboxController(1); // operator controller port
+
+  private final CommandXboxController drjoystick = new CommandXboxController(0);
+
   
 
   private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -49,7 +51,6 @@ public class RobotContainer {
 
     private final SwerveTelemetry logger = new SwerveTelemetry(MaxSpeed);
 
-  private final CommandXboxController joystick = new CommandXboxController(0);
 
   public final Swerve drivetrain = TunerConstants.createDrivetrain();
 
@@ -64,9 +65,9 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+                drive.withVelocityX(-drjoystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
+                    .withVelocityY(-drjoystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+                    .withRotationalRate(-drjoystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
 
@@ -78,37 +79,37 @@ public class RobotContainer {
         );
 
         //AUTO TESTING BINDS - COMMENTED FOR SYSID TESTING
-        // joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
-        // joystick.b().whileTrue(drivetrain.applyRequest(() ->
-        //     point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
+        // drjoystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
+        // drjoystick.b().whileTrue(drivetrain.applyRequest(() ->
+        //     point.withModuleDirection(new Rotation2d(-drjoystick.getLeftY(), -drjoystick.getLeftX()))
         // ));
-        // joystick.leftBumper().onTrue(new PathPlannerAuto("Spin"));
-        // joystick.rightBumper().onTrue(new PathPlannerAuto("Spin"));
+        // drjoystick.leftBumper().onTrue(new PathPlannerAuto("Spin"));
+        // drjoystick.rightBumper().onTrue(new PathPlannerAuto("Spin"));
 
         SignalLogger.setPath("/media/sda1/ctre-logs/");
         
-        joystick.leftBumper().onTrue(Commands.runOnce(SignalLogger::start));
+        drjoystick.leftBumper().onTrue(Commands.runOnce(SignalLogger::start));
      
-        joystick.rightBumper().onTrue(Commands.runOnce(SignalLogger::stop));
+        drjoystick.rightBumper().onTrue(Commands.runOnce(SignalLogger::stop));
         
 
 
         /*
-        * Joystick Y = quasistatic forward
-        * Joystick A = quasistatic reverse
-        * Joystick B = dynamic forward
-        * Joystick X = dyanmic reverse
+        * drjoystick Y = quasistatic forward
+        * drjoystick A = quasistatic reverse
+        * drjoystick B = dynamic forward
+        * drjoystick X = dyanmic reverse
         */
-        joystick.y().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
-        joystick.a().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
-        joystick.b().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kForward));
-        joystick.x().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
+        drjoystick.y().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
+        drjoystick.a().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
+        drjoystick.b().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kForward));
+        drjoystick.x().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
         // Reset the field-centric heading on left bumper press.
-        joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+        drjoystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        opXbox.x().whileTrue(
+        opjoystick.x().whileTrue(
             Commands.startEnd(
               () -> intake.setVoltage(-16),
               () -> intake.setVoltage(0),

@@ -55,8 +55,7 @@ public class LauncherMath {
         Vector3 start,
         Velocity3 velocity,
         Vector2 targetPos,
-        BallParams params,
-        double hubHeight
+        BallParams params
     ) {
         double dt = 0.01;
         double maxTime = 4.0;
@@ -88,8 +87,8 @@ public class LauncherMath {
 
             // Check if we have reached the target's horizontal distance
             if (Math.hypot(x - start.x(), y - start.y()) >= targetDistXY) {
-                boolean hit = Math.abs(z - hubHeight) < 0.3;
-                return new SimulationResult(hit, z - hubHeight, z);
+                boolean hit = Math.abs(z - Constants.LauncherConstants.HUB_CENTER_HEIGHT) < 0.3;
+                return new SimulationResult(hit, z - Constants.LauncherConstants.HUB_CENTER_HEIGHT, z);
             }
 
             if (z < 0) break;
@@ -107,11 +106,11 @@ public class LauncherMath {
         // Define mechanical offsets in meters
         double lengthM = robot.length() * IN_TO_M; 
         double widthM = robot.width() * IN_TO_M;   
-        double insetXM = (Constants.SHOOTER_SIZE_IN / 2.0) * IN_TO_M;
+        double insetXM = (Constants.LauncherConstants.SHOOTER_SIZE_IN / 2.0) * IN_TO_M;
         
         // Coordinates relative to robot center (Facing +X)
         double localX = (-lengthM / 2.0) + insetXM; 
-        double localY = (-widthM / 2.0) + (Constants.SHOOTER_SIDE_OFFSET_IN * IN_TO_M);
+        double localY = (-widthM / 2.0) + (Constants.LauncherConstants.SHOOTER_SIDE_OFFSET_IN * IN_TO_M);
         
         // 2D Rotation Matrix to convert local offset to field offset
         double offsetX = localX * Math.cos(headingRad) - localY * Math.sin(headingRad);
@@ -157,10 +156,10 @@ public class LauncherMath {
                 SimulationResult sim = simulateTrajectory(
                     new Vector3(shooterPos.x(), shooterPos.y(), robot.shooterHeight() * IN_TO_M),
                     new Velocity3(vx, vy, vZ),
-                    targetPos, ball, Constants.hubHeight
+                    targetPos, ball
                 );
                 
-                double err = sim.heightAtTarget() - Constants.hubHeight;
+                double err = sim.heightAtTarget() - Constants.LauncherConstants.HUB_CENTER_HEIGHT;
                 if (Math.abs(err) < Math.abs(minErr)) {
                     minErr = err;
                     bestV = midV;

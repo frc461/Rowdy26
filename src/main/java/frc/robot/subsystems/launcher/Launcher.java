@@ -16,11 +16,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Launcher extends SubsystemBase {
     private final TalonFX FlywheelAKraken = new TalonFX(61);
     private final TalonFX FlywheelBKraken = new TalonFX(62);
-    private final TalonFX FlywheelBKraken = new TalonFX(62);
     private final TalonFX KickerKraken = new TalonFX(55);
     private final TalonFX HoodKraken = new TalonFX(57);
 
-    private double targetFlywheelRPM = 0.0;
+    private double rotationsPerMinute;
 
     public Launcher() {
         TalonFXConfiguration config = new TalonFXConfiguration();
@@ -60,7 +59,13 @@ public class Launcher extends SubsystemBase {
 
     public void setFlyWheelAVoltage(double volts) {
         FlywheelAKraken.setControl(voltageControl.withOutput(volts));
+    }
+
+    public void setFlyWheelBVoltage(double volts) {
         FlywheelBKraken.setControl(voltageControl.withOutput(volts));
+    }
+
+    public void setKickerVoltage(double volts) {
         KickerKraken.setControl(voltageControl.withOutput(volts));
     }
 

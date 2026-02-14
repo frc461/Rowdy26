@@ -15,8 +15,7 @@ public class Launcher extends SubsystemBase {
     private final TalonFX KickerKraken = new TalonFX(55);
     private final TalonFX HoodKraken = new TalonFX(57);
 
-    private double rotationsPerMinute;
-    private double targetFlywheelRPM;
+    private double targetFlywheelRPM = 0.0;
 
     private final VelocityVoltage velocityControl = new VelocityVoltage(0);
 

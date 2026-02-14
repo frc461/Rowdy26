@@ -60,7 +60,6 @@ public class RobotContainer {
 
   public final Swerve drivetrain = TunerConstants.createDrivetrain();
 
-  public final Launcher launcher = new Launcher();
   public double rPM;
 
 
@@ -115,7 +114,6 @@ public class RobotContainer {
         joystick.x().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
         // Reset the field-centric heading on left bumper press.
         joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
-        joystick.rightBumper().whileTrue(launcher.runOnce(launcher::setSpeedFunction));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
@@ -134,7 +132,26 @@ public class RobotContainer {
             spindexer
           )
         );
-  
+
+        opXbox.y().whileTrue(
+          Commands.run(
+            () -> {
+                launcher.setFlyWheelAVoltage(-5);
+                launcher.setFlyWheelBVoltage(-5);
+                launcher.setKickerVoltage(5);
+            },
+            launcher
+        )
+    ).onFalse(
+        Commands.runOnce(
+            () -> {
+                launcher.setFlyWheelAVoltage(0);
+                launcher.setFlyWheelBVoltage(0);
+                launcher.setKickerVoltage(0);
+            },
+            launcher
+        )
+    );
     }
 }
 

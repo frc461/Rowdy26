@@ -140,8 +140,8 @@ public class RobotContainer {
         opjoystick.y().whileTrue(
           Commands.run(
             () -> {
-                launcher.setFlyWheelAVoltage(-5);
-                launcher.setFlyWheelBVoltage(-5);
+                launcher.setFlyWheelAVoltage(-10);
+                launcher.setFlyWheelBVoltage(-10);
                 launcher.setKickerVoltage(5);
             },
             launcher

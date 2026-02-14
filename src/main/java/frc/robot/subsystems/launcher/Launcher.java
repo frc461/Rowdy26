@@ -5,15 +5,11 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.ctre.phoenix6.signals.InvertedValue;
-
-
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Launcher extends SubsystemBase {
+public class Launcher extends SubsystemBase{
     private final TalonFX FlywheelAKraken = new TalonFX(61);
     private final TalonFX FlywheelBKraken = new TalonFX(62);
     private final TalonFX KickerKraken = new TalonFX(55);
@@ -49,15 +45,11 @@ public class Launcher extends SubsystemBase {
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.12;
         FlywheelBKraken.getConfigurator().apply(config);
-
-
-        rotationsPerMinute = 0;
-        SmartDashboard.setDefaultNumber("RPM", 0);
     }
 
     private final VoltageOut voltageControl = new VoltageOut(0);
 
-    public void setFlyWheelAVoltage(double volts) {
+    public void setVoltage(double volts) {
         FlywheelAKraken.setControl(voltageControl.withOutput(volts));
     }
 
@@ -67,39 +59,35 @@ public class Launcher extends SubsystemBase {
 
     public void setKickerVoltage(double volts) {
         KickerKraken.setControl(voltageControl.withOutput(volts));
+        HoodKraken.setControl(voltageControl.withOutput(volts));
     }
 
     private final VelocityVoltage velocityControl = new VelocityVoltage(0);
 
 
-    public void setVelocity(double rotationsPerSecond) {
-        FlywheelAKraken.setControl(
-            velocityControl.withVelocity(rotationsPerSecond)
-        );
-        FlywheelBKraken.setControl(
-            velocityControl.withVelocity(rotationsPerSecond)
-        );
-        HoodKraken.setControl(
-            velocityControl.withVelocity(rotationsPerSecond)
-        );
-        KickerKraken.setControl(
-                velocityControl.withVelocity(rotationsPerSecond)
-        );
+    public void setFlywheelVelocity(double RPM) {
+        this.targetFlywheelRPM = RPM;
+        double rps = RPM / 60.0;
+
+        FlywheelAKraken.setControl(velocityControl.withVelocity(rps) );
+        FlywheelBKraken.setControl(velocityControl.withVelocity(rps) );   
+    }
+    public void setKickerVelocity(double RPM) {
+        KickerKraken.setControl(velocityControl.withVelocity(RPM / 60.0));
+    }
+    public void stopAll() {
+        FlywheelAKraken.stopMotor();
+        FlywheelBKraken.stopMotor();
+        KickerKraken.stopMotor();
+        HoodKraken.stopMotor();
     }
 
-    public void setSpeedFunction() {
-        FlywheelAKraken.setControl(
-            velocityControl.withVelocity(rotationsPerMinute / 60.0)
-        );
-        FlywheelBKraken.setControl(
-            velocityControl.withVelocity(rotationsPerMinute / 60.0)
-        );
-        KickerKraken.setControl(
-                velocityControl.withVelocity(rotationsPerMinute / 60.0)
-        );
-    }
-
+    @Override
     public void periodic() {
-        rotationsPerMinute = SmartDashboard.getNumber("RPM", 0);
+
+        SmartDashboard.putNumber("Flywheel Actual RPM", FlywheelAKraken.getVelocity().getValueAsDouble() * 60.0);
+        SmartDashboard.putNumber("Flywheel Target RPM", targetFlywheelRPM);
+        SmartDashboard.putNumber("Flywheel Temperature", FlywheelAKraken.getDeviceTemp().getValueAsDouble());
+
     }
 }

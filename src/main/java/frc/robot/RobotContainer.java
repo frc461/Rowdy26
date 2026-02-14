@@ -12,6 +12,7 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.launcher.Launcher;
+import frc.robot.subsystems.launcher.LauncherCommand;
 import frc.robot.subsystems.spindexer.Spindexer;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
@@ -21,6 +22,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.constants.TunerConstants;
@@ -115,6 +117,7 @@ public class RobotContainer {
         drjoystick.x().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
         // Reset the field-centric heading on left bumper press.
         drjoystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+        drjoystick.rightBumper().onTrue(new InstantCommand(() -> launcher.setFlywheelVelocity(0 /* placeholder rpm we need 0 parameter */)));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
@@ -126,7 +129,7 @@ public class RobotContainer {
             )
         );
 
-        opXbox.a().whileTrue(
+        opjoystick.a().whileTrue(
           Commands.startEnd(
             () -> spindexer.setVoltage(16),
             () -> spindexer.setVoltage(0),
@@ -134,25 +137,25 @@ public class RobotContainer {
           )
         );
 
-        opXbox.y().whileTrue(
-          Commands.run(
-            () -> {
-                launcher.setFlyWheelAVoltage(-5);
-                launcher.setFlyWheelBVoltage(-5);
-                launcher.setKickerVoltage(5);
-            },
-            launcher
-        )
-    ).onFalse(
-        Commands.runOnce(
-            () -> {
-                launcher.setFlyWheelAVoltage(0);
-                launcher.setFlyWheelBVoltage(0);
-                launcher.setKickerVoltage(0);
-            },
-            launcher
-        )
-    );
+    //     opjoystick.y().whileTrue(
+    //       Commands.run(
+    //         () -> {
+    //             launcher.setFlyWheelAVoltage(-5);
+    //             launcher.setFlyWheelBVoltage(-5);
+    //             launcher.setKickerVoltage(5);
+    //         },
+    //         launcher
+    //     )
+    // ).onFalse(
+    //     Commands.runOnce(
+    //         () -> {
+    //             launcher.setFlyWheelAVoltage(0);
+    //             launcher.setFlyWheelBVoltage(0);
+    //             launcher.setKickerVoltage(0);
+    //         },
+    //         launcher
+    //     )
+    // );
     }
 }
 

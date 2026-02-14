@@ -26,4 +26,13 @@ public final class Constants {
 
 
     }
+
+    public final class LauncherConstants {
+        public static double SHOOTER_SIZE_IN = 7.0;
+    
+    /** Center of shooter is 11.5 inches from the side edge */
+        public static double SHOOTER_SIDE_OFFSET_IN = 11.5;
+
+        public static double HUB_CENTER_HEIGHT = 72;
+    }
 }

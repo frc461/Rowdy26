@@ -13,7 +13,7 @@ import frc.robot.subsystems.spindexer.Spindexer;
 public class Intake extends SubsystemBase{
     private final TalonFX DeployKraken = new TalonFX(52);
     private final TalonFX IntakeKraken = new TalonFX(56);
-    public Intake() {
+public Intake() {
         DeployKraken.getConfigurator().apply(new TalonFXConfiguration());
         IntakeKraken.getConfigurator().apply(new TalonFXConfiguration());
         TalonFXConfiguration config = new TalonFXConfiguration();
@@ -22,10 +22,12 @@ public class Intake extends SubsystemBase{
     }
     private final VoltageOut voltageControl = new VoltageOut(0);
 
-    public void setVoltage(double volts) {
-        DeployKraken.setControl(voltageControl.withOutput(volts));
+    public void setIntakeVoltage(double volts) {
         IntakeKraken.setControl(voltageControl.withOutput(volts));
-        
+    }
+
+    public void setDeployVoltage(double volts) {
+        DeployKraken.setControl(voltageControl.withOutput(volts));
     }
 
     private final VelocityVoltage velocityControl = new VelocityVoltage(0);

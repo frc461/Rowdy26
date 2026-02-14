@@ -11,6 +11,9 @@ import static edu.wpi.first.units.Units.RotationsPerSecond;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import frc.robot.subsystems.intake.Intake;
+import frc.robot.subsystems.launcher.Launcher;
+import frc.robot.subsystems.spindexer.Spindexer;
+
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -32,6 +35,8 @@ public class RobotContainer {
   }
 
   private final Intake intake = new Intake();
+  private final Launcher launcher = new Launcher();
+  private final Spindexer spindexer = new Spindexer();
 
   private final CommandXboxController opXbox =
           new CommandXboxController(1); // operator controller port
@@ -110,10 +115,18 @@ public class RobotContainer {
 
         opXbox.x().whileTrue(
             Commands.startEnd(
-              () -> intake.setVoltage(-16),
-              () -> intake.setVoltage(0),
+              () -> intake.setIntakeVoltage(-16),
+              () -> intake.setIntakeVoltage(0),
               intake
             )
+        );
+
+        opXbox.a().whileTrue(
+          Commands.startEnd(
+            () -> spindexer.setVoltage(16),
+            () -> spindexer.setVoltage(0),
+            spindexer
+          )
         );
   
     }

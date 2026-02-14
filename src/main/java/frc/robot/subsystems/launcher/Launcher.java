@@ -15,7 +15,8 @@ public class Launcher extends SubsystemBase {
     private final TalonFX KickerKraken = new TalonFX(55);
     private final TalonFX HoodKraken = new TalonFX(57);
 
-    private double targetFlywheelRPM = 0.0;
+    private double rotationsPerMinute;
+    private double targetFlywheelRPM;
 
     private final VelocityVoltage velocityControl = new VelocityVoltage(0);
 
@@ -51,7 +52,7 @@ public class Launcher extends SubsystemBase {
 
     private final VoltageOut voltageControl = new VoltageOut(0);
 
-    public void setVoltage(double volts) {
+    public void setFlyWheelAVoltage(double volts) {
         FlywheelAKraken.setControl(voltageControl.withOutput(volts));
     }
 

@@ -36,7 +36,7 @@ public class Launcher extends SubsystemBase {
         config.CurrentLimits.SupplyCurrentLimit = 40;
         config.Slot0.kP = 0.1;
         config.Slot0.kI = 0.0;
-        config.Slot0.kD = 0.0;
+        config.Slot0.kD = 0.5;
         config.Slot0.kV = 0.12;
         FlywheelAKraken.getConfigurator().apply(config);
 
@@ -45,7 +45,7 @@ public class Launcher extends SubsystemBase {
         config.CurrentLimits.SupplyCurrentLimit = 40;
         config.Slot0.kP = 0.1;
         config.Slot0.kI = 0.0;
-        config.Slot0.kD = 0.0;
+        config.Slot0.kD = 0.5;
         config.Slot0.kV = 0.12;
         FlywheelBKraken.getConfigurator().apply(config);
     }

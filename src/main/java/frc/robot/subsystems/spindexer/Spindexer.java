@@ -4,8 +4,10 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Spindexer {
+
+public class Spindexer extends SubsystemBase{
     private final TalonFX Kraken = new TalonFX(50);
 
     public Spindexer() {

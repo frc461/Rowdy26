@@ -11,10 +11,14 @@ import static edu.wpi.first.units.Units.RotationsPerSecond;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import frc.robot.subsystems.intake.Intake;
+import frc.robot.subsystems.launcher.Launcher;
+import frc.robot.subsystems.spindexer.Spindexer;
+
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -25,6 +29,7 @@ import frc.robot.subsystems.drivetrain.SwerveTelemetry;
 import com.ctre.phoenix6.SignalLogger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
+import frc.robot.subsystems.launcher.Launcher;
 
 public class RobotContainer {
   public RobotContainer() {
@@ -32,6 +37,8 @@ public class RobotContainer {
   }
 
   private final Intake intake = new Intake();
+  private final Launcher launcher = new Launcher();
+  private final Spindexer spindexer = new Spindexer();
 
   private final CommandXboxController opjoystick = new CommandXboxController(1); // operator controller port
 
@@ -53,6 +60,8 @@ public class RobotContainer {
 
 
   public final Swerve drivetrain = TunerConstants.createDrivetrain();
+
+  public double rPM;
 
 
   public Command getAutonomousCommand() {
@@ -111,12 +120,39 @@ public class RobotContainer {
 
         opjoystick.x().whileTrue(
             Commands.startEnd(
-              () -> intake.setVoltage(-16),
-              () -> intake.setVoltage(0),
+              () -> intake.setIntakeVoltage(-16),
+              () -> intake.setIntakeVoltage(0),
               intake
             )
         );
-  
+
+        opXbox.a().whileTrue(
+          Commands.startEnd(
+            () -> spindexer.setVoltage(16),
+            () -> spindexer.setVoltage(0),
+            spindexer
+          )
+        );
+
+        opXbox.y().whileTrue(
+          Commands.run(
+            () -> {
+                launcher.setFlyWheelAVoltage(-5);
+                launcher.setFlyWheelBVoltage(-5);
+                launcher.setKickerVoltage(5);
+            },
+            launcher
+        )
+    ).onFalse(
+        Commands.runOnce(
+            () -> {
+                launcher.setFlyWheelAVoltage(0);
+                launcher.setFlyWheelBVoltage(0);
+                launcher.setKickerVoltage(0);
+            },
+            launcher
+        )
+    );
     }
 }
 

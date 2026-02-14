@@ -114,9 +114,11 @@ public class Localizer {
             return (visionEst.get());
         }
         else {
-            return null;
+            return visionEst.orElse(null);
         }
-    }        
+    }  
+    
+
 
     public void updatePhotonEstimation() {
         var frEst = cameraEstimate(frCam, frEstimator);

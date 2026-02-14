@@ -68,4 +68,16 @@ public class Launcher {
                 velocityControl.withVelocity(rotationsPerSecond)
         );
     }
+
+    public void setSpeedFunction(double rotationsPerMinute) {
+        FlywheelAKraken.setControl(
+            velocityControl.withVelocity(rotationsPerMinute / 60.0)
+        );
+        FlywhellBKraken.setControl(
+            velocityControl.withVelocity(rotationsPerMinute / 60.0)
+        );
+        KickerKraken.setControl(
+                velocityControl.withVelocity(rotationsPerMinute / 60.0)
+        );
+    }
 }

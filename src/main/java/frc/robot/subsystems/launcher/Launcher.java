@@ -9,13 +9,16 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Launcher extends SubsystemBase{
+public class Launcher extends SubsystemBase {
     private final TalonFX FlywheelAKraken = new TalonFX(61);
     private final TalonFX FlywheelBKraken = new TalonFX(62);
     private final TalonFX KickerKraken = new TalonFX(55);
     private final TalonFX HoodKraken = new TalonFX(57);
 
     private double rotationsPerMinute;
+    private double targetFlywheelRPM;
+
+    private final VelocityVoltage velocityControl = new VelocityVoltage(0);
 
     public Launcher() {
         TalonFXConfiguration config = new TalonFXConfiguration();
@@ -61,8 +64,6 @@ public class Launcher extends SubsystemBase{
         KickerKraken.setControl(voltageControl.withOutput(volts));
         HoodKraken.setControl(voltageControl.withOutput(volts));
     }
-
-    private final VelocityVoltage velocityControl = new VelocityVoltage(0);
 
 
     public void setFlywheelVelocity(double RPM) {

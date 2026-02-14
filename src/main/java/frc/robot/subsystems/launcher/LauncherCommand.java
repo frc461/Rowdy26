@@ -25,7 +25,7 @@ public class LauncherCommand extends Command {
         launcherRPM = (launcherRPM > 6000) ? 6000 : ((launcherRPM < 0) ? 0 : launcherRPM);
         kickerRPM = (kickerRPM > 6000) ? 6000 : ((kickerRPM < 0) ? 0 : kickerRPM);
 
-        launcher.setFlywheelAVelocity(launcherRPM);
+        launcher.setFlywheelVelocity(launcherRPM);
         launcher.setKickerVelocity(kickerRPM);
     }
 

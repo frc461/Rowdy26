@@ -86,7 +86,6 @@ public class Launcher extends SubsystemBase {
     }
 
     public void setHoodPosition(double pose) {
-        
         HoodKraken.setControl(positionControl.withPosition(pose));
     }
     public void setKickerVelocity(double RPM) {

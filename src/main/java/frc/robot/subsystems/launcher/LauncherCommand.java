@@ -13,22 +13,22 @@ public class LauncherCommand extends Command {
         this.launcher = launcher;
         addRequirements(launcher);
 
-        SmartDashboard.putNumber(KEY_FLY_RPM, 0.0);
-        SmartDashboard.putNumber(KEY_KICKER_RPM, 0.0);
+        // SmartDashboard.putNumber(KEY_FLY_RPM, 0.0);
+        // SmartDashboard.putNumber(KEY_KICKER_RPM, 0.0);
     }
 
     @Override
     public void execute() {
-        double launcherRPM = SmartDashboard.getNumber(KEY_FLY_RPM, 0.0);
-        double kickerRPM = SmartDashboard.getNumber(KEY_KICKER_RPM, 0.0);
-        System.out.println("Launcher Command execute:");
-        System.out.println(kickerRPM);
+        // double launcherRPM = SmartDashboard.getNumber(KEY_FLY_RPM, 0.0);
+        // double kickerRPM = SmartDashboard.getNumber(KEY_KICKER_RPM, 0.0);
+        // System.out.println("Launcher Command execute:");
+        // System.out.println(kickerRPM);
 
         // launcherRPM = (launcherRPM > 6000) ? 6000 : ((launcherRPM < 0) ? 0 : launcherRPM);
         // kickerRPM = (kickerRPM > 6000) ? 6000 : ((kickerRPM < 0) ? 0 : kickerRPM);
 
-        launcher.setFlywheelVelocity(launcherRPM);
-        launcher.setKickerVelocity(kickerRPM);
+        // launcher.setFlywheelVelocity(launcherRPM);
+        // launcher.setKickerVelocity(kickerRPM);
     }
 
     @Override

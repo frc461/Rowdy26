@@ -1,6 +1,7 @@
 package frc.robot.subsystems.launcher;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -64,7 +65,7 @@ public class Launcher extends SubsystemBase {
 
     private final VoltageOut voltageControl = new VoltageOut(0);
 
-    public void setFlyWheelAVoltage(double volts) {
+    public void setVoltage(double volts) {
         FlywheelAKraken.setControl(voltageControl.withOutput(volts));
     }
 
@@ -84,6 +85,11 @@ public class Launcher extends SubsystemBase {
 
         FlywheelAKraken.setControl(velocityControl.withVelocity(rps) );
         FlywheelBKraken.setControl(velocityControl.withVelocity(rps) );   
+    }
+
+    public void setHoodPosition(double pose) {
+        
+        HoodKraken.setControl(PositionVoltage.withPosition(pose));
     }
     public void setKickerVelocity(double RPM) {
         KickerKraken.setControl(velocityControl.withVelocity(RPM / 60.0));

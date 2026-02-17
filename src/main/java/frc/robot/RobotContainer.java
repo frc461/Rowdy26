@@ -30,6 +30,10 @@ import frc.robot.constants.TunerConstants;
 import frc.robot.subsystems.drivetrain.Swerve;
 import frc.robot.subsystems.drivetrain.SwerveTelemetry;
 import com.ctre.phoenix6.SignalLogger;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.signals.MotorAlignmentValue;
+import com.ctre.phoenix6.signals.InvertedValue;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
 import frc.robot.subsystems.launcher.Launcher;
@@ -42,6 +46,9 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Launcher launcher = new Launcher();
   private final Spindexer spindexer = new Spindexer();
+
+  private final TalonFX leadMotor = new TalonFX(50);//Spindexer
+  private final TalonFX followMotor = new TalonFX(55);//Kicker
 
   private final CommandXboxController opjoystick = new CommandXboxController(1); // operator controller port
 
@@ -141,9 +148,9 @@ public class RobotContainer {
 
         opjoystick.a().whileTrue(
           Commands.startEnd(
-            () -> spindexer.setVoltage(16),
-            () -> spindexer.setVoltage(0),
-            spindexer
+            () -> launcher.setFlywheelVelocity(-1950),
+            () -> launcher.setHoodPosition(0)
+            
           )
         );
 
@@ -156,24 +163,16 @@ public class RobotContainer {
         );
 
         opjoystick.y().whileTrue(
-          Commands.run(
-            () -> {
-                launcher.setFlyWheelAVoltage(-8);
-                launcher.setFlyWheelBVoltage(-8);
-                launcher.setKickerVoltage(8);
-            },
-            launcher
-        )
-    ).onFalse(
-        Commands.runOnce(
-            () -> {
-                launcher.setFlyWheelAVoltage(0);
-                launcher.setFlyWheelBVoltage(0);
-                launcher.setKickerVoltage(0);
-            },
-            launcher
-        )
-    );
+          Commands.startEnd(
+            () -> launcher.setFlywheelVelocity(-2250), 
+            () -> launcher.setHoodPosition(1.25)
+          )
+        );
     }
+
+    public void KickerFollowSpindexer() {
+      followMotor.setControl(new Follower(leadMotor.getDeviceID(), MotorAlignmentValue.Aligned));
+    }
+
 }
 

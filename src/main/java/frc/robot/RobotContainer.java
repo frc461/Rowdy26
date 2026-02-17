@@ -168,11 +168,16 @@ public class RobotContainer {
             () -> launcher.setHoodPosition(1.25)
           )
         );
+
+        opjoystick.x().whileTrue(
+          Commands.startEnd(
+            () -> spindexer.setVelocity(8), 
+            () -> spindexer.KickerFollowSpindexer()
+          )
+        );
     }
 
-    public void KickerFollowSpindexer() {
-      followMotor.setControl(new Follower(leadMotor.getDeviceID(), MotorAlignmentValue.Aligned));
-    }
+    
 
 }
 

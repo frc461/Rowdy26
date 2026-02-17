@@ -16,10 +16,7 @@ public class Intake extends SubsystemBase{
 public Intake() {
         DeployKraken.getConfigurator().apply(new TalonFXConfiguration());
         IntakeKraken.getConfigurator().apply(new TalonFXConfiguration());
-        TalonFXConfiguration config = new TalonFXConfiguration();
-        DeployKraken.getConfigurator().apply(config); 
-        IntakeKraken.getConfigurator().apply(config);     
-    }
+        }
     private final VoltageOut voltageControl = new VoltageOut(0);
 
     public void setIntakeVoltage(double volts) {

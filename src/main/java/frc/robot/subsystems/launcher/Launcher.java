@@ -5,6 +5,8 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.controls.PositionVoltage;
+
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,33 +21,39 @@ public class Launcher extends SubsystemBase {
 
     private final VelocityVoltage velocityControl = new VelocityVoltage(0);
 
+    private final PositionVoltage positionControl = new PositionVoltage(0);
+    public void setHoodPosition(double rotations) {
+             HoodKraken.setControl(positionControl.withPosition(rotations));
+    }
+
+
     public Launcher() {
         TalonFXConfiguration config = new TalonFXConfiguration();
         HoodKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.CurrentLimits.SupplyCurrentLimit = 40;
-        config.Slot0.kP = 0.1;
+        config.Slot0.kP = 5;
         config.Slot0.kI = 0.0;
         config.Slot0.kD = 0.0;
-        config.Slot0.kV = 0.12;
+        config.Slot0.kV = 0.8;
         HoodKraken.getConfigurator().apply(config);
 
         FlywheelAKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.CurrentLimits.SupplyCurrentLimit = 40;
-        config.Slot0.kP = 0.1;
-        config.Slot0.kI = 0.0;
-        config.Slot0.kD = 0.5;
-        config.Slot0.kV = 0.12;
+        config.Slot0.kP = .25;
+        config.Slot0.kI = 0 ;
+        config.Slot0.kD = 0;
+        config.Slot0.kV = 0.2056;
         FlywheelAKraken.getConfigurator().apply(config);
 
         FlywheelBKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.CurrentLimits.SupplyCurrentLimit = 40;
-        config.Slot0.kP = 0.1;
-        config.Slot0.kI = 0.0;
-        config.Slot0.kD = 0.5;
-        config.Slot0.kV = 0.12;
+        config.Slot0.kP = .25;
+        config.Slot0.kI = 0;
+        config.Slot0.kD = 0;
+        config.Slot0.kV = 0.2056;
         FlywheelBKraken.getConfigurator().apply(config);
 
         KickerKraken.getConfigurator().apply(new TalonFXConfiguration());
@@ -56,7 +64,7 @@ public class Launcher extends SubsystemBase {
 
     private final VoltageOut voltageControl = new VoltageOut(0);
 
-    public void setVoltage(double volts) {
+    public void setFlyWheelAVoltage(double volts) {
         FlywheelAKraken.setControl(voltageControl.withOutput(volts));
     }
 

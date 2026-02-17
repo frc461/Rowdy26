@@ -118,6 +118,12 @@ public class RobotContainer {
         drjoystick.x().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
       //  Reset the field-centric heading on left bumper press.
         drjoystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+        drjoystick.rightBumper().onTrue(
+          Commands.runOnce(
+        () -> launcher.setHoodPosition(0),
+        launcher
+          )
+        );
 
         LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
         drjoystick.rightBumper().onTrue(m_LauncherCommand);
@@ -125,7 +131,7 @@ public class RobotContainer {
 
         // drivetrain.registerTelemetry(logger::telemeterize);
 
-        opjoystick.x().whileTrue(
+        opjoystick.rightBumper().whileTrue(
             Commands.startEnd(
               () -> intake.setIntakeVoltage(-16),
               () -> intake.setIntakeVoltage(0),

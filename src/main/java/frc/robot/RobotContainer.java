@@ -135,9 +135,9 @@ public class RobotContainer {
 
         opjoystick.a().whileTrue(
           Commands.startEnd(
-            () -> spindexer.setVoltage(16),
-            () -> spindexer.setVoltage(0),
-            spindexer
+            () -> launcher.setFlywheelVelocity(-1950),
+            () -> launcher.setHoodPosition(0)
+            
           )
         );
 
@@ -149,25 +149,12 @@ public class RobotContainer {
           )
         );
 
-    //     opjoystick.y().whileTrue(
-    //       Commands.run(
-    //         () -> {
-    //             launcher.setFlyWheelAVoltage(-8);
-    //             launcher.setFlyWheelBVoltage(-8);
-    //             launcher.setKickerVoltage(8);
-    //         },
-    //         launcher
-    //     )
-    // ).onFalse(
-    //     Commands.runOnce(
-    //         () -> {
-    //             launcher.setFlyWheelAVoltage(0);
-    //             launcher.setFlyWheelBVoltage(0);
-    //             launcher.setKickerVoltage(0);
-    //         },
-    //         launcher
-    //     )
-    // );
+        opjoystick.y().whileTrue(
+          Commands.startEnd(
+            () -> launcher.setFlywheelVelocity(-2250), 
+            () -> launcher.setHoodPosition(1.25)
+          )
+        );
     }
 }
 

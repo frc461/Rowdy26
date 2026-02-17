@@ -23,9 +23,7 @@ public class Launcher extends SubsystemBase {
     private final VelocityVoltage velocityControl = new VelocityVoltage(0);
 
     private final PositionVoltage positionControl = new PositionVoltage(0);
-    public void setHoodPosition(double rotations) {
-             HoodKraken.setControl(positionControl.withPosition(rotations));
-    }
+    
 
 
     public Launcher() {
@@ -89,7 +87,7 @@ public class Launcher extends SubsystemBase {
 
     public void setHoodPosition(double pose) {
         
-        HoodKraken.setControl(PositionVoltage.withPosition(pose));
+        HoodKraken.setControl(positionControl.withPosition(pose));
     }
     public void setKickerVelocity(double RPM) {
         KickerKraken.setControl(velocityControl.withVelocity(RPM / 60.0));

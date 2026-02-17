@@ -79,103 +79,113 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-        // Note that X is defined as forward according to WPILib convention,
-        // and Y is defined as to the left according to WPILib convention.
-        drivetrain.setDefaultCommand(
-            // Drivetrain will execute this command periodically
-            drivetrain.applyRequest(() ->
-                drive.withVelocityX(-drjoystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(-drjoystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(-drjoystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
-            )
-        );
+    // Note that X is defined as forward according to WPILib convention,
+    // and Y is defined as to the left according to WPILib convention.
+    drivetrain.setDefaultCommand(
+        // Drivetrain will execute this command periodically
+        drivetrain.applyRequest(() ->
+            drive.withVelocityX(-drjoystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
+                .withVelocityY(-drjoystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+                .withRotationalRate(-drjoystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+        )
+    );
 
-        // Idle while the robot is disabled. This ensures the configured
-        // neutral mode is applied to the drive motors while disabled.
-        final var idle = new SwerveRequest.Idle();
-        RobotModeTriggers.disabled().whileTrue(
-            drivetrain.applyRequest(() -> idle).ignoringDisable(true)
-        );
+    // Idle while the robot is disabled. This ensures the configured
+    // neutral mode is applied to the drive motors while disabled.
+    final var idle = new SwerveRequest.Idle();
+    RobotModeTriggers.disabled().whileTrue(
+        drivetrain.applyRequest(() -> idle).ignoringDisable(true)
+    );
 
-        //AUTO TESTING BINDS - COMMENTED FOR SYSID TESTING
-        // drjoystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
-        // drjoystick.b().whileTrue(drivetrain.applyRequest(() ->
-        //     point.withModuleDirection(new Rotation2d(-drjoystick.getLeftY(), -drjoystick.getLeftX()))
-        // ));
-        // drjoystick.leftBumper().onTrue(new PathPlannerAuto("Spin"));
-        // drjoystick.rightBumper().onTrue(new PathPlannerAuto("Spin"));
+    //AUTO TESTING BINDS - COMMENTED FOR SYSID TESTING
+    // drjoystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
+    // drjoystick.b().whileTrue(drivetrain.applyRequest(() ->
+    //     point.withModuleDirection(new Rotation2d(-drjoystick.getLeftY(), -drjoystick.getLeftX()))
+    // ));
+    // drjoystick.leftBumper().onTrue(new PathPlannerAuto("Spin"));
+    // drjoystick.rightBumper().onTrue(new PathPlannerAuto("Spin"));
 
-        SignalLogger.setPath("/media/sda1/ctre-logs/");
-        
-        // drjoystick.leftBumper().onTrue(Commands.runOnce(SignalLogger::start));
-     
-        // drjoystick.rightBumper().onTrue(Commands.runOnce(SignalLogger::stop));
-        
+    // SignalLogger.setPath("/media/sda1/ctre-logs/");
+    
+    // drjoystick.leftBumper().onTrue(Commands.runOnce(SignalLogger::start));
+  
+    // drjoystick.rightBumper().onTrue(Commands.runOnce(SignalLogger::stop));
+    
 
 
-        /*
-        * drjoystick Y = quasistatic forward
-        * drjoystick A = quasistatic reverse
-        * drjoystick B = dynamic forward
-        * drjoystick X = dyanmic reverse
-        */
-        drjoystick.y().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
-        drjoystick.a().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
-        drjoystick.b().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kForward));
-        drjoystick.x().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
-      //  Reset the field-centric heading on left bumper press.
-        drjoystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
-        drjoystick.rightBumper().onTrue(
-          Commands.runOnce(
+    /*
+    * drjoystick Y = quasistatic forward
+    * drjoystick A = quasistatic reverse
+    * drjoystick B = dynamic forward
+    * drjoystick X = dyanmic reverse
+    */
+    // drjoystick.y().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
+    // drjoystick.a().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
+    // drjoystick.b().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kForward));
+    // drjoystick.x().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
+    //  Reset the field-centric heading on left bumper press.
+
+
+    drjoystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+    drjoystick.rightBumper().onTrue(
+      Commands.runOnce(
         () -> launcher.setHoodPosition(0),
         launcher
-          )
-        );
+      )
+    );
 
-        LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
-        drjoystick.rightBumper().onTrue(m_LauncherCommand);
+    // LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
+    // drjoystick.rightBumper().onTrue(m_LauncherCommand);
 
 
-        // drivetrain.registerTelemetry(logger::telemeterize);
+    // drivetrain.registerTelemetry(logger::telemeterize);
 
-        opjoystick.rightBumper().whileTrue(
-            Commands.startEnd(
-              () -> intake.setIntakeVoltage(-16),
-              () -> intake.setIntakeVoltage(0),
-              intake
-            )
-        );
+    opjoystick.rightBumper().whileTrue(
+        Commands.startEnd(
+          () -> intake.setIntakeVoltage(-16),
+          () -> intake.setIntakeVoltage(0),
+          intake
+        )
+    );
 
-        opjoystick.a().whileTrue(
-          Commands.startEnd(
-            () -> launcher.setFlywheelVelocity(-1950),
-            () -> launcher.setHoodPosition(0)
-            
-          )
-        );
+    opjoystick.a().whileTrue(
+      Commands.startEnd(
+        () -> {
+          launcher.setFlywheelVelocity(-1950);
+          launcher.setHoodPosition(0);
+        },
+        () -> launcher.setFlywheelVelocity(0),
+        launcher
+      )
+    );
 
-        opjoystick.b().whileTrue(
-          Commands.startEnd(
-            () -> spindexer.setVoltage(-16),
-            () -> spindexer.setVoltage(0),
-            spindexer
-          )
-        );
+    opjoystick.b().whileTrue(
+      Commands.startEnd(
+        () -> spindexer.setVoltage(-16),
+        () -> spindexer.setVoltage(0),
+        spindexer
+      )
+    );
 
-        opjoystick.y().whileTrue(
-          Commands.startEnd(
-            () -> launcher.setFlywheelVelocity(-2250), 
-            () -> launcher.setHoodPosition(1.25)
-          )
-        );
+    opjoystick.y().whileTrue(
+      Commands.startEnd(
+          () -> {
+              launcher.setFlywheelVelocity(-2250);
+              launcher.setHoodPosition(1.25);
+          },
+          () -> launcher.setFlywheelVelocity(0),
+          launcher
+      )
+    );
 
-        opjoystick.x().whileTrue(
-          Commands.startEnd(
-            () -> spindexer.setVelocity(8), 
-            () -> spindexer.KickerFollowSpindexer()
-          )
-        );
-    }
+
+    opjoystick.x().whileTrue(
+      Commands.startEnd(
+        () -> spindexer.setVelocity(8), 
+        () -> spindexer.KickerFollowSpindexer()
+      )
+    );
+  }
 
     
 

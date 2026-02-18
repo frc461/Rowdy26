@@ -1,10 +1,12 @@
 package frc.robot.subsystems.launcher;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.controls.PositionVoltage;
 
@@ -55,6 +57,9 @@ public class Launcher extends SubsystemBase {
         KickerKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.CurrentLimits.SupplyCurrentLimit = 40;
+        KickerKraken.setControl(
+        new Follower(50, MotorAlignmentValue.Aligned)
+        );
     }
 
     private final VoltageOut voltageControl = new VoltageOut(0);

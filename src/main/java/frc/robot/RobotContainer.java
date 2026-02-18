@@ -172,7 +172,6 @@ public class RobotContainer {
     opjoystick.a().whileTrue(
       Commands.startEnd(
           () -> {
-              launcher.setKickerVoltage(16);
               launcher.setFlywheelVelocity(-2250);
               launcher.setHoodPosition(1.25);
           },
@@ -187,7 +186,7 @@ public class RobotContainer {
             Commands.run(
             () -> spindexer.setVoltage(-16),
             spindexer
-        ).withTimeout(0.5),
+        ).withTimeout(0.25),
 
                 Commands.run(
             () -> spindexer.setVoltage(16),

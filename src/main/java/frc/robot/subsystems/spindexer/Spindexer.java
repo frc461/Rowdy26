@@ -37,10 +37,6 @@ public class Spindexer extends SubsystemBase{
             velocityControl.withVelocity(rotationsPerSecond)
         );
     }
-    // public void KickerFollowSpindexer() {
-    //   KickerKraken.setControl(new Follower(SpindexerKraken.getDeviceID(), MotorAlignmentValue.Aligned));
-    // }
-
 }
 
  

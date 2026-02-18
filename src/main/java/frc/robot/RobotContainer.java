@@ -15,7 +15,6 @@ import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.launcher.Launcher;
 import frc.robot.subsystems.launcher.LauncherCommand;
 import frc.robot.subsystems.spindexer.Spindexer;
-import frc.robot.util.FieldUtil;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
@@ -149,15 +148,20 @@ public class RobotContainer {
         )
     );
 
-    // y sets presets for launcher and hood motor to shoot at hub
-    opjoystick.y().onTrue(new InstantCommand(() -> {
-          launcher.setFlywheelVelocity(-1950.0);
-          launcher.setHoodPosition(0);
-        }
+    opjoystick.y().whileTrue(
+      Commands.startEnd(
+        () -> {
+          launcher.setKickerVoltage(16);
+          launcher.setFlywheelVelocity(-1950);
+          // launcher.setHoodPosition(0);
+          
+        },
+        () -> launcher.setFlywheelVelocity(0),
+        launcher
       )
     );
 
-    opjoystick.b().whileTrue(
+    opjoystick.x().whileTrue(
       Commands.startEnd(
         () -> spindexer.setVoltage(-16),
         () -> spindexer.setVoltage(0),
@@ -165,35 +169,36 @@ public class RobotContainer {
       )
     );
 
-    //  a sets presets for launcher and hood motor to shoot at tower
-    
-    opjoystick.a().onTrue(new InstantCommand(() -> {
-          launcher.setFlywheelVelocity(-2250.0);
-          launcher.setHoodPosition(1.25);
-        }
-      )
-    );
-
-    opjoystick.rightTrigger().whileTrue(
+    opjoystick.a().whileTrue(
       Commands.startEnd(
-        () -> {
-          launcher.runFlyWheel();
-          launcher.runHood();
-        },
-        () -> launcher.stopFlyWheels(),
-        launcher
+          () -> {
+              launcher.setFlywheelVelocity(-2250);
+              launcher.setHoodPosition(1.25);
+          },
+          () -> launcher.setFlywheelVelocity(0),
+          launcher
       )
     );
 
 
+    opjoystick.b().whileTrue(
+     Commands.sequence(
+            Commands.run(
+            () -> spindexer.setVoltage(-16),
+            spindexer
+        ).withTimeout(0.25),
 
-    opjoystick.x().whileTrue(
-      Commands.startEnd(
-        () -> spindexer.setVoltage(16), 
+                Commands.run(
+            () -> spindexer.setVoltage(16),
+            spindexer
+        )
+    )
+).onFalse(
+    Commands.runOnce(
         () -> spindexer.setVoltage(0),
         spindexer
-      )
-    );
+    )
+);
   }
 
     

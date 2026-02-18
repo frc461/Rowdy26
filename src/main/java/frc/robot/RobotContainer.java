@@ -15,6 +15,7 @@ import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.launcher.Launcher;
 import frc.robot.subsystems.launcher.LauncherCommand;
 import frc.robot.subsystems.spindexer.Spindexer;
+import frc.robot.util.FieldUtil;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
@@ -148,16 +149,11 @@ public class RobotContainer {
         )
     );
 
-    opjoystick.y().whileTrue(
-      Commands.startEnd(
-        () -> {
-          launcher.setKickerVoltage(16);
-          launcher.setFlywheelVelocity(-1950);
-          // launcher.setHoodPosition(0);
-          
-        },
-        () -> launcher.setFlywheelVelocity(0),
-        launcher
+    // y sets presets for launcher and hood motor to shoot at hub
+    opjoystick.y().onTrue(new InstantCommand(() -> {
+          launcher.setFlywheelVelocity(-1950.0);
+          launcher.setHoodPosition(0);
+        }
       )
     );
 
@@ -169,17 +165,25 @@ public class RobotContainer {
       )
     );
 
-    opjoystick.a().whileTrue(
-      Commands.startEnd(
-          () -> {
-              launcher.setFlywheelVelocity(-2250);
-              launcher.setHoodPosition(1.25);
-          },
-          () -> launcher.setFlywheelVelocity(0),
-          launcher
+    //  a sets presets for launcher and hood motor to shoot at tower
+    
+    opjoystick.a().onTrue(new InstantCommand(() -> {
+          launcher.setFlywheelVelocity(-2250.0);
+          launcher.setHoodPosition(1.25);
+        }
       )
     );
 
+    opjoystick.rightTrigger().whileTrue(
+      Commands.startEnd(
+        () -> {
+          launcher.runFlyWheel();
+          launcher.runHood();
+        },
+        () -> launcher.stopFlyWheels(),
+        launcher
+      )
+    );
 
     opjoystick.b().whileTrue(
      Commands.sequence(
@@ -192,13 +196,13 @@ public class RobotContainer {
             () -> spindexer.setVoltage(16),
             spindexer
         )
-    )
-).onFalse(
+      )
+    ).onFalse(
     Commands.runOnce(
         () -> spindexer.setVoltage(0),
         spindexer
-    )
-);
+      )
+    );
   }
 
     

@@ -19,6 +19,7 @@ public class Launcher extends SubsystemBase {
     private final TalonFX HoodKraken = new TalonFX(57);
 
     private double targetFlywheelRPM = 0.0;
+    private double targetHoodPosition = 0.0;
 
     private final VelocityVoltage velocityControl = new VelocityVoltage(0);
 
@@ -36,6 +37,8 @@ public class Launcher extends SubsystemBase {
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.8;
         HoodKraken.getConfigurator().apply(config);
+        HoodKraken.setPosition(0);
+
 
         FlywheelAKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
@@ -79,23 +82,29 @@ public class Launcher extends SubsystemBase {
 
     public void setFlywheelVelocity(double RPM) {
         this.targetFlywheelRPM = RPM;
-        double rps = RPM / 60.0;
-
+        
+    }
+    public void runFlyWheel() {
+        double rps = targetFlywheelRPM / 60.0;
         FlywheelAKraken.setControl(velocityControl.withVelocity(rps) );
         FlywheelBKraken.setControl(velocityControl.withVelocity(rps) );   
     }
 
     public void setHoodPosition(double pose) {
-        HoodKraken.setControl(positionControl.withPosition(pose));
+        this.targetHoodPosition = pose;
+        
     }
+    public void runHood() {
+        HoodKraken.setControl(positionControl.withPosition(targetHoodPosition));
+    }
+    
+    
     public void setKickerVelocity(double RPM) {
         KickerKraken.setControl(velocityControl.withVelocity(RPM / 60.0));
     }
-    public void stopAll() {
+    public void stopFlyWheels() {
         FlywheelAKraken.stopMotor();
         FlywheelBKraken.stopMotor();
-        KickerKraken.stopMotor();
-        HoodKraken.stopMotor();
     }
 
     @Override

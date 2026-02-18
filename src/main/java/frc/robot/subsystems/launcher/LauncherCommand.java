@@ -33,6 +33,6 @@ public class LauncherCommand extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        launcher.stopAll();
+        launcher.stopFlyWheels();
     }
 }

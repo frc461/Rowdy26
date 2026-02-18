@@ -161,7 +161,7 @@ public class RobotContainer {
       )
     );
 
-    opjoystick.b().whileTrue(
+    opjoystick.x().whileTrue(
       Commands.startEnd(
         () -> spindexer.setVoltage(-16),
         () -> spindexer.setVoltage(0),
@@ -182,13 +182,24 @@ public class RobotContainer {
     );
 
 
-    opjoystick.x().whileTrue(
-      Commands.startEnd(
-        () -> spindexer.setVoltage(16), 
+    opjoystick.b().whileTrue(
+     Commands.sequence(
+            Commands.run(
+            () -> spindexer.setVoltage(-16),
+            spindexer
+        ).withTimeout(0.5),
+
+                Commands.run(
+            () -> spindexer.setVoltage(16),
+            spindexer
+        )
+    )
+).onFalse(
+    Commands.runOnce(
         () -> spindexer.setVoltage(0),
         spindexer
-      )
-    );
+    )
+);
   }
 
     

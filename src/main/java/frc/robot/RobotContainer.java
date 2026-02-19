@@ -83,7 +83,7 @@ public class RobotContainer {
 
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return new PathPlannerAuto("Left Trench shoot and Human Player");
   }
 
   private void configureBindings() {
@@ -212,7 +212,7 @@ public class RobotContainer {
       )
     );
   }
-
+  
   
 
 }

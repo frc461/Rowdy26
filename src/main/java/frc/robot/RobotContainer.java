@@ -17,6 +17,7 @@ import frc.robot.subsystems.launcher.LauncherCommand;
 import frc.robot.subsystems.spindexer.Spindexer;
 import frc.robot.util.FieldUtil;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -40,7 +41,13 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.subsystems.launcher.Launcher;
 
 public class RobotContainer {
+
+  private final AutoCommand autoCommand = new AutoCommand();
+
   public RobotContainer() {
+    NamedCommands.registerCommand("Shoot Tower Preset", autoCommand.AutoTowerShoot());
+    NamedCommands.registerCommand("Shoot Hub Preset", autoCommand.AutoHubShoot());
+    NamedCommands.registerCommand("Stop All", autoCommand.StopAll());
     configureBindings();
   }
 
@@ -150,6 +157,7 @@ public class RobotContainer {
     );
 
     // y sets presets for launcher and hood motor to shoot at hub
+    
     opjoystick.y().onTrue(new InstantCommand(() -> {
           launcher.setFlywheelVelocity(-1950.0);
           launcher.setHoodPosition(0);
@@ -205,7 +213,7 @@ public class RobotContainer {
     );
   }
 
-    
+  
 
 }
 

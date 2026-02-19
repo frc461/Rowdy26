@@ -23,18 +23,16 @@ import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 public final class Vision {
-    // private final PhotonCamera REDcamera = new PhotonCamera("RED");
-    // private final PhotonCamera GRAYcamera = new PhotonCamera("GRAY");
 
     private List<PhotonPipelineResult> lastResults;
 
-    public static PhotonPipelineResult lastResultRed = new PhotonPipelineResult();
-    public static PhotonPipelineResult lastResultGray = new PhotonPipelineResult();
+    public static PhotonPipelineResult lastResultFR = new PhotonPipelineResult();
+    public static PhotonPipelineResult lastResultFL = new PhotonPipelineResult();
 
     
 
     // public List<PhotonPipelineResult> getVision() {
-    //     lastResults = REDcamera.getAllUnreadResults();
+    //     lastResults = FRcamera.getAllUnreadResults();
     //     return lastResults;
     // }
     
@@ -82,30 +80,30 @@ public final class Vision {
 
     public static final class BW {
         public enum BWCamera {
-            CAMERA_RED (
-                new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.CAMERA_RED_NAME),
+            CAMERA_FR (
+                new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.CAMERA_FR_NAME),
                 new Transform3d(
-                    Constants.VisionConstants.CAMERA_RED_FORWARD,
-                    Constants.VisionConstants.CAMERA_RED_LEFT,
-                    Constants.VisionConstants.CAMERA_RED_UP,
+                    Constants.VisionConstants.CAMERA_FR_FORWARD,
+                    Constants.VisionConstants.CAMERA_FR_LEFT,
+                    Constants.VisionConstants.CAMERA_FR_UP,
                     new Rotation3d(
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_RED_PITCH),
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_RED_ROLL),
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_RED_YAW)
+                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_FR_PITCH),
+                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_FR_ROLL),
+                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_FR_YAW)
                     )
                 )
             ),
             
-            CAMERA_GRAY (
-                new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.CAMERA_GRAY_NAME),
+            CAMERA_FL (
+                new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.CAMERA_FL_NAME),
                 new Transform3d(
-                    Constants.VisionConstants.CAMERA_GRAY_FORWARD,
-                    Constants.VisionConstants.CAMERA_GRAY_LEFT,
-                    Constants.VisionConstants.CAMERA_GRAY_UP,
+                    Constants.VisionConstants.CAMERA_FL_FORWARD,
+                    Constants.VisionConstants.CAMERA_FL_LEFT,
+                    Constants.VisionConstants.CAMERA_FL_UP,
                     new Rotation3d(
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_GRAY_PITCH),
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_GRAY_ROLL),
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_GRAY_YAW)
+                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_FL_PITCH),
+                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_FL_ROLL),
+                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_FL_YAW)
                     )
                 )
             );
@@ -128,19 +126,19 @@ public final class Vision {
 
 
     } 
-    public static PhotonPipelineResult latestResultCameraRed = new PhotonPipelineResult();
-    public static PhotonPipelineResult latestResultCameraGray = new PhotonPipelineResult();
+    public static PhotonPipelineResult latestResultCameraFR = new PhotonPipelineResult();
+    public static PhotonPipelineResult latestResultCameraFL = new PhotonPipelineResult();
 
     public static PhotonPipelineResult getLatestResult(BWCamera camera){
         return switch (camera){
-            case CAMERA_RED -> latestResultCameraRed;
-            case CAMERA_GRAY -> latestResultCameraGray;
+            case CAMERA_FR -> latestResultCameraFR;
+            case CAMERA_FL -> latestResultCameraFL;
         };
     }
     public static boolean hasTargets(BWCamera camera) {
         return switch (camera) {
-            case CAMERA_RED -> latestResultCameraRed.hasTargets();
-            case CAMERA_GRAY -> latestResultCameraRed.hasTargets();
+            case CAMERA_FR -> latestResultCameraFR.hasTargets();
+            case CAMERA_FL -> latestResultCameraFR.hasTargets();
         };
         
     }

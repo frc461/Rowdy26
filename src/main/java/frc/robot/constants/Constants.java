@@ -8,21 +8,37 @@ public final class Constants {
 
     public final class VisionConstants {
 
-        public static String CAMERA_RED_NAME;
-        public static double CAMERA_RED_YAW;
-        public static double CAMERA_RED_PITCH;
-        public static double CAMERA_RED_ROLL;
-        public static double CAMERA_RED_FORWARD;
-        public static double CAMERA_RED_LEFT;
-        public static double CAMERA_RED_UP;
+        public static String CAMERA_FR_NAME;
+        public static double CAMERA_FR_YAW;
+        public static double CAMERA_FR_PITCH;
+        public static double CAMERA_FR_ROLL;
+        public static double CAMERA_FR_FORWARD;
+        public static double CAMERA_FR_LEFT;
+        public static double CAMERA_FR_UP;
 
-        public static String CAMERA_GRAY_NAME;
-        public static double CAMERA_GRAY_YAW;
-        public static double CAMERA_GRAY_PITCH;
-        public static double CAMERA_GRAY_ROLL;
-        public static double CAMERA_GRAY_FORWARD;
-        public static double CAMERA_GRAY_LEFT;
-        public static double CAMERA_GRAY_UP;
+        public static String CAMERA_FL_NAME;
+        public static double CAMERA_FL_YAW;
+        public static double CAMERA_FL_PITCH;
+        public static double CAMERA_FL_ROLL;
+        public static double CAMERA_FL_FORWARD;
+        public static double CAMERA_FL_LEFT;
+        public static double CAMERA_FL_UP;
+
+        public static String CAMERA_BR_NAME; 
+        public static double CAMERA_BR_YAW;
+        public static double CAMERA_BR_PITCH;
+        public static double CAMERA_BR_ROLL;
+        public static double CAMERA_BR_FORWARD;
+        public static double CAMERA_BR_LEFT;
+        public static double CAMERA_BR_UP;
+
+        public static String CAMERA_BL_NAME; 
+        public static double CAMERA_BL_YAW;
+        public static double CAMERA_BL_PITCH;
+        public static double CAMERA_BL_ROLL;
+        public static double CAMERA_BL_FORWARD;
+        public static double CAMERA_BL_LEFT;
+        public static double CAMERA_BL_UP;
 
 
     }

@@ -127,15 +127,6 @@ public final class Vision extends SubsystemBase{
                 }
                 updateEstimationStdDevs(visionEst, result.getTargets(), estimator);
 
-                // if (Robot.isSimulation()) {
-                //     visionEst.ifPresentOrElse(
-                //         est ->
-                //                 getSimDebugField()
-                //                         .getObject("VisionEstimation")
-                //                         .setPose(est.estimatedPose.toPose2d()),
-                //         () -> {
-                //             getSimDebugField().getObject("VisionEstimation").setPoses();
-                //         });
                 visionEst.ifPresent(
                     est -> {
                         // Change our trust in the measurement based on the tags we can see

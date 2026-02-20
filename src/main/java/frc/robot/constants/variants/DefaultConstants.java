@@ -39,6 +39,7 @@ public class DefaultConstants {
     public static double CAMERA_BL_LEFT = 0;
     public static double CAMERA_BL_UP = 0;
 
+    //TWEAK VALUES IN TESTING
     public static double MAX_VALID_DIST = 5.0; //Meters
     public static Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
     public static Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);

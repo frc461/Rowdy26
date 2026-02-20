@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
@@ -51,6 +52,7 @@ public final class Vision extends SubsystemBase{
     
     private final NetworkTable visionTable;
 
+    private final Field2d debugField = new Field2d();
 
     //TODO: PUBLISH VALUES TO NETWORK TABLES
     public Vision(EstimateConsumer estC) {

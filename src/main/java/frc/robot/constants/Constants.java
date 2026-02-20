@@ -8,6 +8,7 @@ public final class Constants {
 
     public final class VisionConstants {
 
+        
         public static String CAMERA_FR_NAME;
         public static double CAMERA_FR_YAW;
         public static double CAMERA_FR_PITCH;
@@ -39,9 +40,15 @@ public final class Constants {
         public static double CAMERA_BL_FORWARD;
         public static double CAMERA_BL_LEFT;
         public static double CAMERA_BL_UP;
-
+        
+        // Trust Constants
+        public static final double MAX_VALID_DIST = 5.0; //Meters
+        public static final double SINGLE_TAG_STD_DEV = 1.5; 
+        public static final double MULTI_TAG_STD_DEV = 0.2; 
 
     }
+
+    
 
     public final class LauncherConstants {
         public static double SHOOTER_SIZE_IN = 7.0;

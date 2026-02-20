@@ -215,7 +215,7 @@ public class RobotContainer {
     
     opjoystick.b().whileTrue(
       Commands.startEnd(
-        () -> intake.setIntakeVoltage(16),
+        () -> intake.setIntakeVoltage(-16),
         () -> intake.setIntakeVoltage(0),
         intake
       )

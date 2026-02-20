@@ -26,6 +26,7 @@ import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 
+import frc.robot.Robot;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.localizer.Localizer.EstimateConsumer;
 import frc.robot.util.vision.Vision.BW.BWCamera;
@@ -78,23 +79,22 @@ public final class Vision extends SubsystemBase{
             if(estimator == null) continue;
 
             Optional<EstimatedRobotPose> visionEst = Optional.empty();
-
             for (var result : cam.camera.getAllUnreadResults()) {
                 visionEst = estimator.estimateCoprocMultiTagPose(result);
                 if (visionEst.isEmpty()) {
                     visionEst = estimator.estimateLowestAmbiguityPose(result);
                 }
-
                 updateEstimationStdDevs(visionEst, result.getTargets());
-        
-                visionEst.ifPresent(
-                        est -> {
-                            // Change our trust in the measurement based on the tags we can see
-                            var estStdDevs = getEstimationStdDevs();
 
-                            estConsumer.accept(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-                });
-
+                // if (Robot.isSimulation()) {
+                //     visionEst.ifPresentOrElse(
+                //         est ->
+                //                 getSimDebugField()
+                //                         .getObject("VisionEstimation")
+                //                         .setPose(est.estimatedPose.toPose2d()),
+                //         () -> {
+                //             getSimDebugField().getObject("VisionEstimation").setPoses();
+                //         });
             }
             visionEst.ifPresent(
                     est -> {
@@ -103,9 +103,9 @@ public final class Vision extends SubsystemBase{
 
                         estConsumer.accept(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
                     });
+            }
+            return allEstimates;
         }
-        return allEstimates;
-    }
 
 
 

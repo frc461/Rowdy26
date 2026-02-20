@@ -1,5 +1,9 @@
 package frc.robot.constants;
 
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public final class Constants {
@@ -8,7 +12,7 @@ public final class Constants {
 
     public final class VisionConstants {
 
-        
+
         public static String CAMERA_FR_NAME;
         public static double CAMERA_FR_YAW;
         public static double CAMERA_FR_PITCH;
@@ -42,9 +46,12 @@ public final class Constants {
         public static double CAMERA_BL_UP;
         
         // Trust Constants
-        public static final double MAX_VALID_DIST = 5.0; //Meters
-        public static final double SINGLE_TAG_STD_DEV = 1.5; 
-        public static final double MULTI_TAG_STD_DEV = 0.2; 
+
+        // The standard deviations of our vision estimated poses, which affect correction rate
+        // (Fake values. Experiment and determine estimation noise on an actual robot.)
+        public static double MAX_VALID_DIST;
+        public static Matrix<N3, N1> kSINGLE_TAG_STD_DEVS;
+        public static Matrix<N3, N1> kMULTI_TAG_STD_DEVS;
 
     }
 

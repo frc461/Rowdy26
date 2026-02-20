@@ -1,42 +1,39 @@
 package frc.robot.util.vision;
 
-import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
-import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Rotation3d;
-import org.photonvision.targeting.TargetCorner;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ForkJoinTask;
-
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 
-import frc.robot.Robot;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.localizer.Localizer.EstimateConsumer;
 import frc.robot.util.vision.Vision.BW.BWCamera;
-//import frc.robot.util.EstimatedRobotPose;
-import frc.robot.util.FieldUtil;
-
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 public final class Vision extends SubsystemBase{
+
+    @FunctionalInterface
+    public static interface EstimateConsumer {
+        public void accept(Pose2d pose, double timestamp, Matrix<N3, N1> estimationStdDevs);
+    }
 
     private List<PhotonPipelineResult> latestResults;
     
@@ -50,10 +47,16 @@ public final class Vision extends SubsystemBase{
 
     private final AprilTagFieldLayout kTagLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
-    private final Map<BWCamera, PhotonPoseEstimator> estimators = new EnumMap<>(BWCamera.class);    
+    private final Map<BWCamera, PhotonPoseEstimator> estimators = new EnumMap<>(BWCamera.class);   
+    
+    private final NetworkTable visionTable;
+
 
     //TODO: PUBLISH VALUES TO NETWORK TABLES
     public Vision(EstimateConsumer estC) {
+
+        visionTable = NetworkTableInstance.getDefault().getTable("Vision");
+
         for(BWCamera cam : BW.BWCamera.values()) {
             PhotonPoseEstimator estimator = new PhotonPoseEstimator(kTagLayout, cam.robotToCameraOffset);
 
@@ -63,14 +66,52 @@ public final class Vision extends SubsystemBase{
         estConsumer = estC;
     }
 
-    private void updateEstimationStdDevs(Optional<EstimatedRobotPose> visionEst, List<PhotonTrackedTarget> targets) {
-        
+    private void updateEstimationStdDevs(Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets, PhotonPoseEstimator photonEstimator) {
+        if (estimatedPose.isEmpty()) {
+            // No pose input. Default to single-tag std devs
+            curStdDevs = Constants.VisionConstants.kSINGLE_TAG_STD_DEVS;
+
+        } else {
+            // Pose present. Start running Heuristic
+            var estStdDevs = Constants.VisionConstants.kSINGLE_TAG_STD_DEVS;
+            int numTags = 0;
+            double avgDist = 0;
+
+            // Precalculation - see how many tags we found, and calculate an average-distance metric
+            for (var tgt : targets) {
+                var tagPose = photonEstimator.getFieldTags().getTagPose(tgt.getFiducialId());
+                if (tagPose.isEmpty()) continue;
+                numTags++;
+                avgDist +=
+                        tagPose
+                                .get()
+                                .toPose2d()
+                                .getTranslation()
+                                .getDistance(estimatedPose.get().estimatedPose.toPose2d().getTranslation());
+            }
+
+            if (numTags == 0) {
+                // No tags visible. Default to single-tag std devs
+                curStdDevs = Constants.VisionConstants.kSINGLE_TAG_STD_DEVS;
+            } else {
+                // One or more tags visible, run the full heuristic.
+                avgDist /= numTags;
+                // Decrease std devs if multiple targets are visible
+                if (numTags > 1) estStdDevs = Constants.VisionConstants.kMULTI_TAG_STD_DEVS;
+                // Increase std devs based on (average) distance
+                if (numTags == 1 && avgDist > 4)
+                    estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+                else estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
+                curStdDevs = estStdDevs;
+            }
+        }
     }
 
     public Matrix<N3, N1> getEstimationStdDevs() {
         return curStdDevs;
     }
     
+    //Returns an Array of 4 EstimatedRobotPose Objects (1 per camera)
     public List<EstimatedRobotPose> getEstimatedGlobalPoses(Pose2d referencePose) {
         List<EstimatedRobotPose> allEstimates = new ArrayList<>();
         for(BWCamera cam : BWCamera.values()) {
@@ -79,12 +120,12 @@ public final class Vision extends SubsystemBase{
             if(estimator == null) continue;
 
             Optional<EstimatedRobotPose> visionEst = Optional.empty();
-            for (var result : cam.camera.getAllUnreadResults()) {
+            for (var result : cam.getCamera().getAllUnreadResults()) {
                 visionEst = estimator.estimateCoprocMultiTagPose(result);
                 if (visionEst.isEmpty()) {
                     visionEst = estimator.estimateLowestAmbiguityPose(result);
                 }
-                updateEstimationStdDevs(visionEst, result.getTargets());
+                updateEstimationStdDevs(visionEst, result.getTargets(), estimator);
 
                 // if (Robot.isSimulation()) {
                 //     visionEst.ifPresentOrElse(
@@ -95,17 +136,17 @@ public final class Vision extends SubsystemBase{
                 //         () -> {
                 //             getSimDebugField().getObject("VisionEstimation").setPoses();
                 //         });
-            }
-            visionEst.ifPresent(
+                visionEst.ifPresent(
                     est -> {
                         // Change our trust in the measurement based on the tags we can see
                         var estStdDevs = getEstimationStdDevs();
-
                         estConsumer.accept(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
                     });
             }
-            return allEstimates;
+            allEstimates.add(visionEst.get());
         }
+        return allEstimates;
+    }
 
 
 

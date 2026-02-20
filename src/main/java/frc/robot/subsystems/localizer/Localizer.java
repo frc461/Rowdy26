@@ -24,11 +24,6 @@ import frc.robot.util.vision.Vision.BW.BWCamera;
 
 public class Localizer {
 
-    @FunctionalInterface
-    public static interface EstimateConsumer {
-        public void accept(Pose2d pose, double timestamp, Matrix<N3, N1> estimationStdDevs);
-    }
-
     private final AprilTagFieldLayout kTagLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
 

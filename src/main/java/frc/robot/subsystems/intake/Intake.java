@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.subsystems.spindexer.Spindexer;
 
-public class Intake extends SubsystemBase{
-    private final TalonFX DeployKraken = new TalonFX(52);
-    private final TalonFX IntakeKraken = new TalonFX(56);
+public class Intake extends SubsystemBase{ //Always use extends SubsystemBase to make sure you can refrence this class in Robot Container 
+    private final TalonFX DeployKraken = new TalonFX(52); //giving the intake motors the correct CAN ID
+    private final TalonFX IntakeKraken = new TalonFX(56); // CAN ID's are taken form Phoneix Tuner
     private final VoltageOut voltageControl = new VoltageOut(0);
 
     public void setIntakeVoltage(double volts) {
@@ -22,7 +22,7 @@ public class Intake extends SubsystemBase{
     public void setDeployVoltage(double volts) {
         DeployKraken.setControl(voltageControl.withOutput(volts));
     }
-
+    //setting it so that all you need to do is give the voltage number in Robot Container and it will run the set Motor
     private final VelocityVoltage velocityControl = new VelocityVoltage(0);
 
 
@@ -33,5 +33,5 @@ public class Intake extends SubsystemBase{
         IntakeKraken.setControl(
             velocityControl.withVelocity(rotationsPerSecond)
         );
-    }
+    }// setiing the correct amount of rotations needed for each motor, change the values if needed in Robot Container just like Voltage Control
 }

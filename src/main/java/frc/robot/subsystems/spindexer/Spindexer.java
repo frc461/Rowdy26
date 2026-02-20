@@ -10,7 +10,7 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
-public class Spindexer extends SubsystemBase{
+public class Spindexer extends SubsystemBase{//Always use extends SubsystemBase to make sure you can refrence this class in Robot Container
     private final TalonFX SpindexerKraken = new TalonFX(50);
     private final TalonFX KickerKraken = new TalonFX(55);//Kicker
 

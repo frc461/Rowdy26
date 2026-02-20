@@ -194,7 +194,7 @@ public class RobotContainer {
     );
 
     opjoystick.b().whileTrue(
-     Commands.sequence(
+      Commands.sequence(
             Commands.run(
             () -> spindexer.setVoltage(-16),
             spindexer
@@ -209,6 +209,15 @@ public class RobotContainer {
     Commands.runOnce(
         () -> spindexer.setVoltage(0),
         spindexer
+        
+      )
+    );
+    
+    opjoystick.b().whileTrue(
+      Commands.startEnd(
+        () -> intake.setIntakeVoltage(16),
+        () -> intake.setIntakeVoltage(0),
+        intake
       )
     );
   }

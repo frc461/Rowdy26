@@ -220,7 +220,6 @@ public class RobotContainer {
       )
     );
     
-<<<<<<< HEAD
     // opjoystick.b().whileTrue(
     //   Commands.startEnd(
     //     () -> intake.setIntakeVoltage(16),
@@ -228,15 +227,6 @@ public class RobotContainer {
     //     intake
     //   )
     // );
-=======
-    opjoystick.b().whileTrue(
-      Commands.startEnd(
-        () -> intake.setIntakeVoltage(-16),
-        () -> intake.setIntakeVoltage(0),
-        intake
-      )
-    );
->>>>>>> 8dd9b739793d500dbc07c5edff7f4aa836e24765
   }
   
   

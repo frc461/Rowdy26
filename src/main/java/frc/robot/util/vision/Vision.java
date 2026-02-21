@@ -136,7 +136,7 @@ public final class Vision extends SubsystemBase{
                         estConsumer.accept(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
                     });
             }
-            allEstimates.add(visionEst.get());
+            visionEst.ifPresent(allEstimates::add);
         }
         return allEstimates;
     }

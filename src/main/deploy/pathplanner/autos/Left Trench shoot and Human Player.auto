@@ -11,6 +11,12 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "Stop All"
@@ -20,6 +26,36 @@
           "type": "path",
           "data": {
             "pathName": "LT to Human Player"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Human Player to Tower"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Tower Preset"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop All"
           }
         }
       ]

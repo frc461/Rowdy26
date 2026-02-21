@@ -79,8 +79,6 @@ public class RobotContainer {
 
   public final Swerve drivetrain = TunerConstants.createDrivetrain();
 
-  public double rPM;
-
 
   public Command getAutonomousCommand() {
     return new PathPlannerAuto("Left Trench shoot and Human Player");
@@ -148,6 +146,15 @@ public class RobotContainer {
 
     // drivetrain.registerTelemetry(logger::telemeterize);
 
+    double launcherRPM = SmartDashboard.getNumber("Launcher RPM", 0.0);
+    double hoodAngle = SmartDashboard.getNumber("Hood ANGLE", 0.0);
+    
+    drjoystick.rightBumper().onTrue(Commands.run(()-> {
+          launcher.setFlywheelVelocity(launcherRPM);
+          launcher.setHoodPosition(hoodAngle);
+        },
+          launcher));
+
     opjoystick.rightBumper().whileTrue(
         Commands.startEnd(
           () -> intake.setIntakeVoltage(-16),
@@ -213,13 +220,13 @@ public class RobotContainer {
       )
     );
     
-    opjoystick.b().whileTrue(
-      Commands.startEnd(
-        () -> intake.setIntakeVoltage(16),
-        () -> intake.setIntakeVoltage(0),
-        intake
-      )
-    );
+    // opjoystick.b().whileTrue(
+    //   Commands.startEnd(
+    //     () -> intake.setIntakeVoltage(16),
+    //     () -> intake.setIntakeVoltage(0),
+    //     intake
+    //   )
+    // );
   }
   
   

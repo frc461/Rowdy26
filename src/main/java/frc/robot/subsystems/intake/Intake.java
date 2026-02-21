@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.spindexer.Spindexer;
 
 public class Intake extends SubsystemBase{
-    private final TalonFX DeployKraken = new TalonFX(52);
-    private final TalonFX IntakeKraken = new TalonFX(56);
+    private final TalonFX DeployKraken = new TalonFX(52); 
+    private final TalonFX IntakeKraken = new TalonFX(56); 
     private final VoltageOut voltageControl = new VoltageOut(0);
 
     public void setIntakeVoltage(double volts) {
@@ -23,7 +23,7 @@ public class Intake extends SubsystemBase{
         DeployKraken.setControl(voltageControl.withOutput(volts));
     }
 
-    private final VelocityVoltage velocityControl = new VelocityVoltage(0);
+        private final VelocityVoltage velocityControl = new VelocityVoltage(0);
 
 
     public void setVelocity(double rotationsPerSecond) {

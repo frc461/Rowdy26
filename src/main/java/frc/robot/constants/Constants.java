@@ -37,13 +37,7 @@ public final class Constants {
         public static double CAMERA_BR_LEFT;
         public static double CAMERA_BR_UP;
 
-        public static String CAMERA_BL_NAME; 
-        public static double CAMERA_BL_YAW;
-        public static double CAMERA_BL_PITCH;
-        public static double CAMERA_BL_ROLL;
-        public static double CAMERA_BL_FORWARD;
-        public static double CAMERA_BL_LEFT;
-        public static double CAMERA_BL_UP;
+
         
         // Trust Constants
 

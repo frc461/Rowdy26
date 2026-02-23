@@ -231,21 +231,8 @@ public final class Vision extends SubsystemBase{
                         Units.degreesToRadians(Constants.VisionConstants.CAMERA_BR_YAW)
                     )
                 )
-            ),
-
-            CAMERA_BL (
-                new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.CAMERA_BL_NAME),
-                new Transform3d(
-                    Constants.VisionConstants.CAMERA_BL_FORWARD,
-                    Constants.VisionConstants.CAMERA_BL_LEFT,
-                    Constants.VisionConstants.CAMERA_BL_UP,
-                    new Rotation3d(
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_BL_PITCH),
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_BL_ROLL),
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_BL_YAW)
-                    )
-                )
             );
+
 
             final PhotonCamera camera; 
             final Transform3d robotToCameraOffset;
@@ -273,7 +260,6 @@ public final class Vision extends SubsystemBase{
             case CAMERA_FR -> latestResultCameraFR;
             case CAMERA_FL -> latestResultCameraFL;
             case CAMERA_BR -> latestResultCameraBR;
-            case CAMERA_BL -> latestResultCameraBL;
         };
     }
     public static boolean hasTargets(BWCamera camera) {
@@ -281,7 +267,6 @@ public final class Vision extends SubsystemBase{
             case CAMERA_FR -> latestResultCameraFR.hasTargets();
             case CAMERA_FL -> latestResultCameraFL.hasTargets();
             case CAMERA_BR -> latestResultCameraBR.hasTargets();
-            case CAMERA_BL -> latestResultCameraBL.hasTargets();
         };
         
     }

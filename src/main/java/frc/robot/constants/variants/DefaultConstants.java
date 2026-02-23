@@ -31,13 +31,6 @@ public class DefaultConstants {
     public static double CAMERA_BR_LEFT = 0;
     public static double CAMERA_BR_UP = 0;
 
-    public static String CAMERA_BL_NAME = "CAMERA_BL"; 
-    public static double CAMERA_BL_YAW = 180;
-    public static double CAMERA_BL_PITCH = 0;
-    public static double CAMERA_BL_ROLL = 0;
-    public static double CAMERA_BL_FORWARD = 0;
-    public static double CAMERA_BL_LEFT = 0;
-    public static double CAMERA_BL_UP = 0;
 
     //TWEAK VALUES IN TESTING
     public static double MAX_VALID_DIST = 5.0; //Meters

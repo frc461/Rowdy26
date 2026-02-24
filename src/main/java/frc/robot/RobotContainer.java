@@ -122,14 +122,13 @@ public class RobotContainer {
     /*
     * drjoystick Y = quasistatic forward
     * drjoystick A = quasistatic reverse
-    * drjoystick B = dynamic forward
+    * drjoystick B = dynamic forward\
     * drjoystick X = dyanmic reverse
     */
     // drjoystick.y().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
     // drjoystick.a().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
-    // drjoystick.b().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kForward));
+    // drjoystick.b().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kForward));   
     // drjoystick.x().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
-    //  Reset the field-centric heading on left bumper press.
 
 
     drjoystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
@@ -140,8 +139,8 @@ public class RobotContainer {
       )
     );
 
-    // LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
-    // drjoystick.rightBumper().onTrue(m_LauncherCommand);
+    LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
+    drjoystick.rightBumper().onTrue(m_LauncherCommand);
 
 
     // drivetrain.registerTelemetry(logger::telemeterize);
@@ -220,13 +219,13 @@ public class RobotContainer {
       )
     );
     
-    // opjoystick.b().whileTrue(
-    //   Commands.startEnd(
-    //     () -> intake.setIntakeVoltage(16),
-    //     () -> intake.setIntakeVoltage(0),
-    //     intake
-    //   )
-    // );
+    opjoystick.b().whileTrue(
+      Commands.startEnd(
+        () -> intake.setIntakeVoltage(16),
+        () -> intake.setIntakeVoltage(0),
+        intake
+      )
+    );
   }
   
   

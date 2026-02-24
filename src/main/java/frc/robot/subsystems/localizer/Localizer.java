@@ -43,8 +43,12 @@ public class Localizer {
 
     public Field2d fieldOdom;
 
+    private Pose2d currentPose;
+
 
     public Localizer(Swerve swerve) {
+
+        currentPose = new Pose2d();
         fieldOdom = new Field2d();
 
         this.swerve = swerve;
@@ -76,7 +80,7 @@ public class Localizer {
     }
 
     public void periodic() {
-        Pose2d currentPose = poseEstimator.getEstimatedPosition();
+        currentPose = poseEstimator.getEstimatedPosition();
         vision.getEstimatedGlobalPoses(currentPose);
 
         fieldOdom.setRobotPose(currentPose);

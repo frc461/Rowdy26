@@ -23,6 +23,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.Matrix;
 import frc.robot.Robot;
 import frc.robot.constants.Constants;
@@ -38,9 +39,6 @@ public class Localizer {
     private final Vision vision;
     private final SwerveDrivePoseEstimator poseEstimator;
     
-    private final NetworkTable odoTable;
-    private final StructPublisher<Pose2d> posePublisher;
-
     private final Swerve swerve;
 
     public Field2d fieldOdom = new Field2d();
@@ -64,8 +62,7 @@ public class Localizer {
         });
 
         //TEMP, unsure if correct.
-        odoTable = NetworkTableInstance.getDefault().getTable("Odometry");
-        posePublisher = odoTable.getStructTopic("RobotPose", Pose2d.struct).publish();
+        SmartDashboard.putData("Field", fieldOdom);
 
     }
 

@@ -41,10 +41,11 @@ public class Localizer {
     
     private final Swerve swerve;
 
-    public Field2d fieldOdom = new Field2d();
+    public Field2d fieldOdom;
 
 
     public Localizer(Swerve swerve) {
+        fieldOdom = new Field2d();
 
         this.swerve = swerve;
 

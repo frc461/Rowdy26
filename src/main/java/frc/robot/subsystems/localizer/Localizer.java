@@ -22,6 +22,7 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructPublisher;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.math.Matrix;
 import frc.robot.Robot;
 import frc.robot.constants.Constants;
@@ -41,6 +42,8 @@ public class Localizer {
     private final StructPublisher<Pose2d> posePublisher;
 
     private final Swerve swerve;
+
+    public Field2d fieldOdom = new Field2d();
 
 
     public Localizer(Swerve swerve) {
@@ -77,6 +80,8 @@ public class Localizer {
     public void periodic() {
         Pose2d currentPose = poseEstimator.getEstimatedPosition();
         vision.getEstimatedGlobalPoses(currentPose);
+
+        fieldOdom.setRobotPose(currentPose);
     }
     
 

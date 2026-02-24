@@ -44,7 +44,6 @@ public final class Vision extends SubsystemBase{
     public static PhotonPipelineResult latestResultCameraFR = new PhotonPipelineResult();
     public static PhotonPipelineResult latestResultCameraFL = new PhotonPipelineResult();
     public static PhotonPipelineResult latestResultCameraBR = new PhotonPipelineResult();
-    public static PhotonPipelineResult latestResultCameraBL = new PhotonPipelineResult();
 
     private final AprilTagFieldLayout kTagLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
@@ -113,7 +112,7 @@ public final class Vision extends SubsystemBase{
         return curStdDevs;
     }
     
-    //Returns an Array of 4 EstimatedRobotPose Objects (1 per camera)
+    //Returns an Array of 3 EstimatedRobotPose Objects (1 per camera)
     public List<EstimatedRobotPose> getEstimatedGlobalPoses(Pose2d referencePose) {
         List<EstimatedRobotPose> allEstimates = new ArrayList<>();
         for(BWCamera cam : BWCamera.values()) {

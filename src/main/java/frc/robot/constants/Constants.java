@@ -2,6 +2,9 @@ package frc.robot.constants;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -46,7 +49,16 @@ public final class Constants {
         public static double MAX_VALID_DIST;
         public static Matrix<N3, N1> kSINGLE_TAG_STD_DEVS;
         public static Matrix<N3, N1> kMULTI_TAG_STD_DEVS;
+        public static Matrix<N3, N1> ODOM_STD_DEV;
 
+
+    }
+
+    public final class SwerveConstants {
+        public static Translation2d k_frontLeftLocation;
+        public static Translation2d k_frontRightLocation;
+        public static Translation2d k_backLeftLocation;
+        public static Translation2d k_backRightLocation;
     }
 
     

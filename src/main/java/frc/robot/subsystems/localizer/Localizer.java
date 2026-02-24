@@ -24,6 +24,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.math.Matrix;
 import frc.robot.Robot;
+import frc.robot.constants.Constants;
+import frc.robot.subsystems.drivetrain.Swerve;
 import frc.robot.util.vision.Vision.BW;
 import frc.robot.util.vision.Vision.BW.BWCamera;
 import frc.robot.util.vision.Vision;
@@ -38,8 +40,22 @@ public class Localizer {
     private final NetworkTable odoTable;
     private final StructPublisher<Pose2d> posePublisher;
 
-    public Localizer(SwerveDriveKinematics kinematics, Rotation2d gyroAngle, SwerveModulePosition[] modulePositions, Pose2d initialPose) {
-        poseEstimator = new SwerveDrivePoseEstimator(kinematics, gyroAngle, modulePositions, initialPose);
+    private final Swerve swerve;
+
+
+    public Localizer(Swerve swerve) {
+
+        this.swerve = swerve;
+
+        poseEstimator = new SwerveDrivePoseEstimator(
+            this.swerve.getKinematics(), 
+            this.swerve.getState().RawHeading,
+            this.swerve.getState().ModulePositions,
+            this.swerve.getState().Pose,
+            Constants.VisionConstants.ODOM_STD_DEV,
+            Constants.VisionConstants.kMULTI_TAG_STD_DEVS
+        );
+       
         vision = new Vision((pose, timestamp, stdDevs) -> {
             poseEstimator.addVisionMeasurement(pose, timestamp, stdDevs);
         });
@@ -60,8 +76,7 @@ public class Localizer {
 
     public void periodic() {
         Pose2d currentPose = poseEstimator.getEstimatedPosition();
-
-        vision.getEstimatedGlobalPoses(currentPose); 
+        vision.getEstimatedGlobalPoses(currentPose);
     }
     
 

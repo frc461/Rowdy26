@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 16.020256776034234,
-        "y": 7.35376604850214
+        "x": 15.995891566265058,
+        "y": 7.400734939759036
       },
       "prevControl": null,
       "nextControl": {
-        "x": 15.205121255349502,
-        "y": 5.542353780313838
+        "x": 13.919626506024095,
+        "y": 6.264253012048194
       },
       "isLocked": false,
       "linkedName": "Human Player Station"
@@ -20,8 +20,8 @@
         "y": 4.31318116975749
       },
       "prevControl": {
-        "x": 14.842838801711839,
-        "y": 6.163409415121254
+        "x": 14.389518072289157,
+        "y": 5.12777108433735
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -179.2838400545296
+    "rotation": -90.17615612107289
   },
   "useDefaultConstraints": true
 }

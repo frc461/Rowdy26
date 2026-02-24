@@ -68,6 +68,8 @@ public class Launcher extends SubsystemBase {
             new Follower(50, MotorAlignmentValue.Aligned)
         );
 
+        SmartDashboard.putNumber(KEY_HOOD_ANGLE, 0.0);
+        SmartDashboard.putNumber(KEY_FLY_RPM, 0.0);
     }
 
     private final VoltageOut voltageControl = new VoltageOut(0);
@@ -113,12 +115,25 @@ public class Launcher extends SubsystemBase {
         FlywheelBKraken.stopMotor();
     }
 
+    private static final String KEY_FLY_RPM = "Launcher RPM";
+    private static final String KEY_HOOD_ANGLE = "Hood ANG" ;
+    
+
     @Override
     public void periodic() {
 
         SmartDashboard.putNumber("Flywheel Actual RPM", FlywheelAKraken.getVelocity().getValueAsDouble() * 60.0);
         SmartDashboard.putNumber("Flywheel Target RPM", targetFlywheelRPM);
         SmartDashboard.putNumber("Flywheel Temperature", FlywheelAKraken.getDeviceTemp().getValueAsDouble());
+        SmartDashboard.putNumber("Hood Position", HoodKraken.getPosition().getValueAsDouble());
+        
+        double hoodAngle = SmartDashboard.getNumber(KEY_HOOD_ANGLE, 0.0);
+        double launcherRPM = SmartDashboard.getNumber(KEY_FLY_RPM, 0.0);
+       
+        // launcherRPM = (launcherRPM > 6000) ? 6000 : ((launcherRPM < 0) ? 0 : launcherRPM);
+        // kickerRPM = (kickerRPM > 6000) ? 6000 : ((kickerRPM < 0) ? 0 : kickerRPM);
 
+        setFlywheelVelocity(launcherRPM);
+        setHoodPosition(hoodAngle);
     }
 }

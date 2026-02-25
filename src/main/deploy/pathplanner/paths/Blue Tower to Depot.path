@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.6040963855421686,
+        "y": 4.100566265060241
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.0343399752857576,
+        "y": 4.995938059932036
+      },
+      "isLocked": false,
+      "linkedName": "BlueTowerShoot"
+    },
+    {
+      "anchor": {
+        "x": 1.1884230769230784,
+        "y": 5.918769230769231
+      },
+      "prevControl": {
+        "x": 1.7000641025641035,
+        "y": 5.732717948717948
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "BlueDepot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": true
+}

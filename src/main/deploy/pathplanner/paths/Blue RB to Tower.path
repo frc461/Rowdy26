@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.5140641025641033,
+        "y": 2.465192307692308
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.3279871794871805,
+        "y": 2.3954230769230773
+      },
+      "isLocked": false,
+      "linkedName": "BlueRightBumpStartPoint"
+    },
+    {
+      "anchor": {
+        "x": 1.6040963855421686,
+        "y": 4.100566265060241
+      },
+      "prevControl": {
+        "x": 2.5459810009267843,
+        "y": 4.123822675316652
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "BlueTowerShoot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": true
+}

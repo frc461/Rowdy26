@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.4675512820512835,
-        "y": 4.035
+        "x": 3.502435897435899,
+        "y": 4.011743589743591
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.2334875444839866,
-        "y": 6.988398576512456
+        "x": 1.2683721598686022,
+        "y": 6.965142166256046
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueShootAtHub"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueCenter"
     }
   ],
   "rotationTargets": [],

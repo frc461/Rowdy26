@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.4442948717948725,
-        "y": 0.6395641025641032
+        "x": 3.4559230769230784,
+        "y": 1.1279487179487193
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.2931282051282067,
-        "y": 3.2210256410256406
+        "x": 3.3047564102564126,
+        "y": 3.7094102564102567
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueRightTrenchStartPoint"
     },
     {
       "anchor": {
-        "x": 3.4442948717948725,
-        "y": 4.023371794871795
+        "x": 3.502435897435899,
+        "y": 4.011743589743591
       },
       "prevControl": {
-        "x": 3.409410256410257,
-        "y": 3.476846153846154
+        "x": 3.4675512820512835,
+        "y": 3.46521794871795
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueShootAtHub"
     }
   ],
   "rotationTargets": [],
@@ -48,7 +48,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 63.099999999999994
+    "rotation": 69.0
   },
   "useDefaultConstraints": true
 }

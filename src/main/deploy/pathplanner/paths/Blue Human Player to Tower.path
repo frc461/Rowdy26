@@ -12,20 +12,20 @@
         "y": 2.302397435897437
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueHumanPlayerStation"
     },
     {
       "anchor": {
-        "x": 1.6535512820512839,
-        "y": 3.755923076923077
+        "x": 1.6040963855421686,
+        "y": 4.100566265060241
       },
       "prevControl": {
-        "x": 2.851256410256412,
-        "y": 3.755923076923077
+        "x": 2.801801513747297,
+        "y": 4.100566265060241
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueTowerShoot"
     }
   ],
   "rotationTargets": [],

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.4068446026097274,
-        "y": 4.051138790035587
+        "x": 3.502435897435899,
+        "y": 4.011743589743591
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2202075140385538,
-        "y": 4.051138790035587
+        "x": 2.3157988088647254,
+        "y": 4.011743589743591
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueShootAtHub"
     },
     {
       "anchor": {
-        "x": 1.1796915776986958,
-        "y": 5.955516014234875
+        "x": 1.1884230769230784,
+        "y": 5.918769230769231
       },
       "prevControl": {
-        "x": 1.1796915776986958,
-        "y": 6.50518339622403
+        "x": 1.1884230769230784,
+        "y": 6.468436612758386
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueDepot"
     }
   ],
   "rotationTargets": [],

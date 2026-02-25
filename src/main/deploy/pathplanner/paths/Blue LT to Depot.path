@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.409410256410257,
-        "y": 6.860653846153846
+        "x": 3.502435897435899,
+        "y": 6.883910256410257
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.432641025641026,
-        "y": 6.756
+        "x": 2.5256666666666683,
+        "y": 6.779256410256411
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueTrenchStart"
     },
     {
       "anchor": {
-        "x": 1.141910256410258,
-        "y": 5.930397435897436
+        "x": 1.1884230769230784,
+        "y": 5.918769230769231
       },
       "prevControl": {
-        "x": 2.095423076923078,
-        "y": 5.953653846153847
+        "x": 2.141935897435898,
+        "y": 5.942025641025642
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueDepot"
     }
   ],
   "rotationTargets": [],

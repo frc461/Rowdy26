@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.439122182680902,
-        "y": 4.061897983392646
+        "x": 3.502435897435899,
+        "y": 4.011743589743591
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.782811387900357,
-        "y": 4.029620403321471
+        "x": 2.846125102655354,
+        "y": 3.979466009672416
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueShootAtHub"
     },
     {
       "anchor": {
-        "x": 0.5556583629893244,
-        "y": 0.6727520759193351
+        "x": 0.4907307692307705,
+        "y": 0.6395641025641032
       },
       "prevControl": {
-        "x": 0.5018623962040336,
-        "y": 1.8993001186239622
+        "x": 0.4369348024454798,
+        "y": 1.8661121452687304
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueHumanPlayerStation"
     }
   ],
   "rotationTargets": [],

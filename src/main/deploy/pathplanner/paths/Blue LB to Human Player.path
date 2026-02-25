@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.479179487179488,
-        "y": 5.604807692307693
+        "x": 3.54922891566265,
+        "y": 5.4883855421686745
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4675256410256416,
-        "y": 5.616435897435898
+        "x": 2.5375750695088035,
+        "y": 5.5000137472968795
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueLeftBumpStartPosition"
     },
     {
       "anchor": {
-        "x": 0.5139871794871811,
-        "y": 0.6163076923076927
+        "x": 0.4907307692307705,
+        "y": 0.6395641025641032
       },
       "prevControl": {
-        "x": 1.5954102564102572,
-        "y": 1.441910256410257
+        "x": 1.5721538461538467,
+        "y": 1.4651666666666676
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueHumanPlayerStation"
     }
   ],
   "rotationTargets": [],

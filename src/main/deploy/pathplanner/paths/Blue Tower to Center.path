@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.6535512820512839,
-        "y": 3.732666666666667
+        "x": 1.6040963855421686,
+        "y": 4.100566265060241
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5023846153846172,
-        "y": 9.197923076923077
+        "x": 1.452929718875502,
+        "y": 9.565822675316651
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueTowerShoot"
     },
     {
       "anchor": {
-        "x": 7.33974358974359,
-        "y": 5.872256410256409
+        "x": 7.3746282051213745,
+        "y": 6.151333333327653
       },
       "prevControl": {
-        "x": 6.746705128205129,
-        "y": 7.63974358974359
+        "x": 8.543192771084337,
+        "y": 7.138469879518072
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueCenter"
     }
   ],
   "rotationTargets": [],

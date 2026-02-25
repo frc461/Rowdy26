@@ -12,20 +12,20 @@
         "y": 2.488448717948718
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueRightBumpStartPoint"
     },
     {
       "anchor": {
-        "x": 1.165166666666668,
-        "y": 5.942025641025641
+        "x": 1.1884230769230784,
+        "y": 5.918769230769231
       },
       "prevControl": {
-        "x": 2.0372820512820526,
-        "y": 5.895512820512821
+        "x": 2.0605384615384628,
+        "y": 5.872256410256411
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueDepot"
     }
   ],
   "rotationTargets": [],

@@ -12,7 +12,7 @@
         "y": 0.41862820512820453
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueRightTrenchStartPoint"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BlueRightCenter"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 89.35313965124843
   },
   "reversed": false,
   "folder": null,

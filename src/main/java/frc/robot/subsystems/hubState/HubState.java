@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class HubState extends SubsystemBase {
     
     private boolean isHubActive = true; 
+    private String dashColor = "RED"; 
     
     public void MatchStateSubsystem() {
         // Initialize Dashboard variables
@@ -60,7 +61,24 @@ public class HubState extends SubsystemBase {
             }
         }
         
-        // 5. Publish to Elastic
+        double shiftTimeRemaining = calculateShiftTime(matchTime);
+        //boolean willBeActiveNext = !isHubActive; // If not active now, it will be next
+
+        if (isHubActive) {
+        // CURRENTLY ACTIVE: Solid Green
+        dashColor = "GREEN";
+        } else if ( shiftTimeRemaining < 2.0) {
+        // NOT ACTIVE YET, BUT SHIFT STARTS IN < 2 SECONDS: Yellow/Warning
+        dashColor = "YELLOW";
+        } else {
+        // INACTIVE: Solid Red
+        dashColor = "RED";
+        }
+
+        // 5. Publish to SmartDashboard for Elastic
+        SmartDashboard.putString("Action Color", dashColor);
+        SmartDashboard.putBoolean("Shoot Now", isHubActive);
+
         SmartDashboard.putBoolean("Is Hub Active", isHubActive);
         SmartDashboard.putNumber("Shift Time Remaining", calculateShiftTime(matchTime));
         SmartDashboard.putString("Current Shift", currentShift(matchTime));
@@ -93,4 +111,7 @@ public class HubState extends SubsystemBase {
     public boolean canScore() {
         return isHubActive;
     }
+    // Add this to your class variables
+
+    // ... (Keep your existing matchTime and shift logic here) ...
 }

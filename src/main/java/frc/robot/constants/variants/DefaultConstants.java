@@ -13,19 +13,19 @@ public class DefaultConstants {
     public static final class VisionConstants {
         public static final String CAMERA_FR_NAME = "CAMERA_FR"; 
         public static final double CAMERA_FR_YAW = 0;
-        public static final double CAMERA_FR_PITCH = 0;
+        public static final double CAMERA_FR_PITCH = 28.812;
         public static final double CAMERA_FR_ROLL = 0;
-        public static final double CAMERA_FR_FORWARD = 0;
-        public static final double CAMERA_FR_LEFT = 0;
-        public static final double CAMERA_FR_UP = 0;
+        public static final double CAMERA_FR_FORWARD = 15.03;
+        public static final double CAMERA_FR_LEFT = -1.475;
+        public static final double CAMERA_FR_UP = 20;
 
         public static final String CAMERA_FL_NAME = "CAMERA_FL"; 
-        public static final double CAMERA_FL_YAW = 180;
-        public static final double CAMERA_FL_PITCH = 0;
+        public static final double CAMERA_FL_YAW = 45;
+        public static final double CAMERA_FL_PITCH = 14.864;
         public static final double CAMERA_FL_ROLL = 0;
-        public static final double CAMERA_FL_FORWARD = 0;
-        public static final double CAMERA_FL_LEFT = 0;
-        public static final double CAMERA_FL_UP = 0;
+        public static final double CAMERA_FL_FORWARD = 9.893;
+        public static final double CAMERA_FL_LEFT = -7.310;
+        public static final double CAMERA_FL_UP = 20;
 
         public static final String CAMERA_BR_NAME = "CAMERA_BR"; 
         public static final double CAMERA_BR_YAW = 0;
@@ -44,10 +44,7 @@ public class DefaultConstants {
     }
 
     public static final class SwerveConstants {
-        public static final Translation2d k_frontLeftLocation = new Translation2d(0.381, 0.381);
-        public static final Translation2d k_frontRightLocation = new Translation2d(0.381, -0.381);
-        public static final Translation2d k_backLeftLocation = new Translation2d(-0.381, 0.381);
-        public static final Translation2d k_backRightLocation = new Translation2d(-0.381, -0.381);
+
     }
 
 

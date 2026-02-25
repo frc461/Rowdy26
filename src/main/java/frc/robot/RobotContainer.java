@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.constants.TunerConstants;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.drivetrain.Swerve;
 import frc.robot.subsystems.drivetrain.SwerveTelemetry;
 import com.ctre.phoenix6.SignalLogger;
@@ -165,8 +166,8 @@ public class RobotContainer {
     // y sets presets for launcher and hood motor to shoot at hub
     
     opjoystick.y().onTrue(new InstantCommand(() -> {
-          launcher.setFlywheelVelocity(-1950.0);
-          launcher.setHoodPosition(0);
+          launcher.setFlywheelVelocity(Constants.LauncherConstants.HUB_RPM);
+          launcher.setHoodPosition(Constants.LauncherConstants.HUB_HOOD_ANGLE);
         }
       )
     );
@@ -182,8 +183,8 @@ public class RobotContainer {
     //  a sets presets for launcher and hood motor to shoot at tower
     
     opjoystick.a().onTrue(new InstantCommand(() -> {
-          launcher.setFlywheelVelocity(-2250.0);
-          launcher.setHoodPosition(1.25);
+          launcher.setFlywheelVelocity(Constants.LauncherConstants.TOWER_RPM);
+          launcher.setHoodPosition(Constants.LauncherConstants.TOWER_HOOD_ANGLE);
         }
       )
     );

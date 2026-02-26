@@ -68,7 +68,7 @@ public class Localizer extends SubsystemBase {
         });
 
         //TEMP, unsure if correct.
-        SmartDashboard.putData("Field", fieldOdom);
+        SmartDashboard.putData("Field2d Pose", fieldOdom);
 
     }
 

@@ -17,7 +17,7 @@ public class SwerveCommand extends Swerve implements Subsystem {
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
        
         // 2. Publish the Field2d object to NetworkTables
-        SmartDashboard.putData("Field Layout", m_field);
+        SmartDashboard.putData("Field2d Pose", m_field);
     }
 
     // ... other constructors ...

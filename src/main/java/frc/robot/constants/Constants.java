@@ -7,6 +7,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public final class Constants {
@@ -15,30 +16,29 @@ public final class Constants {
 
     public final class VisionConstants {
 
+        public static final String CAMERA_FR_NAME = "CAMERA_FR"; 
+        public static final double CAMERA_FR_YAW = 0;
+        public static final double CAMERA_FR_PITCH = 28.812;
+        public static final double CAMERA_FR_ROLL = 0;
+        public static final double CAMERA_FR_FORWARD = 15.03;
+        public static final double CAMERA_FR_LEFT = -1.475;
+        public static final double CAMERA_FR_UP = 20;
 
-        public static String CAMERA_FR_NAME;
-        public static double CAMERA_FR_YAW;
-        public static double CAMERA_FR_PITCH;
-        public static double CAMERA_FR_ROLL;
-        public static double CAMERA_FR_FORWARD;
-        public static double CAMERA_FR_LEFT;
-        public static double CAMERA_FR_UP;
+        public static final String CAMERA_FL_NAME = "CAMERA_FL"; 
+        public static final double CAMERA_FL_YAW = 45;
+        public static final double CAMERA_FL_PITCH = 14.864;
+        public static final double CAMERA_FL_ROLL = 0;
+        public static final double CAMERA_FL_FORWARD = 9.893;
+        public static final double CAMERA_FL_LEFT = -7.310;
+        public static final double CAMERA_FL_UP = 20;
 
-        public static String CAMERA_FL_NAME;
-        public static double CAMERA_FL_YAW;
-        public static double CAMERA_FL_PITCH;
-        public static double CAMERA_FL_ROLL;
-        public static double CAMERA_FL_FORWARD;
-        public static double CAMERA_FL_LEFT;
-        public static double CAMERA_FL_UP;
-
-        public static String CAMERA_BR_NAME; 
-        public static double CAMERA_BR_YAW;
-        public static double CAMERA_BR_PITCH;
-        public static double CAMERA_BR_ROLL;
-        public static double CAMERA_BR_FORWARD;
-        public static double CAMERA_BR_LEFT;
-        public static double CAMERA_BR_UP;
+        public static final String CAMERA_BR_NAME = "CAMERA_BR"; 
+        public static final double CAMERA_BR_YAW = 0;
+        public static final double CAMERA_BR_PITCH = 0;
+        public static final double CAMERA_BR_ROLL = 0;
+        public static final double CAMERA_BR_FORWARD = 0;
+        public static final double CAMERA_BR_LEFT = 0;
+        public static final double CAMERA_BR_UP = 0;
 
 
         
@@ -46,10 +46,10 @@ public final class Constants {
 
         // The standard deviations of our vision estimated poses, which affect correction rate
         // (Fake values. Experiment and determine estimation noise on an actual robot.)
-        public static double MAX_VALID_DIST;
-        public static Matrix<N3, N1> kSINGLE_TAG_STD_DEVS;
-        public static Matrix<N3, N1> kMULTI_TAG_STD_DEVS;
-        public static Matrix<N3, N1> ODOM_STD_DEV;
+        public static double MAX_VALID_DIST = 5.0; //Meters
+        public static Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
+        public static Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
+        public static Matrix<N3, N1> ODOM_STD_DEV = VecBuilder.fill(0.03, 0.03, Units.degreesToRadians(0.01));
 
 
     }

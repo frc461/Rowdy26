@@ -70,11 +70,11 @@ public final class Vision extends SubsystemBase{
     private void updateEstimationStdDevs(Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets, PhotonPoseEstimator photonEstimator) {
         if (estimatedPose.isEmpty()) {
             // No pose input. Default to single-tag std devs
-            curStdDevs = Constants.VisionConstants.kSINGLE_TAG_STD_DEVS;
+            curStdDevs = Constants.VisionConstants.kSingleTagStdDevs;
 
         } else {
             // Pose present. Start running Heuristic
-            var estStdDevs = Constants.VisionConstants.kSINGLE_TAG_STD_DEVS;
+            var estStdDevs = Constants.VisionConstants.kSingleTagStdDevs;
             int numTags = 0;
             double avgDist = 0;
 
@@ -93,12 +93,12 @@ public final class Vision extends SubsystemBase{
 
             if (numTags == 0) {
                 // No tags visible. Default to single-tag std devs
-                curStdDevs = Constants.VisionConstants.kSINGLE_TAG_STD_DEVS;
+                curStdDevs = Constants.VisionConstants.kSingleTagStdDevs;
             } else {
                 // One or more tags visible, run the full heuristic.
                 avgDist /= numTags;
                 // Decrease std devs if multiple targets are visible
-                if (numTags > 1) estStdDevs = Constants.VisionConstants.kMULTI_TAG_STD_DEVS;
+                if (numTags > 1) estStdDevs = Constants.VisionConstants.kMultiTagStdDevs;
                 // Increase std devs based on (average) distance
                 if (numTags == 1 && avgDist > 4)
                     estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);

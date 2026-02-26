@@ -90,7 +90,7 @@ public class RobotContainer {
   private final SwerveTelemetry logger = new SwerveTelemetry(MaxSpeed);
 
 
-public final Swerve drivetrain2 = TunerConstants.createDrivetrain();
+public final Swerve drivetrain = TunerConstants.createDrivetrain();
 
 private void configureBindings() {
   // Note that X is defined as forward according to WPILib convention,

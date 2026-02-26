@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.constants.TunerConstants;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.drivetrain.Swerve;
 import frc.robot.subsystems.drivetrain.SwerveTelemetry;
 import com.ctre.phoenix6.SignalLogger;
@@ -134,8 +135,87 @@ private void configureBindings() {
   // drjoystick.x().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
 
 
-  drjoystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
-  drjoystick.rightBumper().onTrue(
+    drjoystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+    drjoystick.rightBumper().onTrue(
+      Commands.runOnce(
+        () -> launcher.setHoodPosition(0),
+        launcher
+      )
+    );
+
+    LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
+    drjoystick.rightBumper().onTrue(m_LauncherCommand);
+
+
+    // drivetrain.registerTelemetry(logger::telemeterize);
+
+    double launcherRPM = SmartDashboard.getNumber("Launcher RPM", 0.0);
+    double hoodAngle = SmartDashboard.getNumber("Hood ANGLE", 0.0);
+    
+    drjoystick.rightBumper().onTrue(Commands.run(()-> {
+          launcher.setFlywheelVelocity(launcherRPM);
+          launcher.setHoodPosition(hoodAngle);
+        },
+          launcher));
+
+    opjoystick.rightBumper().whileTrue(
+        Commands.startEnd(
+          () -> intake.setIntakeVoltage(-16),
+          () -> intake.setIntakeVoltage(0),
+          intake
+        )
+    );
+
+    // y sets presets for launcher and hood motor to shoot at hub
+    
+    opjoystick.y().onTrue(new InstantCommand(() -> {
+          launcher.setFlywheelVelocity(Constants.LauncherConstants.HUB_RPM);
+          launcher.setHoodPosition(Constants.LauncherConstants.HUB_HOOD_ANGLE);
+        }
+      )
+    );
+
+    opjoystick.x().whileTrue(
+      Commands.startEnd(
+        () -> spindexer.setVoltage(-16),
+        () -> spindexer.setVoltage(0),
+        spindexer
+      )
+    );
+
+    //  a sets presets for launcher and hood motor to shoot at tower
+    
+    opjoystick.a().onTrue(new InstantCommand(() -> {
+          launcher.setFlywheelVelocity(Constants.LauncherConstants.TOWER_RPM);
+          launcher.setHoodPosition(Constants.LauncherConstants.TOWER_HOOD_ANGLE);
+        }
+      )
+    );
+
+    opjoystick.rightTrigger().whileTrue(
+      Commands.startEnd(
+        () -> {
+          launcher.runFlyWheel();
+          launcher.runHood();
+        },
+        () -> launcher.stopFlyWheels(),
+        launcher
+      )
+    );
+
+    opjoystick.b().whileTrue(
+      Commands.sequence(
+            Commands.run(
+            () -> spindexer.setVoltage(-16),
+            spindexer
+        ).withTimeout(0.25),
+
+                Commands.run(
+            () -> spindexer.setVoltage(16),
+            spindexer
+        )
+      )
+    ).onFalse(
     Commands.runOnce(
       () -> { 
         launcher.setHoodPosition(0);

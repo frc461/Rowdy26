@@ -7,7 +7,6 @@ import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 
 public class SwerveCommand extends Swerve implements Subsystem {
 
@@ -18,7 +17,7 @@ public class SwerveCommand extends Swerve implements Subsystem {
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
        
         // 2. Publish the Field2d object to NetworkTables
-        SmartDashboard.putData("Drive/Odometry Field", m_field);
+        SmartDashboard.putData("Field Layout", m_field);
     }
 
     // ... other constructors ...

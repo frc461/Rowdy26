@@ -36,7 +36,6 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.constants.TunerConstants;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.drivetrain.Swerve;
-import frc.robot.subsystems.drivetrain.SwerveCommand;
 import frc.robot.subsystems.drivetrain.SwerveTelemetry;
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.hardware.TalonFX;

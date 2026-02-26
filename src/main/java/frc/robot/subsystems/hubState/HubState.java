@@ -66,13 +66,13 @@ public class HubState extends SubsystemBase {
 
         if (isHubActive) {
         // CURRENTLY ACTIVE: Solid Green
-        dashColor = "GREEN";
+        dashColor = "🟢";
         } else if ( shiftTimeRemaining < 2.0) {
         // NOT ACTIVE YET, BUT SHIFT STARTS IN < 2 SECONDS: Yellow/Warning
-        dashColor = "YELLOW";
+        dashColor = "🟨";
         } else {
         // INACTIVE: Solid Red
-        dashColor = "RED";
+        dashColor = "🛑";
         }
 
         // 5. Publish to SmartDashboard for Elastic

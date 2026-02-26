@@ -198,7 +198,7 @@ private void configureBindings() {
   
   opjoystick.a().onTrue(new InstantCommand(() -> {
         launcher.setFlywheelVelocity(-2000.0);
-        launcher.setHoodPosition(1.25);
+        launcher.setHoodPosition(0.90);
       }
     )
   );

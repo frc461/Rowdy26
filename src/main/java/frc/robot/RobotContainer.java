@@ -11,6 +11,9 @@ import static edu.wpi.first.units.Units.RotationsPerSecond;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import com.ctre.phoenix6.swerve.SwerveDrivetrain;
+import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
+import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.launcher.Launcher;
 import frc.robot.subsystems.launcher.LauncherCommand;
@@ -33,6 +36,7 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.constants.TunerConstants;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.drivetrain.Swerve;
+import frc.robot.subsystems.drivetrain.SwerveCommand;
 import frc.robot.subsystems.drivetrain.SwerveTelemetry;
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -86,7 +90,7 @@ public class RobotContainer {
   private final SwerveTelemetry logger = new SwerveTelemetry(MaxSpeed);
 
 
-public final Swerve drivetrain = TunerConstants.createDrivetrain();
+public final Swerve drivetrain2 = TunerConstants.createDrivetrain();
 
 private void configureBindings() {
   // Note that X is defined as forward according to WPILib convention,
@@ -347,8 +351,7 @@ private void configureBindings() {
     return autoChooser.getSelected();
     // return new PathPlannerAuto("Left Trench shoot and Human Player");
 
-  }
-  
+  }  
   
 
 }

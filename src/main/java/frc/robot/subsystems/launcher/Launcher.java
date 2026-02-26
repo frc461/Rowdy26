@@ -46,8 +46,8 @@ public class Launcher extends SubsystemBase {
         FlywheelAKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.CurrentLimits.SupplyCurrentLimit = 40;
-        config.Slot0.kP = 15;
-        config.Slot0.kI = 0.0;
+        config.Slot0.kP = .4;
+        config.Slot0.kI = 0;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.2056;
         FlywheelAKraken.getConfigurator().apply(config);
@@ -55,8 +55,8 @@ public class Launcher extends SubsystemBase {
         FlywheelBKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.CurrentLimits.SupplyCurrentLimit = 40;
-        config.Slot0.kP = 15;
-        config.Slot0.kI = 0.0;
+        config.Slot0.kP = .4;
+        config.Slot0.kI = 0;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.2056;
         FlywheelBKraken.getConfigurator().apply(config);

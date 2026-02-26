@@ -72,9 +72,9 @@ public final class Constants {
         public static double HUB_CENTER_HEIGHT = 72;
 
         public static double HUB_HOOD_ANGLE = 0.0;
-        public static double HUB_RPM = -1950.0;
+        public static double HUB_RPM = -1725.0;
 
         public static double TOWER_HOOD_ANGLE = 1.25;
-        public static double TOWER_RPM = -2250.0;
+        public static double TOWER_RPM = -2000.0;
     }
 }

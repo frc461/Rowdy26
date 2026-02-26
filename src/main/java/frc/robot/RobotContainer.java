@@ -240,6 +240,26 @@ private void configureBindings() {
 
   
 
+  opjoystick.povUp().whileTrue(
+    Commands.startEnd(
+      () ->intake.setDeployVoltage(-6),
+      () ->intake.setDeployVoltage(0),
+      intake
+    )
+
+  );
+
+  opjoystick.povDown().whileTrue(
+    Commands.startEnd(
+      () ->intake.setDeployVoltage(6),
+      () ->intake.setDeployVoltage(0),
+      intake
+    )
+
+  );
+
+  
+
   // LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
   // drjoystick.rightBumper().onTrue(m_LauncherCommand);
 

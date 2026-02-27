@@ -46,7 +46,6 @@ public class Localizer extends SubsystemBase {
 
     private Pose2d currentPose;
 
-
     public Localizer(Swerve swerve) {
 
         currentPose = new Pose2d();
@@ -81,9 +80,9 @@ public class Localizer extends SubsystemBase {
     }
 
     public void periodic() {
+        poseEstimator.update(this.swerve.getState().RawHeading, this.swerve.getState().ModulePositions);
+        vision.getEstimatedGlobalPoses(poseEstimator.getEstimatedPosition());
         currentPose = poseEstimator.getEstimatedPosition();
-        vision.getEstimatedGlobalPoses(currentPose);
-
         fieldOdom.setRobotPose(currentPose);
     }
     

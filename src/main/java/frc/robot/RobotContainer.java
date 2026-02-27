@@ -57,8 +57,10 @@ public class RobotContainer {
 
     autoChooser = new SendableChooser<>();
     
-    NamedCommands.registerCommand("Shoot Tower Preset", autoCommand.AutoTowerShoot());
+    NamedCommands.registerCommand("Shoot Trench Preset", autoCommand.AutoTrenchShoot());
+    NamedCommands.registerCommand("Shoot Human Player Preset", autoCommand.AutoHumanPlayerShoot());
     NamedCommands.registerCommand("Shoot Hub Preset", autoCommand.AutoHubShoot());
+    NamedCommands.registerCommand("Stop Launcher", autoCommand.StopLauncher());
     NamedCommands.registerCommand("Stop All", autoCommand.StopAll());
     configureBindings();
   }
@@ -346,7 +348,7 @@ private void configureBindings() {
   
   opjoystick.b().whileTrue(
     Commands.startEnd(
-      () -> intake.setIntakeVoltage(-32),
+      () -> intake.setIntakeVoltage(-16),
       () -> intake.setIntakeVoltage(0),
       intake
     )
@@ -367,8 +369,8 @@ private void configureBindings() {
   }
 
   public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
-    // return new PathPlannerAuto("Left Trench shoot and Human Player");
+    // return autoChooser.getSelected();
+    return new PathPlannerAuto("Left Trench shoot and Human Player");
 
   }  
   

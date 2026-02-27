@@ -135,7 +135,7 @@ public class Launcher extends SubsystemBase {
         double launcherRPM = SmartDashboard.getNumber(KEY_FLY_RPM, 0.0);
        
         
-        setFlywheelVelocity(launcherRPM);
-        setHoodPosition(hoodAngle);
+        // setFlywheelVelocity(launcherRPM);
+        // setHoodPosition(hoodAngle);
     }
 }

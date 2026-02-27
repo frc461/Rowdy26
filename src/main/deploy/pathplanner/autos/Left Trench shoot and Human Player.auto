@@ -5,27 +5,33 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "Temp Auto trench align"
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "Shoot Tower Preset"
+            "name": "Shoot Trench Preset"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
+            "waitTime": 1.5
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Stop All"
+            "name": "Stop Launcher"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "LT to Human Player"
+            "pathName": "Red LT to Human Player"
           }
         },
         {
@@ -37,19 +43,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Human Player to Tower"
+            "pathName": "Temp Human Player Shoot"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Shoot Tower Preset"
+            "name": "Shoot Human Player Preset"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
+            "waitTime": 5.0
           }
         },
         {

@@ -21,17 +21,17 @@ public final class Constants {
         public static final double CAMERA_FR_YAW = 0;
         public static final double CAMERA_FR_PITCH = 28.812;
         public static final double CAMERA_FR_ROLL = 0;
-        public static final double CAMERA_FR_FORWARD = 15.03;
-        public static final double CAMERA_FR_LEFT = -1.475;
-        public static final double CAMERA_FR_UP = 20;
+        public static final double CAMERA_FR_FORWARD = Units.inchesToMeters(15.03);
+        public static final double CAMERA_FR_LEFT = Units.inchesToMeters(-1.475);
+        public static final double CAMERA_FR_UP = Units.inchesToMeters(20);
 
         public static final String CAMERA_FL_NAME = "CAMERA_FL"; 
         public static final double CAMERA_FL_YAW = 45;
         public static final double CAMERA_FL_PITCH = 14.864;
         public static final double CAMERA_FL_ROLL = 0;
-        public static final double CAMERA_FL_FORWARD = 9.893;
-        public static final double CAMERA_FL_LEFT = -7.310;
-        public static final double CAMERA_FL_UP = 20;
+        public static final double CAMERA_FL_FORWARD = Units.inchesToMeters(9.893);
+        public static final double CAMERA_FL_LEFT = Units.inchesToMeters(-7.310);
+        public static final double CAMERA_FL_UP = Units.inchesToMeters(20);
 
         public static final String CAMERA_BR_NAME = "CAMERA_BR"; 
         public static final double CAMERA_BR_YAW = 0;

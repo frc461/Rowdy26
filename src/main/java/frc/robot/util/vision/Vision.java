@@ -49,14 +49,14 @@ public final class Vision extends SubsystemBase{
 
     private final Map<BWCamera, PhotonPoseEstimator> estimators = new EnumMap<>(BWCamera.class);   
     
-    private final NetworkTable visionTable;
+    //private final NetworkTable visionTable;
 
     private final Field2d debugField = new Field2d();
 
     //TODO: PUBLISH VALUES TO NETWORK TABLES
     public Vision(EstimateConsumer estC) {
 
-        visionTable = NetworkTableInstance.getDefault().getTable("Vision");
+        //visionTable = NetworkTableInstance.getDefault().getTable("Vision");
 
         for(BWCamera cam : BW.BWCamera.values()) {
             PhotonPoseEstimator estimator = new PhotonPoseEstimator(kTagLayout, cam.robotToCameraOffset);
@@ -191,7 +191,7 @@ public final class Vision extends SubsystemBase{
     public static final class BW {
         public enum BWCamera {
             CAMERA_FR (
-                new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.CAMERA_FR_NAME),
+                new PhotonCamera(Constants.VisionConstants.NT_INSTANCE, Constants.VisionConstants.CAMERA_FR_NAME),
                 new Transform3d(
                     Constants.VisionConstants.CAMERA_FR_FORWARD,
                     Constants.VisionConstants.CAMERA_FR_LEFT,
@@ -205,7 +205,7 @@ public final class Vision extends SubsystemBase{
             ),
             
             CAMERA_FL (
-                new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.CAMERA_FL_NAME),
+                new PhotonCamera(Constants.VisionConstants.NT_INSTANCE, Constants.VisionConstants.CAMERA_FL_NAME),
                 new Transform3d(
                     Constants.VisionConstants.CAMERA_FL_FORWARD,
                     Constants.VisionConstants.CAMERA_FL_LEFT,
@@ -219,7 +219,7 @@ public final class Vision extends SubsystemBase{
             ),
 
             CAMERA_BR (
-                new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.CAMERA_BR_NAME),
+                new PhotonCamera(Constants.VisionConstants.NT_INSTANCE, Constants.VisionConstants.CAMERA_BR_NAME),
                 new Transform3d(
                     Constants.VisionConstants.CAMERA_BR_FORWARD,
                     Constants.VisionConstants.CAMERA_BR_LEFT,

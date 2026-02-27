@@ -12,9 +12,10 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public final class Constants {
 
-    public static NetworkTableInstance NT_INSTANCE;
 
     public final class VisionConstants {
+
+        public static final NetworkTableInstance NT_INSTANCE = NetworkTableInstance.getDefault();
 
         public static final String CAMERA_FR_NAME = "CAMERA_FR"; 
         public static final double CAMERA_FR_YAW = 0;
@@ -46,10 +47,10 @@ public final class Constants {
 
         // The standard deviations of our vision estimated poses, which affect correction rate
         // (Fake values. Experiment and determine estimation noise on an actual robot.)
-        public static double MAX_VALID_DIST = 5.0; //Meters
-        public static Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
-        public static Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
-        public static Matrix<N3, N1> ODOM_STD_DEV = VecBuilder.fill(0.03, 0.03, Units.degreesToRadians(0.01));
+        public static final double MAX_VALID_DIST = 5.0; //Meters
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
+        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
+        public static final Matrix<N3, N1> ODOM_STD_DEV = VecBuilder.fill(0.03, 0.03, Units.degreesToRadians(0.01));
 
 
     }

@@ -48,7 +48,7 @@ import frc.robot.subsystems.launcher.Launcher;
 
 public class RobotContainer {
 
-  private final AutoCommand autoCommand = new AutoCommand();
+  
   
   private SendableChooser<Command> autoChooser;
   
@@ -59,15 +59,21 @@ public class RobotContainer {
     
     NamedCommands.registerCommand("Shoot Trench Preset", autoCommand.AutoTrenchShoot());
     NamedCommands.registerCommand("Shoot Human Player Preset", autoCommand.AutoHumanPlayerShoot());
+    NamedCommands.registerCommand("Shoot Tower Preset", autoCommand.AutoTowerShoot());
     NamedCommands.registerCommand("Shoot Hub Preset", autoCommand.AutoHubShoot());
     NamedCommands.registerCommand("Stop Launcher", autoCommand.StopLauncher());
     NamedCommands.registerCommand("Stop All", autoCommand.StopAll());
+    NamedCommands.registerCommand("Extend Intake", autoCommand.ExtendIntake());
+    NamedCommands.registerCommand("Retract Intake", autoCommand.RetractIntake());
+
     configureBindings();
   }
 
   private final Intake intake = new Intake();
   private final Launcher launcher = new Launcher();
   private final Spindexer spindexer = new Spindexer();
+
+  private final AutoCommand autoCommand = new AutoCommand(launcher, spindexer, intake);
 
   private final TalonFX leadMotor = new TalonFX(50);//Spindexer
   private final TalonFX followMotor = new TalonFX(55);//Kicker
@@ -258,7 +264,22 @@ private void configureBindings() {
     )
 
   );
+  
+  opjoystick.povRight().onTrue(
+    Commands.runOnce(
+      () ->intake.ExtendIntake(),
+      intake
+    )
 
+  );
+
+  opjoystick.povLeft().onTrue(
+    Commands.runOnce(
+      () ->intake.RetractIntake(),
+      intake
+    )
+
+  );
   
 
   // LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.149337349397591,
-        "y": 0.6364819277108438
+        "x": 15.386262482168329,
+        "y": 2.0877318116975756
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.062602409638554,
-        "y": 0.4566345667978624
+        "x": 15.140576885324718,
+        "y": 2.0414869470789068
       },
       "isLocked": false,
-      "linkedName": "RightTrenchStartPoint"
+      "linkedName": "DepotEndPoint"
     },
     {
       "anchor": {
-        "x": 9.177,
-        "y": 5.247975903614458
+        "x": 14.771987951807228,
+        "y": 2.0877318116975756
       },
       "prevControl": {
-        "x": 10.870795180722892,
-        "y": 3.641602409638554
+        "x": 14.761060240963856,
+        "y": 1.8145390406132376
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Center"
+      "linkedName": "RedDepotShoot"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 179.49297093908524
+    "rotation": 148.570434385161
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 88.87669728592469
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

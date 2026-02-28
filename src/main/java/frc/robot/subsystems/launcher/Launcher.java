@@ -1,5 +1,6 @@
 package frc.robot.subsystems.launcher;
 
+import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
@@ -41,6 +42,7 @@ public class Launcher extends SubsystemBase {
         config.Slot0.kV = 0.8;
         HoodKraken.getConfigurator().apply(config);
         HoodKraken.setPosition(0);
+        
 
 
         FlywheelAKraken.getConfigurator().apply(new TalonFXConfiguration());

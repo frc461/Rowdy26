@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red LT Auto align"
+            "pathName": "Red RT Auto Align"
           }
         },
         {
@@ -31,25 +31,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red LT to Human Player"
+            "pathName": "Red RT to Depot"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
+            "waitTime": 1.5
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red  Human Player Shoot"
+            "pathName": "Depot Shoot"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Shoot Human Player Preset"
+            "name": "Shoot Tower Preset"
           }
         },
         {

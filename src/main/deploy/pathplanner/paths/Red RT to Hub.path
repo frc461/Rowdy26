@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.947060240963856,
-        "y": 0.5868473609129818
+        "x": 12.149337349397591,
+        "y": 0.6364819277108438
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.041228286677816,
-        "y": 0.33504011620470875
+        "x": 12.243505395111551,
+        "y": 0.3846746830025707
       },
       "isLocked": false,
       "linkedName": "RightTrenchStartPoint"
@@ -48,7 +48,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 116.89680448140834
+    "rotation": 88.87669728592469
   },
   "useDefaultConstraints": true
 }

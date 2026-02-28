@@ -65,9 +65,7 @@ public class Localizer extends SubsystemBase {
         vision = new Vision((pose, timestamp, stdDevs) -> {
             poseEstimator.addVisionMeasurement(pose, timestamp, stdDevs);
         });
-
-        //TEMP, unsure if correct.
-        SmartDashboard.putData("Field2d Pose", fieldOdom);
+        //SmartDashboard.putData("Field2d Pose", fieldOdom);
 
     }
 
@@ -84,6 +82,8 @@ public class Localizer extends SubsystemBase {
         vision.getEstimatedGlobalPoses(poseEstimator.getEstimatedPosition());
         currentPose = poseEstimator.getEstimatedPosition();
         fieldOdom.setRobotPose(currentPose);
+        SmartDashboard.putData("Field2d Pose", fieldOdom);
+
     }
     
 

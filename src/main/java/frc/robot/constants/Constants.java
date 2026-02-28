@@ -55,15 +55,6 @@ public final class Constants {
 
     }
 
-    public final class SwerveConstants {
-        public static Translation2d k_frontLeftLocation;
-        public static Translation2d k_frontRightLocation;
-        public static Translation2d k_backLeftLocation;
-        public static Translation2d k_backRightLocation;
-    }
-
-    
-
     public final class LauncherConstants {
         public static double SHOOTER_SIZE_IN = 7.0;
     

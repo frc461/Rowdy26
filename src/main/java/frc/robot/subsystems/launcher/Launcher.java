@@ -6,15 +6,20 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.revrobotics.AbsoluteEncoder;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
 
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.Constants;
 
 public class Launcher extends SubsystemBase {
     private final TalonFX FlywheelAKraken = new TalonFX(61);
@@ -28,10 +33,17 @@ public class Launcher extends SubsystemBase {
     private final VelocityVoltage velocityControl = new VelocityVoltage(0);
 
     private final PositionVoltage positionControl = new PositionVoltage(0);
+
+    private final CANcoder hoodAbsoluteEncoder = new CANcoder(58);
     
 
 
     public Launcher() {
+
+        CANcoderConfiguration encoderConfig = new CANcoderConfiguration();
+        // encoderConfig.MagnetSensor.MagnetOffset = -0.139;
+        hoodAbsoluteEncoder.getConfigurator().apply(encoderConfig);
+
         TalonFXConfiguration config = new TalonFXConfiguration();
         HoodKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
@@ -40,8 +52,12 @@ public class Launcher extends SubsystemBase {
         config.Slot0.kI = 0.2;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.8;
+        config.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+        config.Feedback.FeedbackRemoteSensorID = hoodAbsoluteEncoder.getDeviceID();
+        config.Feedback.SensorToMechanismRatio = 1.0;
+        config.Feedback.RotorToSensorRatio = 4.0;
         HoodKraken.getConfigurator().apply(config);
-        HoodKraken.setPosition(0);
+        // HoodKraken.setPosition(0);
         
 
 
@@ -93,7 +109,6 @@ public class Launcher extends SubsystemBase {
 
     }
 
-
     public void setFlywheelVelocity(double RPM) {
         this.targetFlywheelRPM = RPM;
         
@@ -108,6 +123,9 @@ public class Launcher extends SubsystemBase {
         this.targetHoodPosition = pose;
         
     }
+
+
+
     public void runHood() {
         HoodKraken.setControl(positionControl.withPosition(targetHoodPosition));
     }

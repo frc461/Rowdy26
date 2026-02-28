@@ -30,7 +30,7 @@ public class Intake extends SubsystemBase{
         config.Slot0.kP = 1;
         config.Slot0.kI = 0.2;
         config.Slot0.kD = 0.0;
-        config.Slot0.kV = 0.1;
+        config.Slot0.kV = 0.15;
         DeployKraken.getConfigurator().apply(config);
         DeployKraken.setPosition(0);
 
@@ -66,15 +66,20 @@ public class Intake extends SubsystemBase{
         }
     }
 
+    public void ResetExtension() {
+        if (!RightForwardLimitSwitch.get() && !LeftForwardLimitSwitch.get()) {
+            DeployKraken.setPosition(-70);
+        }
+    }
+
     public void ExtendIntake() {
-        DeployKraken.setControl(positionControl.withPosition(-66.7)
+        DeployKraken.setControl(positionControl.withPosition(-70)
         .withLimitForwardMotion(!RightForwardLimitSwitch.get() && !LeftForwardLimitSwitch.get())
         );
     }
 
     public void RetractIntake() {
-        DeployKraken.setControl(positionControl.withPosition(1)
-        .withLimitForwardMotion(!RearLimitSwitch.get()));
+        DeployKraken.setControl(positionControl.withPosition(0));
     }
      @Override
     public void periodic() {
@@ -82,8 +87,9 @@ public class Intake extends SubsystemBase{
         SmartDashboard.putBoolean("Right Forward Limit Switch", !RightForwardLimitSwitch.get());
         SmartDashboard.putBoolean("Left Forward Limit Switch", !LeftForwardLimitSwitch.get());
         SmartDashboard.putBoolean("Rear Limit Switch", !RearLimitSwitch.get());
+        SmartDashboard.putNumber("Intake Position", DeployKraken.getPosition().getValueAsDouble());
         CheckRearLimitSwitch();
-
+        ResetExtension();
 
         
         

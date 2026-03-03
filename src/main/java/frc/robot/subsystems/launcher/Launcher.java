@@ -141,6 +141,14 @@ public class Launcher extends SubsystemBase {
     public void setKickerVelocity(double RPM) {
         KickerKraken.setControl(velocityControl.withVelocity(RPM / 60.0));
     }
+
+    public void shuttle() {
+        setFlywheelVelocity(-2500);
+        runFlyWheel();
+        setHoodPosition(2.65);
+        runHood();
+    }
+
     public void stopFlyWheels() {
         FlywheelAKraken.stopMotor();
         FlywheelBKraken.stopMotor();

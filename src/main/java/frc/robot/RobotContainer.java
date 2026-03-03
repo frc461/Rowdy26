@@ -182,7 +182,7 @@ private void configureBindings() {
         },
           launcher));
 
-    opjoystick.rightBumper().whileTrue(
+    drjoystick.rightTrigger().whileTrue(
         Commands.startEnd(
           () -> intake.setIntakeVoltage(-16),
           () -> intake.setIntakeVoltage(0),
@@ -248,7 +248,7 @@ private void configureBindings() {
       launcher
     )
   );
-  opjoystick.leftBumper().onTrue(
+  drjoystick.leftTrigger().onTrue(
     Commands.runOnce(
       () -> { 
         launcher.setHoodPosition(0);
@@ -292,6 +292,13 @@ private void configureBindings() {
       intake
     )
 
+  );
+  opjoystick.leftTrigger().whileTrue(
+    Commands.startEnd(
+      () ->launcher.shuttle(),
+      ()->launcher.stopFlyWheels(),
+      launcher
+    )
   );
   
 

@@ -84,6 +84,10 @@ public final class Constants {
         public static double TRENCH_AUTO_START_HOOD_ANGLE = 1.25;
         public static double TRENCH_AUTO_RPM = -2100.0;
 
-        public static double ABSOLUTE_ENCODER_OFFSET = -0.14;
+        public static double ABSOLUTE_ENCODER_OFFSET = -0.865;
+        public static double ENCODER_CONVERSION = 3.942;
+
+
+        public static double ROTOR_TO_SENSOR_RATIO = 4.0;
     }
 }

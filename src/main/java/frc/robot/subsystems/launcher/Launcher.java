@@ -41,7 +41,7 @@ public class Launcher extends SubsystemBase {
     public Launcher() {
 
         CANcoderConfiguration encoderConfig = new CANcoderConfiguration();
-        // encoderConfig.MagnetSensor.MagnetOffset = -0.139;
+        encoderConfig.MagnetSensor.MagnetOffset = Constants.LauncherConstants.ABSOLUTE_ENCODER_OFFSET;
         hoodAbsoluteEncoder.getConfigurator().apply(encoderConfig);
 
         TalonFXConfiguration config = new TalonFXConfiguration();
@@ -52,12 +52,12 @@ public class Launcher extends SubsystemBase {
         config.Slot0.kI = 0.2;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.8;
-        config.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
-        config.Feedback.FeedbackRemoteSensorID = hoodAbsoluteEncoder.getDeviceID();
-        config.Feedback.SensorToMechanismRatio = 1.0;
-        config.Feedback.RotorToSensorRatio = 4.0;
+        // config.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+        // config.Feedback.FeedbackRemoteSensorID = hoodAbsoluteEncoder.getDeviceID();
+        // config.Feedback.SensorToMechanismRatio = 1.0;
+        // config.Feedback.RotorToSensorRatio = 4.0;
         HoodKraken.getConfigurator().apply(config);
-        // HoodKraken.setPosition(0);
+        HoodKraken.setPosition(0);
         
 
 
@@ -120,8 +120,15 @@ public class Launcher extends SubsystemBase {
     }
 
     public void setHoodPosition(double pose) {
-        this.targetHoodPosition = pose;
+        this.targetHoodPosition = convertHoodPosition(pose);
         
+    }
+
+    public double convertHoodPosition(double pose) {
+        double currentHoodEncoderPose = hoodAbsoluteEncoder.getPosition().getValueAsDouble();
+        double encoderPose = pose / Constants.LauncherConstants.ENCODER_CONVERSION;
+        double currentHoodMotorPose = HoodKraken.getPosition().getValueAsDouble();
+        return ((currentHoodEncoderPose + encoderPose) * Constants.LauncherConstants.ENCODER_CONVERSION) + currentHoodMotorPose;
     }
 
 
@@ -150,6 +157,9 @@ public class Launcher extends SubsystemBase {
         SmartDashboard.putNumber("Flywheel Target RPM", targetFlywheelRPM);
         SmartDashboard.putNumber("Flywheel Temperature", FlywheelAKraken.getDeviceTemp().getValueAsDouble());
         SmartDashboard.putNumber("Hood Position", HoodKraken.getPosition().getValueAsDouble());
+        SmartDashboard.putNumber("Encoder Position", hoodAbsoluteEncoder.getPosition().getValueAsDouble());
+        SmartDashboard.putNumber("convertHoodPosition", convertHoodPosition(1.25));
+
         
         double hoodAngle = SmartDashboard.getNumber(KEY_HOOD_ANGLE, 0.0);
         double launcherRPM = SmartDashboard.getNumber(KEY_FLY_RPM, 0.0);

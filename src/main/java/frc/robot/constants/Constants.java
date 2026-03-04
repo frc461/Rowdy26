@@ -76,7 +76,7 @@ public final class Constants {
 
         // public static double TOWER_HOOD_ANGLE = 1.25;
         public static double TOWER_HOOD_ANGLE = -0.453;
-        public static double TOWER_RPM = -2000.0;
+        public static double TOWER_RPM = -2050.0;
 
         public static double TEMP_AUTO_START_HOOD_ANGLE = 1.25;
         public static double TEMP_AUTO_RPM = -2200.0;

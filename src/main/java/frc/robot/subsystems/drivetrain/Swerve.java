@@ -183,8 +183,13 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
                     new PIDConstants(7, 0, 0)
                 ),
                 config,
-                // Assume the path needs to be flipped for Red vs Blue, this is normally the case
-                () -> DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red,
+                () -> {
+                    var alliance = DriverStation.getAlliance();
+                    if(alliance.isPresent()) {
+                        return alliance.get() == DriverStation.Alliance.Blue;
+                    }
+                    return false;
+                },
                 this // Subsystem for requirements
             );
         } catch (Exception ex) {

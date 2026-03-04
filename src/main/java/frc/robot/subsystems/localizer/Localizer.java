@@ -38,13 +38,13 @@ public class Localizer extends SubsystemBase {
 //     private final AprilTagFieldLayout kTagLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
 //     private final Vision vision;
-//     private final SwerveDrivePoseEstimator poseEstimator;
+//    private final SwerveDrivePoseEstimator poseEstimator;
     
     private final Swerve swerve;
 
     public Field2d fieldOdom;
 
-    private Pose2d currentPose;
+    //private Pose2d currentPose;
 
 
     public Localizer(Swerve swerve) {
@@ -54,22 +54,21 @@ public class Localizer extends SubsystemBase {
 
         this.swerve = swerve;
 
-//         poseEstimator = new SwerveDrivePoseEstimator(
-//             this.swerve.getKinematics(), 
-//             this.swerve.getState().RawHeading,
-//             this.swerve.getState().ModulePositions,
-//             this.swerve.getState().Pose,
-//             Constants.VisionConstants.ODOM_STD_DEV,
-//             Constants.VisionConstants.kMULTI_TAG_STD_DEVS
-//         );
+        fieldOdom = new Field2d();
+
+        // poseEstimator = new SwerveDrivePoseEstimator(
+        //     this.swerve.getKinematics(), 
+        //     this.swerve.getState().RawHeading,
+        //     this.swerve.getState().ModulePositions,
+        //     this.swerve.getState().Pose
+        // );
        
 //         vision = new Vision((pose, timestamp, stdDevs) -> {
 //             poseEstimator.addVisionMeasurement(pose, timestamp, stdDevs);
 //         });
 
 //         //TEMP, unsure if correct.
-        SmartDashboard.putData("Field2d Pose", fieldOdom);
-
+        // SmartDashboard.putData("Field2d Pose", fieldOdom);
     }
 
 //     public void resetPose(Rotation2d gyroAngle, SwerveModulePosition[] modulePositions, Pose2d newPose) {
@@ -81,10 +80,13 @@ public class Localizer extends SubsystemBase {
 //     }
 
     public void periodic() {
-        currentPose = swerve.getState().Pose;
-//         vision.getEstimatedGlobalPoses(currentPose);
+//        poseEstimator.update(this.swerve.getState().RawHeading, this.swerve.getState().ModulePositions);
 
-        fieldOdom.setRobotPose(currentPose);
+//        currentPose = poseEstimator.getEstimatedPosition();
+
+        fieldOdom.setRobotPose(swerve.getState().Pose);
+
+        SmartDashboard.putData("Field2d Pose", fieldOdom);
     }
     
 

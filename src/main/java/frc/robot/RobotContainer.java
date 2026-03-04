@@ -17,6 +17,7 @@ import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.launcher.Launcher;
 import frc.robot.subsystems.launcher.LauncherCommand;
+import frc.robot.subsystems.localizer.Localizer;
 import frc.robot.subsystems.spindexer.Spindexer;
 import frc.robot.util.FieldUtil;
 
@@ -111,6 +112,8 @@ public class RobotContainer {
 
 
 public final Swerve drivetrain = TunerConstants.createDrivetrain();
+
+public final Localizer m_localizer = new Localizer(drivetrain);
 
 private void configureBindings() {
   // Note that X is defined as forward according to WPILib convention,
@@ -349,7 +352,7 @@ private void configureBindings() {
     )
   );
 
-  opjoystick.leftTrigger().whileTrue(
+  drjoystick.leftTrigger().whileTrue(
       Commands.startEnd(
         () -> intake.setIntakeVoltage(16), 
         () -> intake.setIntakeVoltage(0),

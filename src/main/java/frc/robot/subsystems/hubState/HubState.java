@@ -64,15 +64,15 @@ public class HubState extends SubsystemBase {
         double shiftTimeRemaining = calculateShiftTime(matchTime);
         //boolean willBeActiveNext = !isHubActive; // If not active now, it will be next
 
-        if (isHubActive) {
+        if (isHubActive || shiftTimeRemaining < 2.0) {
         // CURRENTLY ACTIVE: Solid Green
-        dashColor = "🟢";
-        } else if ( shiftTimeRemaining < 2.0) {
+        dashColor = "#28A745";
+        } else if ( shiftTimeRemaining < 7.0) {
         // NOT ACTIVE YET, BUT SHIFT STARTS IN < 2 SECONDS: Yellow/Warning
-        dashColor = "🟨";
+        dashColor = "#FFC107";
         } else {
         // INACTIVE: Solid Red
-        dashColor = "🛑";
+        dashColor = "#DC3545";
         }
 
         // 5. Publish to SmartDashboard for Elastic

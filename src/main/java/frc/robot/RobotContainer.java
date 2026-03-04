@@ -413,8 +413,8 @@ private void configureBindings() {
   }
 
   public Command getAutonomousCommand() {
-    // return autoChooser.getSelected();
-    return new PathPlannerAuto("Left Trench shoot and Human Player");
+    return autoChooser.getSelected();
+    //return new PathPlannerAuto("Left Trench shoot and Human Player");
 
   }  
   

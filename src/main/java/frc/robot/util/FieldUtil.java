@@ -5,7 +5,6 @@ import java.util.List;
 import edu.wpi.first.apriltag.*;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.wpilibj.DriverStation;
-import org.photonvision.targeting.PhotonTrackedTarget;
 
 public final class FieldUtil{
    public static AprilTagFieldLayout layout2026 = AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltWelded);

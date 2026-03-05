@@ -3,10 +3,9 @@ package frc.robot.constants;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public final class Constants {
@@ -44,6 +43,14 @@ public final class Constants {
         public static final double CAMERA_FL_FORWARD = Units.inchesToMeters(9.893);
         public static final double CAMERA_FL_LEFT = Units.inchesToMeters(-7.310);
         public static final double CAMERA_FL_UP = Units.inchesToMeters(20);
+
+        public static final String CAMERA_BR_NAME = "CAMERA_BR"; 
+        public static final double CAMERA_BR_YAW = 0;
+        public static final double CAMERA_BR_PITCH = 0;
+        public static final double CAMERA_BR_ROLL = 0;
+        public static final double CAMERA_BR_FORWARD = 0;
+        public static final double CAMERA_BR_LEFT = 0;
+        public static final double CAMERA_BR_UP = 0;
     }
 
     public final class SwerveConstants {

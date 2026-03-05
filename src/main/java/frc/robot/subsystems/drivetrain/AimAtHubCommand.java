@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.subsystems.drivetrain;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -13,8 +13,8 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import frc.robot.subsystems.drivetrain.Swerve;
 import frc.robot.subsystems.launcher.Launcher;
 import frc.robot.subsystems.localizer.Localizer;
-import frc.robot.util.ShooterSolver;
-import frc.robot.util.ShooterSolver.ShotResult;
+import frc.robot.subsystems.launcher.ShooterSolver;
+import frc.robot.subsystems.launcher.ShooterSolver.ShotResult;
 
 public class AimAtHubCommand extends Command {
 

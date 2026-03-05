@@ -12,7 +12,7 @@ public class Localizer extends SubsystemBase {
     private final Vision vision;
     public Field2d fieldOdom;
 
-    public Localizer(Swerve swerve) {
+    public Localizer(Swerve swerve, Vision vision) {
         this.swerve = swerve;
         this.vision = vision;
         fieldOdom = new Field2d();

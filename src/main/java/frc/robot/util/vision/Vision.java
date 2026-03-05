@@ -1,56 +1,60 @@
 package frc.robot.util.vision;
 
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 import frc.robot.constants.Constants;
 import frc.robot.util.vision.Vision.BW.BWCamera;
-import org.photonvision.targeting.PhotonTrackedTarget;
 
 public final class Vision extends SubsystemBase {
 
+    /**
+     * Functional interface allowing the Vision subsystem to pass data 
+     * directly into the CTRE drivetrain's pose estimator.
+     */
     @FunctionalInterface
     public static interface EstimateConsumer {
         public void accept(Pose2d pose, double timestamp, Matrix<N3, N1> estimationStdDevs);
     }
 
+    // List to hold the raw camera poses for the Elastic dashboard "ghost" robots
+    private final List<Pose2d> currentVisionPoses = new ArrayList<>();
+
     private Matrix<N3, N1> curStdDevs;
     private final EstimateConsumer estConsumer;
 
-    private final List<Pose2d> currentVisionPoses = new java.util.ArrayList<>();
-
     private final AprilTagFieldLayout kTagLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
     private final Map<BWCamera, PhotonPoseEstimator> estimators = new EnumMap<>(BWCamera.class);   
-    private final NetworkTable visionTable;
 
     public Vision(EstimateConsumer estC) {
-        visionTable = NetworkTableInstance.getDefault().getTable("Vision");
-
+        
         // Initialize all estimators based on the enum
         for(BWCamera cam : BW.BWCamera.values()) {
+            
+            // 2026 STANDARD: Constructor only accepts the layout and the camera's physical offset
             PhotonPoseEstimator estimator = new PhotonPoseEstimator(
                 kTagLayout, 
-                PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
-                cam.getCamera(),
                 cam.getRobotToCameraOffset()
             );
             estimators.put(cam, estimator);
@@ -59,38 +63,10 @@ public final class Vision extends SubsystemBase {
         estConsumer = estC;
     }
 
-    public void updateVisionPoses(Pose2d referencePose) {
-        // Clear the list at the start of every loop
-        currentVisionPoses.clear();
-
-        for(BWCamera cam : BWCamera.values()) {
-            PhotonPoseEstimator estimator = estimators.get(cam);
-            if(estimator == null) continue;
-
-            estimator.setReferencePose(referencePose);
-            Optional<EstimatedRobotPose> visionEst = estimator.update();
-
-            visionEst.ifPresent(est -> {
-                Pose2d rawVisionPose = est.estimatedPose.toPose2d();
-                
-                // 1. Add the raw pose to our list for the dashboard
-                currentVisionPoses.add(rawVisionPose);
-
-                // 2. Feed the data to CTRE (as usual)
-                updateEstimationStdDevs(visionEst, est.targetsUsed, estimator);
-                Matrix<N3, N1> stdDevs = getEstimationStdDevs();
-                estConsumer.accept(rawVisionPose, est.timestampSeconds, stdDevs);
-            });
-        }
-    }
-
     /**
-     * Returns the list of raw vision poses from the current loop.
+     * Dynamically adjusts how much we trust the vision measurement based on 
+     * the number of tags visible and how far away they are.
      */
-    public List<Pose2d> getVisionRobotPoses() {
-        return currentVisionPoses;
-    }
-
     private void updateEstimationStdDevs(Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets, PhotonPoseEstimator photonEstimator) {
         if (estimatedPose.isEmpty()) {
             curStdDevs = Constants.VisionConstants.kSINGLE_TAG_STD_DEVS;
@@ -113,7 +89,9 @@ public final class Vision extends SubsystemBase {
             curStdDevs = Constants.VisionConstants.kSINGLE_TAG_STD_DEVS;
         } else {
             avgDist /= numTags;
+            // Decrease std devs (increase trust) if multiple targets are visible
             if (numTags > 1) estStdDevs = Constants.VisionConstants.kMULTI_TAG_STD_DEVS;
+            // Increase std devs (decrease trust) if a single tag is very far away
             if (numTags == 1 && avgDist > 4) {
                 estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
             } else {
@@ -128,34 +106,61 @@ public final class Vision extends SubsystemBase {
     }
     
     /**
-     * Called continuously to read from all cameras and feed estimates to the consumer.
+     * Called continuously from the Localizer's periodic loop.
+     * Reads all cameras, stores the raw poses for the dashboard, and feeds the filtered data to CTRE.
+     * @param referencePose The current robot pose, used to resolve 1-tag ambiguity.
      */
     public void updateVisionPoses(Pose2d referencePose) {
+        // Clear the ghost list at the start of every 20ms loop
+        currentVisionPoses.clear();
+
         for(BWCamera cam : BWCamera.values()) {
             PhotonPoseEstimator estimator = estimators.get(cam);
             if(estimator == null) continue;
-
-            // Setting the reference pose helps resolve ambiguity when only one tag is visible
-            estimator.setReferencePose(referencePose);
             
-            Optional<EstimatedRobotPose> visionEst = estimator.update();
-
-            visionEst.ifPresent(est -> {
-                // Calculate trust based on distance and number of tags
-                updateEstimationStdDevs(visionEst, est.targetsUsed, estimator);
-                Matrix<N3, N1> stdDevs = getEstimationStdDevs();
+            // Safely iterate through all new frames to ensure we don't miss data at high speeds
+            for (var result : cam.getCamera().getAllUnreadResults()) {
                 
-                // Pass the data to the CTRE drivetrain
-                estConsumer.accept(est.estimatedPose.toPose2d(), est.timestampSeconds, stdDevs);
-            });
+                // 2026 STANDARD: Attempt to calculate a highly accurate multi-tag pose first
+                Optional<EstimatedRobotPose> visionEst = estimator.estimateCoprocMultiTagPose(result);
+                
+                // Convert our 2D swerve odometry into a 3D pose for PhotonVision math
+                if (visionEst.isEmpty()) {
+                    Pose3d referencePose3d = new Pose3d(referencePose);
+                    visionEst = estimator.estimateClosestToReferencePose(result, referencePose3d);
+                }
+
+                // FIX: Use a standard 'if' statement instead of a lambda to avoid the "effectively final" error
+                if (visionEst.isPresent()) {
+                    EstimatedRobotPose est = visionEst.get();
+                    Pose2d rawVisionPose = est.estimatedPose.toPose2d();
+                    
+                    // 1. Add the raw pose to our list for the dashboard ghost robots
+                    currentVisionPoses.add(rawVisionPose);
+
+                    // 2. Calculate trust based on distance and number of tags
+                    updateEstimationStdDevs(visionEst, est.targetsUsed, estimator);
+                    Matrix<N3, N1> stdDevs = getEstimationStdDevs();
+                    
+                    // 3. Pass the data directly into the CTRE drivetrain
+                    estConsumer.accept(rawVisionPose, est.timestampSeconds, stdDevs);
+                }
+            }
         }
     }
 
-    // CAMERA ENUM
+    /**
+     * Returns the list of raw camera poses from the current loop for the Field2d widget.
+     */
+    public List<Pose2d> getVisionRobotPoses() {
+        return currentVisionPoses;
+    }
+
+    // --- CAMERA ENUM CONFIGURATION ---
     public static final class BW {
         public enum BWCamera {
             CAMERA_FR (
-                new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.CAMERA_FR_NAME),
+                new PhotonCamera(Constants.VisionConstants.CAMERA_FR_NAME),
                 new Transform3d(
                     Constants.VisionConstants.CAMERA_FR_FORWARD,
                     Constants.VisionConstants.CAMERA_FR_LEFT,
@@ -169,7 +174,7 @@ public final class Vision extends SubsystemBase {
             ),
             
             CAMERA_FL (
-                new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.CAMERA_FL_NAME),
+                new PhotonCamera(Constants.VisionConstants.CAMERA_FL_NAME),
                 new Transform3d(
                     Constants.VisionConstants.CAMERA_FL_FORWARD,
                     Constants.VisionConstants.CAMERA_FL_LEFT,
@@ -183,7 +188,7 @@ public final class Vision extends SubsystemBase {
             ),
 
             CAMERA_BR (
-                new PhotonCamera(Constants.NT_INSTANCE, Constants.VisionConstants.CAMERA_BR_NAME),
+                new PhotonCamera(Constants.VisionConstants.CAMERA_BR_NAME),
                 new Transform3d(
                     Constants.VisionConstants.CAMERA_BR_FORWARD,
                     Constants.VisionConstants.CAMERA_BR_LEFT,
@@ -213,4 +218,12 @@ public final class Vision extends SubsystemBase {
             }
         }
     } 
+
+    /**
+     * Helper method to check if a specific camera currently sees a target.
+     */
+    public boolean hasTargets(BWCamera camera) {
+        var result = camera.getCamera().getLatestResult();
+        return result.hasTargets();
+    }
 }

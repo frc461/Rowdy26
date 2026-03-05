@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.149337349397591,
+        "x": 10.39834006076389,
         "y": 0.6364819277108438
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.923702898364748,
-        "y": 0.5881352634526885
+        "x": 9.475724754050926,
+        "y": 1.483078342013889
       },
       "isLocked": false,
-      "linkedName": "RightTrenchStartPoint"
+      "linkedName": "RedLTExit"
     },
     {
       "anchor": {
-        "x": 12.815927710843374,
-        "y": 0.6364819277108438
+        "x": 9.10463158275463,
+        "y": 2.4026099537037044
       },
       "prevControl": {
-        "x": 12.573513654600248,
-        "y": 0.6976000537926754
+        "x": 9.50347800925926,
+        "y": 1.305798683449075
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RedRightTrenchShoot"
+      "linkedName": "RedLTSweep"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 107.96913974015672
+    "rotation": 25.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 88.87669728592469
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

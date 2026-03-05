@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red RT Auto Align"
+            "pathName": "Red LT Auto Align"
           }
         },
         {
@@ -37,31 +37,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red RT Exit to Center"
+            "pathName": "Red LT Exit"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red RT Center Prep First Sweep"
+            "pathName": "Red LT Sweep"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red RT First Sweep"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red RT First Sweep Return"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red RT First Sweep Shoot"
+            "pathName": "Red LT Sweep Return"
           }
         },
         {

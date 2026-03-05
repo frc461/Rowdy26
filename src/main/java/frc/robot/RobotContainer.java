@@ -57,31 +57,7 @@ public class RobotContainer {
   
   
   private SendableChooser<Command> autoChooser;
-  
-  
-  public RobotContainer() {
-
-    autoChooser = new SendableChooser<>();
-    
-    NamedCommands.registerCommand("Shoot Trench Preset", autoCommand.AutoTrenchShoot());
-    NamedCommands.registerCommand("Shoot Human Player Preset", autoCommand.AutoHumanPlayerShoot());
-    NamedCommands.registerCommand("Shoot Tower Preset", autoCommand.AutoTowerShoot());
-    NamedCommands.registerCommand("Shoot Hub Preset", autoCommand.AutoHubShoot());
-    NamedCommands.registerCommand("Stop Launcher", autoCommand.StopLauncher());
-    NamedCommands.registerCommand("Stop All", autoCommand.StopAll());
-    NamedCommands.registerCommand("Extend Intake", autoCommand.ExtendIntake());
-    NamedCommands.registerCommand("Retract Intake", autoCommand.RetractIntake());
-
-    configureBindings();
-
-    SmartDashboard.putData("Command Scheduler", CommandScheduler.getInstance());
-  }
-
-
-
-  
-
-  private final Intake intake = new Intake();
+    private final Intake intake = new Intake();
   private final Launcher launcher = new Launcher();
   private final Spindexer spindexer = new Spindexer();
 
@@ -114,6 +90,37 @@ public class RobotContainer {
 public final Swerve drivetrain = TunerConstants.createDrivetrain();
 
 public final Localizer m_localizer = new Localizer(drivetrain);
+  
+  
+  public RobotContainer() {
+
+    autoChooser = new SendableChooser<>();
+    
+    NamedCommands.registerCommand("Shoot Trench Preset", autoCommand.AutoTrenchShoot());
+    NamedCommands.registerCommand("Shoot Human Player Preset", autoCommand.AutoHumanPlayerShoot());
+    NamedCommands.registerCommand("Shoot Tower Preset", autoCommand.AutoTowerShoot());
+    NamedCommands.registerCommand("Shoot Hub Preset", autoCommand.AutoHubShoot());
+    NamedCommands.registerCommand("Stop Launcher", autoCommand.StopLauncher());
+    NamedCommands.registerCommand("Stop All", autoCommand.StopAll());
+    NamedCommands.registerCommand("Extend Intake", autoCommand.ExtendIntake());
+    NamedCommands.registerCommand("Retract Intake", autoCommand.RetractIntake());
+
+    configureBindings();
+
+    boolean isCompetition = true;
+
+    // Build an auto chooser. This will use Commands.none() as the default option.
+    // As an example, this will only show autos that start with "comp" while at
+    // competition as defined by the programmer
+    autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
+    (stream) -> isCompetition
+      ? stream.filter(auto -> auto.getName().startsWith("comp"))
+      : stream
+    );
+
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+    SmartDashboard.putData("Command Scheduler", CommandScheduler.getInstance());
+  }
 
 private void configureBindings() {
   // Note that X is defined as forward according to WPILib convention,
@@ -397,27 +404,12 @@ private void configureBindings() {
       intake
     )
   );
-
-  boolean isCompetition = true;
-
-  // Build an auto chooser. This will use Commands.none() as the default option.
-  // As an example, this will only show autos that start with "comp" while at
-  // competition as defined by the programmer
-  autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
-  (stream) -> isCompetition
-    ? stream.filter(auto -> auto.getName().startsWith("comp"))
-    : stream
-  );
-
-  SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 
   public Command getAutonomousCommand() {
-    // return autoChooser.getSelected();
-    return new PathPlannerAuto("Left Trench shoot and Human Player");
-
+    return autoChooser.getSelected();
+    //return new PathPlannerAuto("Left Trench shoot and Human Player");
   }  
-  
 
 }
 

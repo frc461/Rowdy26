@@ -24,6 +24,7 @@ import frc.robot.util.FieldUtil;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -56,175 +57,170 @@ public class RobotContainer {
 
   
   
-  private SendableChooser<Command> autoChooser;
+    private SendableChooser<Command> autoChooser;
     private final Intake intake = new Intake();
-  private final Launcher launcher = new Launcher();
-  private final Spindexer spindexer = new Spindexer();
-
-  private final AutoCommand autoCommand = new AutoCommand(launcher, spindexer, intake);
-  private static HubState hubState = new HubState();
-
-
-  private final TalonFX leadMotor = new TalonFX(50);//Spindexer
-  private final TalonFX followMotor = new TalonFX(55);//Kicker
-
-  private final CommandXboxController opjoystick = new CommandXboxController(1); // operator controller port
-
-  private final CommandXboxController drjoystick = new CommandXboxController(0);
-
+    private final Launcher launcher = new Launcher();
+    private final Spindexer spindexer = new Spindexer();
+  
+    private final AutoCommand autoCommand = new AutoCommand(launcher, spindexer, intake);
+    private static HubState hubState = new HubState();
+  
+    private final TalonFX leadMotor = new TalonFX(50);//Spindexer
+    private final TalonFX followMotor = new TalonFX(55);//Kicker
+  
+    private final CommandXboxController opjoystick = new CommandXboxController(1); // operator controller port
+  
+    private final CommandXboxController drjoystick = new CommandXboxController(0);
+  
+      
+  
+    private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+    private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+  
+    /* Setting up bindings for necessary control of the swerve drive platform */
+    private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
+            .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+            .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+    private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
+    private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+  
+    private final SwerveTelemetry logger = new SwerveTelemetry(MaxSpeed);
+  
+  
+  public final Swerve drivetrain = TunerConstants.createDrivetrain();
+  
+  public final Localizer m_localizer = new Localizer(drivetrain);
     
-
-  private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-  private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
-
-  /* Setting up bindings for necessary control of the swerve drive platform */
-  private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-          .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
-          .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
-  private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
-  private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
-
-  private final SwerveTelemetry logger = new SwerveTelemetry(MaxSpeed);
-
-
-public final Swerve drivetrain = TunerConstants.createDrivetrain();
-
-public final Localizer m_localizer = new Localizer(drivetrain);
-  
-  
-  public RobotContainer() {
-
-    autoChooser = new SendableChooser<>();
     
-    NamedCommands.registerCommand("Shoot Trench Preset", autoCommand.AutoTrenchShoot());
-    NamedCommands.registerCommand("Shoot Human Player Preset", autoCommand.AutoHumanPlayerShoot());
-    NamedCommands.registerCommand("Shoot Tower Preset", autoCommand.AutoTowerShoot());
-    NamedCommands.registerCommand("Shoot Hub Preset", autoCommand.AutoHubShoot());
-    NamedCommands.registerCommand("Stop Launcher", autoCommand.StopLauncher());
-    NamedCommands.registerCommand("Stop All", autoCommand.StopAll());
-    NamedCommands.registerCommand("Extend Intake", autoCommand.ExtendIntake());
-    NamedCommands.registerCommand("Retract Intake", autoCommand.RetractIntake());
-
-    configureBindings();
-
-    boolean isCompetition = true;
-
-    // Build an auto chooser. This will use Commands.none() as the default option.
-    // As an example, this will only show autos that start with "comp" while at
-    // competition as defined by the programmer
-    autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
-    (stream) -> isCompetition
-      ? stream.filter(auto -> auto.getName().startsWith("comp"))
-      : stream
-    );
-
-    SmartDashboard.putData("Auto Chooser", autoChooser);
-    SmartDashboard.putData("Command Scheduler", CommandScheduler.getInstance());
-  }
-
-private void configureBindings() {
-  // Note that X is defined as forward according to WPILib convention,
-  // and Y is defined as to the left according to WPILib convention.
-  drivetrain.setDefaultCommand(
-      // Drivetrain will execute this command periodically
-      drivetrain.applyRequest(() ->
-          drive.withVelocityX(-drjoystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-              .withVelocityY(-drjoystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-              .withRotationalRate(-drjoystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
-      )
-  );
-
-  // Idle while the robot is disabled. This ensures the configured
-  // neutral mode is applied to the drive motors while disabled.
-  final var idle = new SwerveRequest.Idle();
-  RobotModeTriggers.disabled().whileTrue(
-      drivetrain.applyRequest(() -> idle).ignoringDisable(true)
-  );
-
-  //AUTO TESTING BINDS - COMMENTED FOR SYSID TESTING
-  // drjoystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
-  // drjoystick.b().whileTrue(drivetrain.applyRequest(() ->
-  //     point.withModuleDirection(new Rotation2d(-drjoystick.getLeftY(), -drjoystick.getLeftX()))
-  // ));
-  // drjoystick.leftBumper().onTrue(new PathPlannerAuto("Spin"));
-  // drjoystick.rightBumper().onTrue(new PathPlannerAuto("Spin"));
-
-  // SignalLogger.setPath("/media/sda1/ctre-logs/");
+    public RobotContainer() {
   
-  // drjoystick.leftBumper().onTrue(Commands.runOnce(SignalLogger::start));
-
-  // drjoystick.rightBumper().onTrue(Commands.runOnce(SignalLogger::stop));
+      autoChooser = new SendableChooser<>();
   
-
-
-  /*
-  * drjoystick Y = quasistatic forward
-  * drjoystick A = quasistatic reverse
-  * drjoystick B = dynamic forward\
-  * drjoystick X = dyanmic reverse
-  */
-  // drjoystick.y().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
-  // drjoystick.a().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
-  // drjoystick.b().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kForward));   
-  // drjoystick.x().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
-
-  //Driver Controller
-
-    drjoystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
-    drjoystick.rightBumper().onTrue(
-      Commands.runOnce(
-        () -> launcher.setHoodPosition(0),
-        launcher
-      )
-    );
-
-    // LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
-    // drjoystick.rightBumper().onTrue(m_LauncherCommand);
-
-
-    // drivetrain.registerTelemetry(logger::telemeterize);
-
-    double launcherRPM = SmartDashboard.getNumber("Launcher RPM", 0.0);
-    double hoodAngle = SmartDashboard.getNumber("Hood ANGLE", 0.0);
-    
-
-
-    drjoystick.rightTrigger().whileTrue(
-        Commands.startEnd(
-          () -> intake.setIntakeVoltage(-16),
-          () -> intake.setIntakeVoltage(0),
-          intake
+  
+      
+      NamedCommands.registerCommand("Shoot Trench Preset", autoCommand.AutoTrenchShoot());
+      NamedCommands.registerCommand("Shoot Human Player Preset", autoCommand.AutoHumanPlayerShoot());
+      NamedCommands.registerCommand("Shoot Tower Preset", autoCommand.AutoTowerShoot());
+      NamedCommands.registerCommand("Shoot Hub Preset", autoCommand.AutoHubShoot());
+      NamedCommands.registerCommand("Stop Launcher", autoCommand.StopLauncher());
+      NamedCommands.registerCommand("Stop All", autoCommand.StopAll());
+      NamedCommands.registerCommand("Extend Intake", autoCommand.ExtendIntake());
+      NamedCommands.registerCommand("Retract Intake", autoCommand.RetractIntake());
+  
+      configureBindings();
+  
+      boolean isCompetition = true;
+  
+      // Build an auto chooser. This will use Commands.none() as the default option.
+      // As an example, this will only show autos that start with "comp" while at
+      // competition as defined by the programmer
+      autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
+      (stream) -> isCompetition
+        ? stream.filter(auto -> auto.getName().startsWith("comp"))
+        : stream
+      );
+  
+      SmartDashboard.putData("Auto Chooser", autoChooser);
+      SmartDashboard.putData("Command Scheduler", CommandScheduler.getInstance());
+    }
+  
+  private void configureBindings() {
+    // Note that X is defined as forward according to WPILib convention,
+    // and Y is defined as to the left according to WPILib convention.
+    drivetrain.setDefaultCommand(
+        // Drivetrain will execute this command periodically
+        drivetrain.applyRequest(() ->
+            drive.withVelocityX(-drjoystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
+                .withVelocityY(-drjoystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+                .withRotationalRate(-drjoystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
         )
     );
-
-  // LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
-  // drjoystick.rightBumper().onTrue(m_LauncherCommand);
-
-  // drivetrain.registerTelemetry(logger::telemeterize);
-
-  // double launcherRPM = SmartDashboard.getNumber("Launcher RPM", 0.0);
-  // double hoodAngle = SmartDashboard.getNumber("Hood ANGLE", 0.0);
-
-  drjoystick.rightBumper().onTrue(Commands.run(
-  ()-> {
-    launcher.setHoodPosition(0.0);
-    launcher.runHood();
-  },
-  launcher));
-
-  drjoystick.leftTrigger().whileTrue(
-      Commands.startEnd(
-        () -> intake.setIntakeVoltage(16), 
-        () -> intake.setIntakeVoltage(0),
-        intake)
-  );
-
-  // drjoystick.b().onTrue(
-  //   Commands.run(
-  //     () -> autoCommand.RightTrenchAlign(),
-  //     autoCommand
-  //   )
-  // );
+  
+    // Idle while the robot is disabled. This ensures the configured
+    // neutral mode is applied to the drive motors while disabled.
+    final var idle = new SwerveRequest.Idle();
+    RobotModeTriggers.disabled().whileTrue(
+        drivetrain.applyRequest(() -> idle).ignoringDisable(true)
+    );
+  
+    //AUTO TESTING BINDS - COMMENTED FOR SYSID TESTING
+    // drjoystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
+    // drjoystick.b().whileTrue(drivetrain.applyRequest(() ->
+    //     point.withModuleDirection(new Rotation2d(-drjoystick.getLeftY(), -drjoystick.getLeftX()))
+    // ));
+    // drjoystick.leftBumper().onTrue(new PathPlannerAuto("Spin"));
+    // drjoystick.rightBumper().onTrue(new PathPlannerAuto("Spin"));
+  
+    // SignalLogger.setPath("/media/sda1/ctre-logs/");
+    
+    // drjoystick.leftBumper().onTrue(Commands.runOnce(SignalLogger::start));
+  
+    // drjoystick.rightBumper().onTrue(Commands.runOnce(SignalLogger::stop));
+    
+  
+  
+    /*
+    * drjoystick Y = quasistatic forward
+    * drjoystick A = quasistatic reverse
+    * drjoystick B = dynamic forward\
+    * drjoystick X = dyanmic reverse
+    */
+    // drjoystick.y().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
+    // drjoystick.a().whileTrue(drivetrain.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
+    // drjoystick.b().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kForward));   
+    // drjoystick.x().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
+  
+    //Driver Controller
+  
+      drjoystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
+      drjoystick.rightBumper().onTrue(
+        Commands.runOnce(
+          () -> launcher.setHoodPosition(0),
+          launcher
+        )
+      );
+  
+      // LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
+      // drjoystick.rightBumper().onTrue(m_LauncherCommand);
+  
+  
+      // drivetrain.registerTelemetry(logger::telemeterize);
+  
+      double launcherRPM = SmartDashboard.getNumber("Launcher RPM", 0.0);
+      double hoodAngle = SmartDashboard.getNumber("Hood ANGLE", 0.0);
+      
+  
+  
+      drjoystick.rightTrigger().whileTrue(
+          Commands.startEnd(
+            () -> intake.setIntakeVoltage(-16),
+            () -> intake.setIntakeVoltage(0),
+            intake
+          )
+      );
+  
+    // LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
+    // drjoystick.rightBumper().onTrue(m_LauncherCommand);
+  
+    // drivetrain.registerTelemetry(logger::telemeterize);
+  
+    // double launcherRPM = SmartDashboard.getNumber("Launcher RPM", 0.0);
+    // double hoodAngle = SmartDashboard.getNumber("Hood ANGLE", 0.0);
+  
+    drjoystick.rightBumper().onTrue(Commands.run(
+    ()-> {
+      launcher.setHoodPosition(0.0);
+      launcher.runHood();
+    },
+    launcher));
+  
+    drjoystick.leftTrigger().whileTrue(
+        Commands.startEnd(
+          () -> intake.setIntakeVoltage(16), 
+          () -> intake.setIntakeVoltage(0),
+          intake)
+    );
+  
 
   // Operator COntroller
 
@@ -242,6 +238,7 @@ private void configureBindings() {
         launcher.runFlyWheel();
         launcher.runHood();
       },
+
       () -> launcher.stopFlyWheels(),
       launcher
     )
@@ -344,12 +341,14 @@ private void configureBindings() {
   public Command getAutonomousCommand() {
     String selected = autoChooser.getSelected().getName();
 
-    if(selected.startsWith("comp LT")) {
-      return new PathPlannerAuto(selected, true);
-    }
-    else {
-      return autoChooser.getSelected();
-    }
+    return autoChooser.getSelected();
+
+    // if(selected.startsWith("comp LT")) {
+    //   return new PathPlannerAuto(selected, true);
+    // }
+    // else {
+    //   return autoChooser.getSelected();
+    // }
   }  
 
 }

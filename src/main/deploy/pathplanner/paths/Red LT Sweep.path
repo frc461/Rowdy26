@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.475724754050926,
-        "y": 1.483078342013889
+        "x": 9.61410843373494,
+        "y": 0.6036987951807224
       },
       "isLocked": false,
       "linkedName": "RedLTExit"
     },
     {
       "anchor": {
-        "x": 9.10463158275463,
-        "y": 2.4026099537037044
+        "x": 8.95844578313253,
+        "y": 3.5978915662650603
       },
       "prevControl": {
-        "x": 9.50347800925926,
-        "y": 1.305798683449075
+        "x": 9.177,
+        "y": 1.0298795180722893
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 83.21552353675708
   },
   "useDefaultConstraints": true
 }

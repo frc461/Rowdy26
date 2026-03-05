@@ -186,11 +186,11 @@ private void configureBindings() {
     double launcherRPM = SmartDashboard.getNumber("Launcher RPM", 0.0);
     double hoodAngle = SmartDashboard.getNumber("Hood ANGLE", 0.0);
     
-    drjoystick.rightBumper().onTrue(Commands.run(()-> {
-          launcher.setFlywheelVelocity(launcherRPM);
-          launcher.setHoodPosition(hoodAngle);
-        },
-          launcher));
+    // drjoystick.rightBumper().onTrue(Commands.run(()-> {
+    //       launcher.setFlywheelVelocity(launcherRPM);
+    //       launcher.setHoodPosition(hoodAngle);
+    //     },
+    //       launcher));
 
     drjoystick.rightTrigger().whileTrue(
         Commands.startEnd(
@@ -238,36 +238,24 @@ private void configureBindings() {
     );
 
     opjoystick.b().whileTrue(
-      Commands.sequence(
-            Commands.run(
-            () -> spindexer.setVoltage(-16),
-            spindexer
-        ).withTimeout(0.25),
+    Commands.sequence(
+          Commands.run(
+          () -> spindexer.setVoltage(-16),
+          spindexer
+      ).withTimeout(0.25),
 
-                Commands.run(
-            () -> spindexer.setVoltage(16),
-            spindexer
-        )
+              Commands.run(
+          () -> spindexer.setVoltage(16),
+          spindexer
       )
-    ).onFalse(
-    Commands.runOnce(
-      () -> { 
-        launcher.setHoodPosition(0);
-        launcher.runHood();
-      },
-      launcher
+    )
+  ).onFalse(
+  Commands.runOnce(
+      () -> spindexer.setVoltage(0),
+      spindexer
+      
     )
   );
-  drjoystick.leftTrigger().onTrue(
-    Commands.runOnce(
-      () -> { 
-        launcher.setHoodPosition(0);
-        launcher.runHood();
-      },
-      launcher
-    )
-  );
-
   
 
   opjoystick.povUp().whileTrue(
@@ -321,80 +309,31 @@ private void configureBindings() {
   // double launcherRPM = SmartDashboard.getNumber("Launcher RPM", 0.0);
   // double hoodAngle = SmartDashboard.getNumber("Hood ANGLE", 0.0);
   
-  // drjoystick.rightBumper().onTrue(Commands.run(()-> 
-  //       launcher.setHoodPosition(0.0),
-  //       launcher));
 
-  opjoystick.rightBumper().whileTrue(
-      Commands.startEnd(
-        () -> intake.setIntakeVoltage(-32),
-        () -> intake.setIntakeVoltage(0),
-        intake
-      )
-  );
+  opjoystick.rightBumper().onTrue(Commands.run(
+    ()-> {
+      launcher.setHoodPosition(0.0);
+      launcher.runHood();
+    },
+    launcher));
+
+  drjoystick.rightBumper().onTrue(Commands.run(
+  ()-> {
+    launcher.setHoodPosition(0.0);
+    launcher.runHood();
+  },
+  launcher));
 
   // y sets presets for launcher and hood motor to shoot at hub
-  
-  opjoystick.y().onTrue(new InstantCommand(() -> {
-        launcher.setFlywheelVelocity(-1800.0);
-        launcher.setHoodPosition(0);
-      }
-    )
-  );
-
-  opjoystick.x().whileTrue(
-    Commands.startEnd(
-      () -> spindexer.setVoltage(-16),
-      () -> spindexer.setVoltage(0),
-      spindexer
-    )
-  );
 
   //  a sets presets for launcher and hood motor to shoot at tower
-  
-  opjoystick.a().onTrue(new InstantCommand(() -> {
-        launcher.setFlywheelVelocity(-2000.0);
-        launcher.setHoodPosition(0.90);
-      }
-    )
-  );
+
 
   drjoystick.leftTrigger().whileTrue(
       Commands.startEnd(
         () -> intake.setIntakeVoltage(16), 
         () -> intake.setIntakeVoltage(0),
         intake)
-  );
-
-  opjoystick.rightTrigger().whileTrue(
-    Commands.startEnd(
-      () -> {
-        launcher.runFlyWheel();
-        launcher.runHood();
-      },
-      () -> launcher.stopFlyWheels(),
-      launcher
-    )
-  );
-
-  opjoystick.b().whileTrue(
-    Commands.sequence(
-          Commands.run(
-          () -> spindexer.setVoltage(-16),
-          spindexer
-      ).withTimeout(0.25),
-
-              Commands.run(
-          () -> spindexer.setVoltage(16),
-          spindexer
-      )
-    )
-  ).onFalse(
-  Commands.runOnce(
-      () -> spindexer.setVoltage(0),
-      spindexer
-      
-    )
   );
   
   opjoystick.b().whileTrue(

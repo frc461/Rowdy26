@@ -407,8 +407,14 @@ private void configureBindings() {
   }
 
   public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
-    //return new PathPlannerAuto("Left Trench shoot and Human Player");
+    String selected = autoChooser.getSelected().getName();
+
+    if(selected.startsWith("comp LT")) {
+      return new PathPlannerAuto(selected, true);
+    }
+    else {
+      return autoChooser.getSelected();
+    }
   }  
 
 }

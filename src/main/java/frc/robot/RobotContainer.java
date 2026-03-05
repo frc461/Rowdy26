@@ -168,6 +168,7 @@ private void configureBindings() {
   // drjoystick.b().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kForward));   
   // drjoystick.x().whileTrue(drivetrain.sysIdDynamic(SysIdRoutine.Direction.kReverse));
 
+  //Driver Controller
 
     drjoystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
     drjoystick.rightBumper().onTrue(
@@ -177,8 +178,8 @@ private void configureBindings() {
       )
     );
 
-    LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
-    drjoystick.rightBumper().onTrue(m_LauncherCommand);
+    // LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
+    // drjoystick.rightBumper().onTrue(m_LauncherCommand);
 
 
     // drivetrain.registerTelemetry(logger::telemeterize);
@@ -186,11 +187,7 @@ private void configureBindings() {
     double launcherRPM = SmartDashboard.getNumber("Launcher RPM", 0.0);
     double hoodAngle = SmartDashboard.getNumber("Hood ANGLE", 0.0);
     
-    // drjoystick.rightBumper().onTrue(Commands.run(()-> {
-    //       launcher.setFlywheelVelocity(launcherRPM);
-    //       launcher.setHoodPosition(hoodAngle);
-    //     },
-    //       launcher));
+
 
     drjoystick.rightTrigger().whileTrue(
         Commands.startEnd(
@@ -200,44 +197,72 @@ private void configureBindings() {
         )
     );
 
-    // y sets presets for launcher and hood motor to shoot at hub
-    
-    opjoystick.y().onTrue(new InstantCommand(() -> {
-          launcher.setFlywheelVelocity(Constants.LauncherConstants.HUB_RPM);
-          launcher.setHoodPosition(Constants.LauncherConstants.HUB_HOOD_ANGLE);
-        }
-      )
-    );
+  // LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
+  // drjoystick.rightBumper().onTrue(m_LauncherCommand);
 
-    opjoystick.x().whileTrue(
+  // drivetrain.registerTelemetry(logger::telemeterize);
+
+  // double launcherRPM = SmartDashboard.getNumber("Launcher RPM", 0.0);
+  // double hoodAngle = SmartDashboard.getNumber("Hood ANGLE", 0.0);
+
+  drjoystick.rightBumper().onTrue(Commands.run(
+  ()-> {
+    launcher.setHoodPosition(0.0);
+    launcher.runHood();
+  },
+  launcher));
+
+  drjoystick.leftTrigger().whileTrue(
       Commands.startEnd(
-        () -> spindexer.setVoltage(-16),
-        () -> spindexer.setVoltage(0),
-        spindexer
-      )
-    );
+        () -> intake.setIntakeVoltage(16), 
+        () -> intake.setIntakeVoltage(0),
+        intake)
+  );
 
-    //  a sets presets for launcher and hood motor to shoot at tower
-    
-    opjoystick.a().onTrue(new InstantCommand(() -> {
-          launcher.setFlywheelVelocity(Constants.LauncherConstants.TOWER_RPM);
-          launcher.setHoodPosition(Constants.LauncherConstants.TOWER_HOOD_ANGLE);
-        }
-      )
-    );
+  // drjoystick.b().onTrue(
+  //   Commands.run(
+  //     () -> autoCommand.RightTrenchAlign(),
+  //     autoCommand
+  //   )
+  // );
 
-    opjoystick.rightTrigger().whileTrue(
-      Commands.startEnd(
-        () -> {
-          launcher.runFlyWheel();
-          launcher.runHood();
-        },
-        () -> launcher.stopFlyWheels(),
-        launcher
-      )
-    );
+  // Operator COntroller
 
-    opjoystick.b().whileTrue(
+  opjoystick.leftTrigger().whileTrue(
+    Commands.startEnd(
+      () ->launcher.shuttle(),
+      ()->launcher.stopFlyWheels(),
+      launcher
+    )
+  );
+
+  opjoystick.rightTrigger().whileTrue(
+    Commands.startEnd(
+      () -> {
+        launcher.runFlyWheel();
+        launcher.runHood();
+      },
+      () -> launcher.stopFlyWheels(),
+      launcher
+    )
+  );
+
+  opjoystick.rightBumper().onTrue(Commands.run(
+    ()-> {
+      launcher.setHoodPosition(0.0);
+      launcher.runHood();
+    },
+    launcher));
+
+  opjoystick.b().whileTrue(
+    Commands.startEnd(
+      () -> intake.setIntakeVoltage(-16),
+      () -> intake.setIntakeVoltage(0),
+      intake
+    )
+  );
+
+  opjoystick.b().whileTrue(
     Commands.sequence(
           Commands.run(
           () -> spindexer.setVoltage(-16),
@@ -256,7 +281,28 @@ private void configureBindings() {
       
     )
   );
-  
+    
+    opjoystick.y().onTrue(new InstantCommand(() -> {
+          launcher.setFlywheelVelocity(Constants.LauncherConstants.HUB_RPM);
+          launcher.setHoodPosition(Constants.LauncherConstants.HUB_HOOD_ANGLE);
+        }
+      )
+    );
+
+    opjoystick.x().whileTrue(
+      Commands.startEnd(
+        () -> spindexer.setVoltage(-16),
+        () -> spindexer.setVoltage(0),
+        spindexer
+      )
+    );
+    
+  opjoystick.a().onTrue(new InstantCommand(() -> {
+        launcher.setFlywheelVelocity(Constants.LauncherConstants.TOWER_RPM);
+        launcher.setHoodPosition(Constants.LauncherConstants.TOWER_HOOD_ANGLE);
+      }
+    )
+  );  
 
   opjoystick.povUp().whileTrue(
     Commands.startEnd(
@@ -291,59 +337,9 @@ private void configureBindings() {
     )
 
   );
-  opjoystick.leftTrigger().whileTrue(
-    Commands.startEnd(
-      () ->launcher.shuttle(),
-      ()->launcher.stopFlyWheels(),
-      launcher
-    )
-  );
-  
-
-  // LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
-  // drjoystick.rightBumper().onTrue(m_LauncherCommand);
-
-
-  // drivetrain.registerTelemetry(logger::telemeterize);
-
-  // double launcherRPM = SmartDashboard.getNumber("Launcher RPM", 0.0);
-  // double hoodAngle = SmartDashboard.getNumber("Hood ANGLE", 0.0);
-  
-
-  opjoystick.rightBumper().onTrue(Commands.run(
-    ()-> {
-      launcher.setHoodPosition(0.0);
-      launcher.runHood();
-    },
-    launcher));
-
-  drjoystick.rightBumper().onTrue(Commands.run(
-  ()-> {
-    launcher.setHoodPosition(0.0);
-    launcher.runHood();
-  },
-  launcher));
-
-  // y sets presets for launcher and hood motor to shoot at hub
-
-  //  a sets presets for launcher and hood motor to shoot at tower
-
-
-  drjoystick.leftTrigger().whileTrue(
-      Commands.startEnd(
-        () -> intake.setIntakeVoltage(16), 
-        () -> intake.setIntakeVoltage(0),
-        intake)
-  );
-  
-  opjoystick.b().whileTrue(
-    Commands.startEnd(
-      () -> intake.setIntakeVoltage(-16),
-      () -> intake.setIntakeVoltage(0),
-      intake
-    )
-  );
   }
+
+  
 
   public Command getAutonomousCommand() {
     String selected = autoChooser.getSelected().getName();

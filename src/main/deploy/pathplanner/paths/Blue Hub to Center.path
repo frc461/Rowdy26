@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 1.2683721598686022,
-        "y": 6.965142166256046
+        "y": 6.9651421662560455
       },
       "isLocked": false,
       "linkedName": "BlueShootAtHub"
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 6.0,
+    "maxAcceleration": 6.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

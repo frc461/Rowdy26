@@ -193,7 +193,7 @@ public class RobotContainer {
   
       drjoystick.rightTrigger().whileTrue(
           Commands.startEnd(
-            () -> intake.setIntakeVoltage(-16),
+            () -> intake.setIntakeVoltage(16),
             () -> intake.setIntakeVoltage(0),
             intake
           )
@@ -214,12 +214,12 @@ public class RobotContainer {
     },
     launcher));
   
-    drjoystick.leftTrigger().whileTrue(
-        Commands.startEnd(
-          () -> intake.setIntakeVoltage(16), 
-          () -> intake.setIntakeVoltage(0),
-          intake)
-    );
+    // drjoystick.leftTrigger().whileTrue(
+    //     Commands.startEnd(
+    //       () -> intake.setIntakeVoltage(16), 
+    //       () -> intake.setIntakeVoltage(0),
+    //       intake)
+    // );
   
 
   // Operator COntroller

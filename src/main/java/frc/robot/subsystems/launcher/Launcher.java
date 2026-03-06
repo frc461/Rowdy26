@@ -1,6 +1,5 @@
 package frc.robot.subsystems.launcher;
 
-import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
@@ -8,11 +7,6 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
-import com.ctre.phoenix6.signals.MotorAlignmentValue;
-import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.revrobotics.AbsoluteEncoder;
-import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 
@@ -169,8 +163,8 @@ public class Launcher extends SubsystemBase {
         SmartDashboard.putNumber("convertHoodPosition", convertHoodPosition(1.25));
 
         
-        double hoodAngle = SmartDashboard.getNumber(KEY_HOOD_ANGLE, 0.0);
-        double launcherRPM = SmartDashboard.getNumber(KEY_FLY_RPM, 0.0);
+        // double hoodAngle = SmartDashboard.getNumber(KEY_HOOD_ANGLE, 0.0);
+        // double launcherRPM = SmartDashboard.getNumber(KEY_FLY_RPM, 0.0);
        
         
         // setFlywheelVelocity(launcherRPM);

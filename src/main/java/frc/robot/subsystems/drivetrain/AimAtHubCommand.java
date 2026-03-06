@@ -46,7 +46,7 @@ public class AimAtHubCommand extends Command {
 
         // Tune these PID values in SmartDashboard
         // P value defines how aggressively the robot snaps to the angle
-        turnPID = new PIDController(0.05, 0.0, 0.005);
+        turnPID = new PIDController(0.25, 0.0, 0.005);
         
         // CRITICAL: Tells the PID loop that 360 degrees and 0 degrees are the same point.
         // This prevents the robot from spinning the long way around.
@@ -85,8 +85,8 @@ public class AimAtHubCommand extends Command {
 
         // 5. Command the Launcher
         if (solution.found) {
-            launcher.setFlywheelVelocity(solution.rpm);
-            launcher.setHoodPosition(ShooterSolver.HOOD_ANGLE_DEGREES);
+            launcher.setFlywheelVelocity(-1.0 * solution.rpm);
+            launcher.setHoodPosition(1.25);
             SmartDashboard.putBoolean("Shooter/Solution Found", true);
         } else {
             SmartDashboard.putBoolean("Shooter/Solution Found", false);

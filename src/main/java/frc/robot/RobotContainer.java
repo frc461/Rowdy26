@@ -173,7 +173,7 @@ public class RobotContainer {
 
       drjoystick.rightTrigger().whileTrue(
           Commands.startEnd(
-            () -> intake.setIntakeVoltage(-16),
+            () -> intake.setIntakeVoltage(16),
             () -> intake.setIntakeVoltage(0),
             intake
           )

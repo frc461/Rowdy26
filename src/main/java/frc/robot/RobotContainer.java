@@ -244,12 +244,26 @@ public class RobotContainer {
     )
   );
 
-  opjoystick.rightBumper().onTrue(Commands.run(
+  opjoystick.leftBumper().onTrue(Commands.run(
     ()-> {
       launcher.setHoodPosition(0.0);
       launcher.runHood();
     },
     launcher));
+
+  // opjoystick.leftBumper().onTrue(new InstantCommand(() -> {
+  //         launcher.setFlywheelVelocity(Constants.LauncherConstants.TRENCH_AUTO_RPM);
+  //         launcher.setHoodPosition(Constants.LauncherConstants.TRENCH_AUTO_START_HOOD_ANGLE);
+  //       }
+  //     )
+  //     );
+
+  opjoystick.rightBumper().whileTrue( 
+    Commands.startEnd(
+      () -> intake.setIntakeVoltage(-16),
+      () -> intake.setIntakeVoltage(0),
+      intake)
+  );
 
   opjoystick.b().whileTrue(
     Commands.startEnd(

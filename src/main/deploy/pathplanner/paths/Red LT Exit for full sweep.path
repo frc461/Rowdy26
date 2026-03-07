@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.61504756378625,
-        "y": 0.3846746830025707
+        "x": 11.52087951807229,
+        "y": 0.636481927710844
       },
       "isLocked": false,
       "linkedName": "RightTrenchStartPoint"
     },
     {
       "anchor": {
-        "x": 13.056337349397587,
-        "y": 4.155204819277108
+        "x": 10.39834006076389,
+        "y": 0.6364819277108438
       },
       "prevControl": {
-        "x": 13.011272874669519,
-        "y": 3.252079561525399
+        "x": 11.39834006076389,
+        "y": 0.6364819277108439
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ShootatHub"
+      "linkedName": "RedLTExit"
     }
   ],
   "rotationTargets": [],
@@ -41,13 +41,13 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 180.0
+    "velocity": 1.0,
+    "rotation": 83.21552353675708
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": 88.87669728592469
   },
   "useDefaultConstraints": true

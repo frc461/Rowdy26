@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.534239432205705,
-        "y": 7.439688715880401
+        "x": 11.544463924273485,
+        "y": 7.5254334403586585
       },
       "isLocked": false,
       "linkedName": "LeftTrenchStartPoint"
     },
     {
       "anchor": {
-        "x": 12.5,
+        "x": 10.744435619212963,
         "y": 7.499
       },
       "prevControl": {
-        "x": 11.962810521904325,
-        "y": 7.564398953088192
+        "x": 11.404346354166666,
+        "y": 7.482767867476851
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RedLeftTrenchShoot"
+      "linkedName": "RedRTEntrance"
     }
   ],
   "rotationTargets": [],
@@ -41,8 +41,8 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 1.0,
-    "rotation": -97.43625611500597
+    "velocity": 0,
+    "rotation": -90.0
   },
   "reversed": false,
   "folder": null,

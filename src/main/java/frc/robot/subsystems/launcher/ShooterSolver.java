@@ -8,7 +8,7 @@ import java.util.Optional;
 public class ShooterSolver {
 
     // --- TUNABLE CONSTANTS ---
-    public static final double EFFICIENCY = 0.60; 
+    public static final double EFFICIENCY = 0.59; 
     public static final double HOOD_ANGLE_DEGREES = 60.0;
     public static final double SHOOTER_HEIGHT_METERS = 0.508; 
     public static final double WHEEL_RADIUS_METERS = 0.0508; 

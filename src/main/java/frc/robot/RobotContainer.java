@@ -181,12 +181,12 @@ public class RobotContainer {
   
     // drivetrain.registerTelemetry(logger::telemeterize);
   
-    drjoystick.rightBumper().onTrue(Commands.run(
-    ()-> {
-      launcher.setHoodPosition(0.0);
-      launcher.runHood();
-    },
-    launcher));
+    // drjoystick.rightBumper().onTrue(Commands.run(
+    // ()-> {
+    //   launcher.setHoodPosition(0.0);
+    //   launcher.runHood();
+    // },
+    // launcher));
   
     // drjoystick.leftTrigger().whileTrue(
     //     Commands.startEnd(

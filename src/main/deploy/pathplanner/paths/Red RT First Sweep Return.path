@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 9.089578313253012,
-        "y": 3.7399518072289153
+        "y": 4.078710843373495
       },
       "prevControl": null,
       "nextControl": {
         "x": 9.93503983558705,
-        "y": 3.9973208816462886
+        "y": 4.336079917790868
       },
       "isLocked": false,
       "linkedName": "RedRTFirstSweep"

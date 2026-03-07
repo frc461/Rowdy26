@@ -8,6 +8,7 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
@@ -135,15 +136,19 @@ public final class Vision extends SubsystemBase {
                     EstimatedRobotPose est = visionEst.get();
                     Pose2d rawVisionPose = est.estimatedPose.toPose2d();
                     
-                    // 1. Add the raw pose to our list for the dashboard ghost robots
+                    // 1. ALWAYS add the raw pose to our list for the dashboard ghost robots
+                    // This lets the drivers verify cameras are working during auto
                     currentVisionPoses.add(rawVisionPose);
 
-                    // 2. Calculate trust based on distance and number of tags
-                    updateEstimationStdDevs(visionEst, est.targetsUsed, estimator);
-                    Matrix<N3, N1> stdDevs = getEstimationStdDevs();
-                    
-                    // 3. Pass the data directly into the CTRE drivetrain
-                    estConsumer.accept(rawVisionPose, est.timestampSeconds, stdDevs);
+                    // 2. ONLY feed the data to the Swerve drive if we are NOT in Autonomous
+                    if (!DriverStation.isAutonomous()) {
+                        // Calculate trust based on distance and number of tags
+                        updateEstimationStdDevs(visionEst, est.targetsUsed, estimator);
+                        Matrix<N3, N1> stdDevs = getEstimationStdDevs();
+                        
+                        // Pass the data directly into the CTRE drivetrain
+                        estConsumer.accept(rawVisionPose, est.timestampSeconds, stdDevs);
+                    }
                 }
             }
         }

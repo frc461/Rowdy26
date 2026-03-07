@@ -173,7 +173,7 @@ public class RobotContainer {
 
       drjoystick.rightTrigger().whileTrue(
           Commands.startEnd(
-            () -> intake.setIntakeVoltage(16),
+            () -> intake.setIntakeVoltage(-16),
             () -> intake.setIntakeVoltage(0),
             intake
           )
@@ -244,7 +244,7 @@ public class RobotContainer {
 
     opjoystick.rightBumper().whileTrue( 
       Commands.startEnd(
-        () -> intake.setIntakeVoltage(-16),
+        () -> intake.setIntakeVoltage(16),
         () -> intake.setIntakeVoltage(0),
         intake)
     );

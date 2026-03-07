@@ -8,7 +8,7 @@ import java.util.Optional;
 public class ShooterSolver {
 
     // --- TUNABLE CONSTANTS ---
-    public static final double EFFICIENCY = 0.61; 
+    public static final double EFFICIENCY = 0.60; 
     public static final double HOOD_ANGLE_DEGREES = 60.0;
     public static final double SHOOTER_HEIGHT_METERS = 0.508; 
     public static final double WHEEL_RADIUS_METERS = 0.0508; 
@@ -30,8 +30,8 @@ public class ShooterSolver {
     public static final double FIELD_LENGTH_METERS = 16.5417; 
     
     // Blue Alliance Hub Coordinates
-    public static final double BLUE_TARGET_X = 4.35; // 4.62 [m]
-    public static final double BLUE_TARGET_Y = 4.35; // 4.02 [m]
+    public static final double BLUE_TARGET_X = 4.05; // 4.62 [m]
+    public static final double BLUE_TARGET_Y = 3.92; // 4.02 [m]
 
     // Ball Physics
     public static final double BALL_MASS_KG = 0.215;

@@ -327,6 +327,19 @@ public class RobotContainer {
         intake
       )
     );
+
+    opjoystick.leftStick().onTrue(
+      Commands.runOnce(
+        () -> spindexer.setVoltage(0),
+        spindexer)
+    );
+
+    opjoystick.rightStick().onTrue(new InstantCommand(() -> {
+          launcher.setFlywheelVelocity(Constants.LauncherConstants.TRENCH_AUTO_RPM);
+          launcher.setHoodPosition(Constants.LauncherConstants.TRENCH_AUTO_START_HOOD_ANGLE);
+        }
+      )
+    );  
   }
 
   public Command getAutonomousCommand() {
@@ -341,4 +354,8 @@ public class RobotContainer {
     //   return autoChooser.getSelected();
     // }
   }  
+
+  public Command StopAuto() {
+    return autoCommand.StopAll();
+  }
 }

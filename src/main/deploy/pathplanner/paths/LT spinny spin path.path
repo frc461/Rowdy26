@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 8.871024096385542,
-        "y": 5.870855421686747
+        "x": 8.750819277108434,
+        "y": 6.908987951807229
       },
       "prevControl": {
-        "x": 9.177,
-        "y": 3.0187228915662647
+        "x": 9.056795180722892,
+        "y": 4.056855421686747
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Spinnyspinpathend"
     }
   ],
   "rotationTargets": [],
@@ -34,14 +34,14 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 5.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 3.0,
+    "velocity": 2.0,
     "rotation": -109.98310652189984
   },
   "reversed": false,
@@ -50,5 +50,5 @@
     "velocity": 0,
     "rotation": 88.87669728592469
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

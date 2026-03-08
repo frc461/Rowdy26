@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.95844578313253,
-        "y": 3.5978915662650603
+        "x": 8.750819277108434,
+        "y": 6.908987951807229
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.70710843373494,
-        "y": 1.2375060240963864
+        "x": 10.816156626506023,
+        "y": 7.22589156626506
       },
       "isLocked": false,
-      "linkedName": "RedLTSweep"
+      "linkedName": "Spinnyspinpathend"
     },
     {
       "anchor": {
-        "x": 12.815927710843374,
-        "y": 0.6364819277108438
+        "x": 10.652240963855423,
+        "y": 4.657879518072289
       },
       "prevControl": {
-        "x": 9.996578313253012,
-        "y": 0.29772289156626436
+        "x": 10.608530120481927,
+        "y": 6.03477108433735
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RedLTShoot"
+      "linkedName": "spinnyspincenterintake"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
+    "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 107.96913974015672
+    "rotation": -160.64100582430524
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
-    "velocity": 1.0,
-    "rotation": 25.0
+    "velocity": 2.0,
+    "rotation": -109.98310652189984
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

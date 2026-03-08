@@ -62,7 +62,6 @@ public class RobotContainer {
   private final Launcher launcher = new Launcher();
   private final Spindexer spindexer = new Spindexer();
 
-  private final AutoCommand autoCommand = new AutoCommand(launcher, spindexer, intake);
   private static HubState hubState = new HubState();
 
   private final TalonFX leadMotor = new TalonFX(50);//Spindexer
@@ -84,6 +83,8 @@ public class RobotContainer {
   private final SwerveTelemetry logger = new SwerveTelemetry(MaxSpeed);
 
   public final Swerve drivetrain = TunerConstants.createDrivetrain();
+
+  private final AutoCommand autoCommand = new AutoCommand(launcher, spindexer, intake, drivetrain);
 
   // Create Vision, passing it the CTRE drivetrain's vision method
   public final Vision m_vision = new Vision((pose, timestamp, stdDevs) -> {
@@ -204,7 +205,13 @@ public class RobotContainer {
           () -> -drjoystick.getLeftX() * MaxSpeed    // Strafe input
         )
     );
-  
+
+    // drjoystick.b().whileTrue(
+    //   Commands.runOnce(
+    //     () -> {autoCommand.defenceX();} 
+    //     )
+    // );
+    
 
     // Operator COntroller
 

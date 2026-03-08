@@ -2,12 +2,17 @@ package frc.robot;
 
 import frc.robot.constants.Constants;
 
+import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.swerve.SwerveModule.ModuleRequest;
 import com.pathplanner.lib.path.PathPlannerPath;
 
+import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.launcher.Launcher;
 import frc.robot.subsystems.spindexer.Spindexer;
+import frc.robot.subsystems.drivetrain.Swerve;
 import frc.robot.subsystems.intake.Intake;
 
 public class AutoCommand extends SubsystemBase {
@@ -15,12 +20,14 @@ public class AutoCommand extends SubsystemBase {
     private Launcher launcher;
     private Spindexer spindexer;
     private Intake intake;
+    private Swerve drivetrain;
 
-    public AutoCommand(Launcher m_Launcher, Spindexer m_Spindexer, Intake m_Intake)
+    public AutoCommand(Launcher m_Launcher, Spindexer m_Spindexer, Intake m_Intake, Swerve m_Drivetrain)
     {
         launcher = m_Launcher;
         spindexer = m_Spindexer;
         intake = m_Intake;
+        drivetrain = m_Drivetrain;
     }
 
     public Command AutoHumanPlayerShoot() {
@@ -102,15 +109,17 @@ public class AutoCommand extends SubsystemBase {
         );
     }
 
-    // public void xMode() {
+    // public void defenceX() {
     //     drivetrain.getModule(0).apply(
-    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(45))));
+    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(105))));
     //     drivetrain.getModule(0).apply(
-    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(-45))));
+    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(-75))));
     //     drivetrain.getModule(0).apply(
-    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(45))));
+    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(15))));
     //     drivetrain.getModule(0).apply(
-    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(-45))));
+    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(-75))));
+        
+    //     // drivetrain.configNeutralMode(NeutralModeValue.Brake);
     // }
 
     

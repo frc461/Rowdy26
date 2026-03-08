@@ -102,6 +102,17 @@ public class AutoCommand extends SubsystemBase {
         );
     }
 
+    // public void xMode() {
+    //     drivetrain.getModule(0).apply(
+    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(45))));
+    //     drivetrain.getModule(0).apply(
+    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(-45))));
+    //     drivetrain.getModule(0).apply(
+    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(45))));
+    //     drivetrain.getModule(0).apply(
+    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(-45))));
+    // }
+
     
     
     

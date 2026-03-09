@@ -20,6 +20,7 @@ import frc.robot.subsystems.launcher.LauncherCommand;
 import frc.robot.subsystems.localizer.Localizer;
 import frc.robot.subsystems.spindexer.Spindexer;
 import frc.robot.util.FieldUtil;
+import frc.robot.util.vision.Vision;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -38,6 +39,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.constants.TunerConstants;
+import frc.robot.subsystems.drivetrain.AimAtHubCommand;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.drivetrain.Swerve;
 import frc.robot.subsystems.drivetrain.SwerveCommand;
@@ -55,49 +57,46 @@ import frc.robot.subsystems.launcher.Launcher;
 
 public class RobotContainer {
 
-  
-  
-    private SendableChooser<Command> autoChooser;
-    private final Intake intake = new Intake();
-    private final Launcher launcher = new Launcher();
-    private final Spindexer spindexer = new Spindexer();
-  
-    private final AutoCommand autoCommand = new AutoCommand(launcher, spindexer, intake);
-    private static HubState hubState = new HubState();
-  
-    private final TalonFX leadMotor = new TalonFX(50);//Spindexer
-    private final TalonFX followMotor = new TalonFX(55);//Kicker
-  
-    private final CommandXboxController opjoystick = new CommandXboxController(1); // operator controller port
-  
-    private final CommandXboxController drjoystick = new CommandXboxController(0);
-  
-      
-  
-    private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-    private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
-  
-    /* Setting up bindings for necessary control of the swerve drive platform */
-    private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-            .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
-            .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
-    private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
-    private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
-  
-    private final SwerveTelemetry logger = new SwerveTelemetry(MaxSpeed);
-  
-  
+  private SendableChooser<Command> autoChooser;
+  private final Intake intake = new Intake();
+  private final Launcher launcher = new Launcher();
+  private final Spindexer spindexer = new Spindexer();
+
+  private final AutoCommand autoCommand = new AutoCommand(launcher, spindexer, intake);
+  private static HubState hubState = new HubState();
+
+  private final TalonFX leadMotor = new TalonFX(50);//Spindexer
+  private final TalonFX followMotor = new TalonFX(55);//Kicker
+
+  private final CommandXboxController opjoystick = new CommandXboxController(1); // operator controller port
+  private final CommandXboxController drjoystick = new CommandXboxController(0);    
+
+  private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+  private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+
+  /* Setting up bindings for necessary control of the swerve drive platform */
+  private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
+          .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+          .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+  private final SwerveRequest.SwerveDriveBrake xMode = new SwerveRequest.SwerveDriveBrake();
+  private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
+
+  private final SwerveTelemetry logger = new SwerveTelemetry(MaxSpeed);
+
   public final Swerve drivetrain = TunerConstants.createDrivetrain();
-  
-  public final Localizer m_localizer = new Localizer(drivetrain);
-    
+
+  // Create Vision, passing it the CTRE drivetrain's vision method
+  public final Vision m_vision = new Vision((pose, timestamp, stdDevs) -> {
+      drivetrain.addVisionMeasurement(pose, timestamp, stdDevs);
+  });
+
+  // Pass both to the Localizer
+  public final Localizer m_localizer = new Localizer(drivetrain, m_vision);  
     
     public RobotContainer() {
   
       autoChooser = new SendableChooser<>();
-  
-  
-      
+
       NamedCommands.registerCommand("Shoot Trench Preset", autoCommand.AutoTrenchShoot());
       NamedCommands.registerCommand("Shoot Human Player Preset", autoCommand.AutoHumanPlayerShoot());
       NamedCommands.registerCommand("Shoot Tower Preset", autoCommand.AutoTowerShoot());
@@ -156,9 +155,7 @@ public class RobotContainer {
     // drjoystick.leftBumper().onTrue(Commands.runOnce(SignalLogger::start));
   
     // drjoystick.rightBumper().onTrue(Commands.runOnce(SignalLogger::stop));
-    
-  
-  
+
     /*
     * drjoystick Y = quasistatic forward
     * drjoystick A = quasistatic reverse
@@ -173,24 +170,7 @@ public class RobotContainer {
     //Driver Controller
   
       drjoystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
-      drjoystick.rightBumper().onTrue(
-        Commands.runOnce(
-          () -> launcher.setHoodPosition(0),
-          launcher
-        )
-      );
-  
-      // LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
-      // drjoystick.rightBumper().onTrue(m_LauncherCommand);
-  
-  
-      // drivetrain.registerTelemetry(logger::telemeterize);
-  
-      double launcherRPM = SmartDashboard.getNumber("Launcher RPM", 0.0);
-      double hoodAngle = SmartDashboard.getNumber("Hood ANGLE", 0.0);
-      
-  
-  
+
       drjoystick.rightTrigger().whileTrue(
           Commands.startEnd(
             () -> intake.setIntakeVoltage(-16),
@@ -199,99 +179,103 @@ public class RobotContainer {
           )
       );
   
-    // LauncherCommand m_LauncherCommand = new LauncherCommand(launcher);
-    // drjoystick.rightBumper().onTrue(m_LauncherCommand);
-  
     // drivetrain.registerTelemetry(logger::telemeterize);
   
-    // double launcherRPM = SmartDashboard.getNumber("Launcher RPM", 0.0);
-    // double hoodAngle = SmartDashboard.getNumber("Hood ANGLE", 0.0);
+    // drjoystick.rightBumper().onTrue(Commands.run(
+    // ()-> {
+    //   launcher.setHoodPosition(0.0);
+    //   launcher.runHood();
+    // },
+    // launcher));
   
-    drjoystick.rightBumper().onTrue(Commands.run(
-    ()-> {
-      launcher.setHoodPosition(0.0);
-      launcher.runHood();
-    },
-    launcher));
-  
+    // drjoystick.leftTrigger().whileTrue(
+    //     Commands.startEnd(
+    //       () -> intake.setIntakeVoltage(16), 
+    //       () -> intake.setIntakeVoltage(0),
+    //       intake)
+    // );
+    
     drjoystick.leftTrigger().whileTrue(
-        Commands.startEnd(
-          () -> intake.setIntakeVoltage(16), 
-          () -> intake.setIntakeVoltage(0),
-          intake)
+      new AimAtHubCommand(
+          drivetrain, 
+          launcher, 
+          m_localizer, 
+          () -> -drjoystick.getLeftY() * MaxSpeed,   // Forward input
+          () -> -drjoystick.getLeftX() * MaxSpeed    // Strafe input
+        )
     );
   
 
-  // Operator COntroller
+    // Operator COntroller
 
-  opjoystick.leftTrigger().whileTrue(
-    Commands.startEnd(
-      () ->launcher.shuttle(),
-      ()->launcher.stopFlyWheels(),
-      launcher
-    )
-  );
+    opjoystick.leftTrigger().whileTrue(
+      Commands.startEnd(
+        () ->launcher.shuttle(),
+        ()->launcher.stopFlyWheels(),
+        launcher
+      )
+    );
 
-  opjoystick.rightTrigger().whileTrue(
-    Commands.startEnd(
-      () -> {
-        launcher.runFlyWheel();
+    opjoystick.rightTrigger().whileTrue(
+      Commands.startEnd(
+        () -> {
+          drivetrain.applyRequest(() -> xMode);
+          launcher.runFlyWheel();
+          launcher.runHood();
+        },
+
+        () -> launcher.stopFlyWheels(),
+        launcher, drivetrain
+      )
+    );
+
+    opjoystick.leftBumper().onTrue(Commands.run(
+      ()-> {
+        launcher.setHoodPosition(0.0);
         launcher.runHood();
       },
+      launcher));
 
-      () -> launcher.stopFlyWheels(),
-      launcher
-    )
-  );
+    // opjoystick.leftBumper().onTrue(new InstantCommand(() -> {
+    //         launcher.setFlywheelVelocity(Constants.LauncherConstants.TRENCH_AUTO_RPM);
+    //         launcher.setHoodPosition(Constants.LauncherConstants.TRENCH_AUTO_START_HOOD_ANGLE);
+    //       }
+    //     )
+    //     );
 
-  opjoystick.leftBumper().onTrue(Commands.run(
-    ()-> {
-      launcher.setHoodPosition(0.0);
-      launcher.runHood();
-    },
-    launcher));
+    opjoystick.rightBumper().whileTrue( 
+      Commands.startEnd(
+        () -> intake.setIntakeVoltage(16),
+        () -> intake.setIntakeVoltage(0),
+        intake)
+    );
 
-  // opjoystick.leftBumper().onTrue(new InstantCommand(() -> {
-  //         launcher.setFlywheelVelocity(Constants.LauncherConstants.TRENCH_AUTO_RPM);
-  //         launcher.setHoodPosition(Constants.LauncherConstants.TRENCH_AUTO_START_HOOD_ANGLE);
-  //       }
-  //     )
-  //     );
-
-  opjoystick.rightBumper().whileTrue( 
-    Commands.startEnd(
-      () -> intake.setIntakeVoltage(-16),
-      () -> intake.setIntakeVoltage(0),
-      intake)
-  );
-
-  opjoystick.b().whileTrue(
-    Commands.startEnd(
-      () -> intake.setIntakeVoltage(-16),
-      () -> intake.setIntakeVoltage(0),
-      intake
-    )
-  );
-
-  opjoystick.b().whileTrue(
-    Commands.sequence(
-          Commands.run(
-          () -> spindexer.setVoltage(-16),
-          spindexer
-      ).withTimeout(0.25),
-
-              Commands.run(
-          () -> spindexer.setVoltage(16),
-          spindexer
+    opjoystick.b().whileTrue(
+      Commands.startEnd(
+        () -> intake.setIntakeVoltage(-16),
+        () -> intake.setIntakeVoltage(0),
+        intake
       )
-    )
-  ).onFalse(
-  Commands.runOnce(
-      () -> spindexer.setVoltage(0),
-      spindexer
-      
-    )
-  );
+    );
+
+    opjoystick.b().whileTrue(
+      Commands.sequence(
+            Commands.run(
+            () -> spindexer.setVoltage(-16),
+            spindexer
+          ).withTimeout(0.25),
+
+                Commands.run(
+            () -> spindexer.setVoltage(16),
+            spindexer
+          )
+        )
+      ).onFalse(
+      Commands.runOnce(
+        () -> spindexer.setVoltage(0),
+        spindexer
+      )
+    );
     
     opjoystick.y().onTrue(new InstantCommand(() -> {
           launcher.setFlywheelVelocity(Constants.LauncherConstants.HUB_RPM);
@@ -308,49 +292,56 @@ public class RobotContainer {
       )
     );
     
-  opjoystick.a().onTrue(new InstantCommand(() -> {
-        launcher.setFlywheelVelocity(Constants.LauncherConstants.TOWER_RPM);
-        launcher.setHoodPosition(Constants.LauncherConstants.TOWER_HOOD_ANGLE);
-      }
-    )
-  );  
+    opjoystick.a().onTrue(new InstantCommand(() -> {
+          launcher.setFlywheelVelocity(Constants.LauncherConstants.TOWER_RPM);
+          launcher.setHoodPosition(Constants.LauncherConstants.TOWER_HOOD_ANGLE);
+        }
+      )
+    );  
 
-  opjoystick.povUp().whileTrue(
-    Commands.startEnd(
-      () ->intake.setDeployVoltage(-6),
-      () ->intake.setDeployVoltage(0),
-      intake
-    )
+    opjoystick.povUp().whileTrue(
+      Commands.startEnd(
+        () ->intake.setDeployVoltage(-6),
+        () ->intake.setDeployVoltage(0),
+        intake
+      )
+    );
 
-  );
+    opjoystick.povDown().whileTrue(
+      Commands.startEnd(
+        () ->intake.setDeployVoltage(6),
+        () ->intake.setDeployVoltage(0),
+        intake
+      )
+    );
+    
+    opjoystick.povRight().onTrue(
+      Commands.runOnce(
+        () ->intake.ExtendIntake(),
+        intake
+      )
+    );
 
-  opjoystick.povDown().whileTrue(
-    Commands.startEnd(
-      () ->intake.setDeployVoltage(6),
-      () ->intake.setDeployVoltage(0),
-      intake
-    )
+    opjoystick.povLeft().onTrue(
+      Commands.runOnce(
+        () ->intake.RetractIntake(),
+        intake
+      )
+    );
 
-  );
-  
-  opjoystick.povRight().onTrue(
-    Commands.runOnce(
-      () ->intake.ExtendIntake(),
-      intake
-    )
+    opjoystick.leftStick().onTrue(
+      Commands.runOnce(
+        () -> spindexer.setVoltage(0),
+        spindexer)
+    );
 
-  );
-
-  opjoystick.povLeft().onTrue(
-    Commands.runOnce(
-      () ->intake.RetractIntake(),
-      intake
-    )
-
-  );
+    opjoystick.rightStick().onTrue(new InstantCommand(() -> {
+          launcher.setFlywheelVelocity(Constants.LauncherConstants.TRENCH_AUTO_RPM);
+          launcher.setHoodPosition(Constants.LauncherConstants.TRENCH_AUTO_START_HOOD_ANGLE);
+        }
+      )
+    );  
   }
-
-  
 
   public Command getAutonomousCommand() {
     String selected = autoChooser.getSelected().getName();
@@ -365,5 +356,7 @@ public class RobotContainer {
     // }
   }  
 
+  public Command StopAuto() {
+    return autoCommand.StopAll();
+  }
 }
-

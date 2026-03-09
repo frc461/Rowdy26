@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.58644578313253,
+        "x": 12.52087951807229,
         "y": 0.6364819277108438
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.186959232447073,
-        "y": 0.6092894421402282
+        "x": 13.072263630673612,
+        "y": 0.5870159498511881
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "RightTrenchStartPoint"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 0.6364819277108438
       },
       "prevControl": {
-        "x": 12.474764937627686,
-        "y": 0.6580965371165983
+        "x": 12.566498695758835,
+        "y": 0.6827050584070654
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 6.0,
-    "maxAcceleration": 6.0,
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

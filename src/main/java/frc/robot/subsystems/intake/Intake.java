@@ -34,6 +34,18 @@ public class Intake extends SubsystemBase{
         DeployKraken.getConfigurator().apply(config);
         DeployKraken.setPosition(0);
 
+
+        TalonFXConfiguration intakeconfig = new TalonFXConfiguration();
+        IntakeKraken.getConfigurator().apply(new TalonFXConfiguration());
+        intakeconfig.CurrentLimits.SupplyCurrentLimitEnable = true;
+        intakeconfig.CurrentLimits.SupplyCurrentLimit = 30;
+        intakeconfig.CurrentLimits.StatorCurrentLimitEnable = true;
+        intakeconfig.CurrentLimits.StatorCurrentLimit = 80;
+
+        IntakeKraken.getConfigurator().apply(config);
+        IntakeKraken.setPosition(0);
+
+
     }
 
     private final DigitalInput RightForwardLimitSwitch = new DigitalInput(0);

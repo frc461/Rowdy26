@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.810807228915662,
-        "y": 6.865277108433736
+        "x": 8.783602409638554,
+        "y": 7.477228915662651
       },
       "isLocked": false,
       "linkedName": "spinnyspincenterintake"
@@ -20,8 +20,8 @@
         "y": 7.499
       },
       "prevControl": {
-        "x": 10.007506024096385,
-        "y": 7.477228915662651
+        "x": 9.920084337349397,
+        "y": 7.520939759036144
       },
       "nextControl": null,
       "isLocked": false,

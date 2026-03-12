@@ -29,7 +29,7 @@ public final class Constants {
         // --- CAMERA 1: FRONT RIGHT (FR) ---
         // MUST match exactly what you typed in the PhotonVision Web UI
         public static final String CAMERA_FR_NAME = "CAMERA_FR"; 
-        public static final double CAMERA_FR_YAW = 0;
+        public static final double CAMERA_FR_YAW = -5.0;
         public static final double CAMERA_FR_PITCH = 28.812;
         public static final double CAMERA_FR_ROLL = 0;
         public static final double CAMERA_FR_FORWARD = Units.inchesToMeters(15.03);

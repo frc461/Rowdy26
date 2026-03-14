@@ -31,7 +31,7 @@ public class AimAtHubCommand extends Command {
     // PID Controller specifically for snapping the heading
     private final PIDController turnPID;
 
-    public  AimAtHubCommand(
+    public AimAtHubCommand(
             Swerve drivetrain, 
             Launcher launcher, 
             Localizer localizer, 
@@ -96,6 +96,10 @@ public class AimAtHubCommand extends Command {
         SmartDashboard.putNumber("Shooter/Target Heading", solution.headingDegrees);
         SmartDashboard.putNumber("Shooter/Current Heading", currentHeading);
         SmartDashboard.putNumber("Shooter/Target RPM", solution.rpm);
+    }
+
+    public double getHood() {
+        return ShooterSolver.solve(drivetrain.getState().Pose).hood;
     }
 
     @Override

@@ -30,9 +30,9 @@ public class Launcher extends SubsystemBase {
 
     private final CANcoder hoodAbsoluteEncoder = new CANcoder(58);
     
+    private double hoodAngle;
 
-
-    public Launcher() {
+    public Launcher(double hoodAngle) {
 
         CANcoderConfiguration encoderConfig = new CANcoderConfiguration();
         encoderConfig.MagnetSensor.MagnetOffset = Constants.LauncherConstants.ABSOLUTE_ENCODER_OFFSET;
@@ -85,7 +85,9 @@ public class Launcher extends SubsystemBase {
 
         // SmartDashboard.putNumber("Tuning Kp", lastP);
         // SmartDashboard.putNumber("Tuning Ki", lastI);
-        // SmartDashboard.putNumber("Tuning Kd", lastD);        
+        // SmartDashboard.putNumber("Tuning Kd", lastD);    
+        
+        this.hoodAngle = hoodAngle;
     }
 
     private final VoltageOut voltageControl = new VoltageOut(0);
@@ -115,7 +117,6 @@ public class Launcher extends SubsystemBase {
 
     public void setHoodPosition(double pose) {
         this.targetHoodPosition = convertHoodPosition(pose);
-        
     }
 
     public double convertHoodPosition(double pose) {
@@ -168,6 +169,6 @@ public class Launcher extends SubsystemBase {
        
         
         // setFlywheelVelocity(launcherRPM);
-        // setHoodPosition(hoodAngle);
+        setHoodPosition(hoodAngle);
     }
 }

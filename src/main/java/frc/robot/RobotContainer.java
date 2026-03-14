@@ -55,11 +55,14 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
 import frc.robot.subsystems.launcher.Launcher;
 
+import frc.robot.subsystems.launcher.ShooterSolver;
+import frc.robot.subsystems.launcher.ShooterSolver.ShotResult;
+
+
 public class RobotContainer {
 
   private SendableChooser<Command> autoChooser;
   private final Intake intake = new Intake();
-  private final Launcher launcher = new Launcher();
   private final Spindexer spindexer = new Spindexer();
 
   private static HubState hubState = new HubState();
@@ -83,6 +86,7 @@ public class RobotContainer {
   private final SwerveTelemetry logger = new SwerveTelemetry(MaxSpeed);
 
   public final Swerve drivetrain = TunerConstants.createDrivetrain();
+  private final Launcher launcher = new Launcher(ShooterSolver.solve(drivetrain.getState().Pose).hood);
 
   private final AutoCommand autoCommand = new AutoCommand(launcher, spindexer, intake, drivetrain);
 

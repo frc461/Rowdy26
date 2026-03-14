@@ -97,7 +97,7 @@ public class ShooterSolver {
         double dy = currentTargetY - finalShooterPos.y;
         double distanceToTarget = Math.hypot(dx, dy);
         
-        double hoodRad = Math.toRadians(HOOD_ANGLE_DEGREES);
+        // double hoodRad = Math.toRadians(HOOD_ANGLE_DEGREES);
         
         double minV = 5.0;
         double maxV = 20.0;
@@ -106,6 +106,9 @@ public class ShooterSolver {
 
         for (int i = 0; i < 12; i++) {
             double v = (minV + maxV) / 2.0;
+
+            double hoodRad = Math.atan(Math.sqrt(SHOOTER_HEIGHT_METERS * 2 * v * v / GRAVITY / distanceToTarget / distanceToTarget + 
+            Math.pow(v * v / GRAVITY / distanceToTarget, 2.0) - 1) - v * v / GRAVITY / distanceToTarget);
             
             double vZ = v * Math.sin(hoodRad);
             double vHorizontal = v * Math.cos(hoodRad);
@@ -133,7 +136,7 @@ public class ShooterSolver {
     }
 
     private static SimResult simulateShot(double targetDist, double startZ, double vHoriz, double vZ) {
-        double x = 0; 
+        double x = 0;
         double z = startZ; 
         double vx = vHoriz;
         double vz_vel = vZ;
@@ -161,10 +164,10 @@ public class ShooterSolver {
                 return new SimResult(z);
             }
 
-            if (z < 0) break; 
+            if (z < 0) break;
         }
 
-        return new SimResult(-100.0); 
+        return new SimResult(-100.0);
     }
 
     private static Point calculateShooterPosition(double robotX, double robotY, double headingRad) {

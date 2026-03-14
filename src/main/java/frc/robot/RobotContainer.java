@@ -203,7 +203,7 @@ public class RobotContainer {
     drjoystick.leftTrigger().whileTrue(
       new AimAtHubCommand(
           drivetrain, 
-          launcher, 
+          launcher.setHoodAngle(ShooterSolver.solve(drivetrain.getState().Pose).hood), 
           m_localizer, 
           () -> -drjoystick.getLeftY() * MaxSpeed,   // Forward input
           () -> -drjoystick.getLeftX() * MaxSpeed    // Strafe input

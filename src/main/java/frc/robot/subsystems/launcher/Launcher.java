@@ -126,7 +126,10 @@ public class Launcher extends SubsystemBase {
         return ((currentHoodEncoderPose + encoderPose) * Constants.LauncherConstants.ENCODER_CONVERSION) + currentHoodMotorPose;
     }
 
-
+    public Launcher setHoodAngle(double hoodAngle) {
+        this.hoodAngle = hoodAngle;
+        return this;
+    }
 
     public void runHood() {
         HoodKraken.setControl(positionControl.withPosition(targetHoodPosition));

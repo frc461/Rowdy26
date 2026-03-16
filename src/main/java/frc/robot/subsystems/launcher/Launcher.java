@@ -9,6 +9,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import frc.robot.constants.TunerConstants;
 
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -46,6 +47,9 @@ public class Launcher extends SubsystemBase {
         config.Slot0.kI = 0.2;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.8;
+        config.CurrentLimits.StatorCurrentLimit = 30;
+        config.CurrentLimits.StatorCurrentLimitEnable = true; 
+
         // config.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
         // config.Feedback.FeedbackRemoteSensorID = hoodAbsoluteEncoder.getDeviceID();
         // config.Feedback.SensorToMechanismRatio = 1.0;

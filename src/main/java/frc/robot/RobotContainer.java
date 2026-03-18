@@ -231,6 +231,8 @@ public class RobotContainer {
 
         () -> launcher.stopFlyWheels(),
         launcher
+        
+        drivetrain.applyRequest(() -> xMode)
       )
     );
 

@@ -232,22 +232,18 @@ public class RobotContainer {
     );
 
     opjoystick.rightTrigger().whileTrue(
-      Commands.startEnd(
+    Commands.startEnd(
         () -> {
-          
-          launcher.runFlyWheel();
-          launcher.runHood();
+            launcher.runFlyWheel();
+            launcher.runHood();
         },
-
         () -> launcher.stopFlyWheels(),
         launcher
-     
-      )
-    );
+    ).alongWith(
+        drivetrain.applyRequest(() -> xMode)
+    )
+);
 
-    opjoystick.rightTrigger().onTrue(
-       drivetrain.applyRequest(() -> xMode)
-    );
 
 
     opjoystick.leftBumper().onTrue(Commands.run(

@@ -231,10 +231,14 @@ public class RobotContainer {
 
         () -> launcher.stopFlyWheels(),
         launcher
-        
-        drivetrain.applyRequest(() -> xMode)
+     
       )
     );
+
+    opjoystick.rightTrigger().onTrue(
+       drivetrain.applyRequest(() -> xMode)
+    );
+
 
     opjoystick.leftBumper().onTrue(Commands.run(
       ()-> {

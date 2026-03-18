@@ -178,3 +178,4 @@ public class LauncherMath {
         return new FiringSolution(0, 0, 0, false);
     }
 }
+

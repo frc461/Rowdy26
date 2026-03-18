@@ -103,7 +103,7 @@ public class RobotContainer {
       NamedCommands.registerCommand("Shoot Tower Preset", autoCommand.AutoTowerShoot());
       NamedCommands.registerCommand("Shoot Hub Preset", autoCommand.AutoHubShoot());
       NamedCommands.registerCommand("Stop Launcher", autoCommand.StopLauncher());
-      NamedCommands.registerCommand("Stop All", autoCommand.StopAll());
+      NamedCommands.registerCommand("Stop All", Commands.run(() -> autoCommand.StopAll()));
       NamedCommands.registerCommand("Extend Intake", autoCommand.ExtendIntake());
       NamedCommands.registerCommand("Retract Intake", autoCommand.RetractIntake());
   
@@ -206,12 +206,8 @@ public class RobotContainer {
         )
     );
 
-    drjoystick.b().whileTrue(
+    drjoystick.x().onTrue(
       drivetrain.applyRequest(() -> xMode)
-
-
-
-
     );
     
 
@@ -365,7 +361,7 @@ public class RobotContainer {
     // }
   }  
 
-  public Command StopAuto() {
-    return autoCommand.StopAll();
+  public void StopAuto() {
+    autoCommand.StopAll();
   }
 }

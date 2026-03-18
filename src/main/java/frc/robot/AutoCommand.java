@@ -98,15 +98,13 @@ public class AutoCommand extends SubsystemBase {
         );
     }
 
-    public Command StopAll() {
-        return runOnce(() -> {
+    public void StopAll() {
             launcher.stopFlyWheels();
             spindexer.setVoltage(0);
             launcher.setHoodPosition(0);
             launcher.runHood();
             intake.setIntakeVoltage(0);
         }
-        );
     }
 
     // public void defenceX() {
@@ -125,4 +123,4 @@ public class AutoCommand extends SubsystemBase {
     
     
     
-}
+

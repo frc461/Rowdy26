@@ -87,5 +87,11 @@ public final class Constants {
 
 
         public static double ROTOR_TO_SENSOR_RATIO = 4.0;
+
+        public static final double SEVENTY_DEG_HOOD_ANGLE = 0.05; //Close
+        public static final double SIXTY_DEG_HOOD_ANGLE = 1.19; //Far
+
+        public static double AUTO_AIM_HOOD_ANGLE = 0.0;
+        
     }
 }

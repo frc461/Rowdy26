@@ -10,6 +10,7 @@ import java.util.function.DoubleSupplier;
 
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.drivetrain.Swerve;
 import frc.robot.subsystems.launcher.Launcher;
 import frc.robot.subsystems.localizer.Localizer;
@@ -86,7 +87,7 @@ public class AimAtHubCommand extends Command {
         // 5. Command the Launcher
         if (solution.found) {
             launcher.setFlywheelVelocity(-1.0 * solution.rpm);
-            launcher.setHoodPosition(1.25);
+            launcher.setHoodPosition(Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE);
             SmartDashboard.putBoolean("Shooter/Solution Found", true);
         } else {
             SmartDashboard.putBoolean("Shooter/Solution Found", false);

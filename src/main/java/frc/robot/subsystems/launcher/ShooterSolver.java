@@ -3,13 +3,16 @@ package frc.robot.subsystems.launcher;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import frc.robot.constants.Constants;
+import frc.robot.subsystems.launcher.Launcher;
+
 import java.util.Optional;
 
 public class ShooterSolver {
 
     // --- TUNABLE CONSTANTS ---
-    public static final double EFFICIENCY = 0.61; 
-    public static final double HOOD_ANGLE_DEGREES = 60.0;
+    public static final double EFFICIENCY = 0.59;
+    public static double HOOD_ANGLE_DEGREES = 0.0;
     public static final double SHOOTER_HEIGHT_METERS = 0.508; 
     public static final double WHEEL_RADIUS_METERS = 0.0508; 
     
@@ -42,6 +45,8 @@ public class ShooterSolver {
     // Solver Settings
     private static final double DT = 0.01;
     private static final double MAX_TIME = 4.0;
+
+    public final Launcher launcher = new Launcher();
 
     public static class ShotResult {
         public double headingDegrees;
@@ -96,6 +101,14 @@ public class ShooterSolver {
         double dx = currentTargetX - finalShooterPos.x;
         double dy = currentTargetY - finalShooterPos.y;
         double distanceToTarget = Math.hypot(dx, dy);
+
+        if (distanceToTarget > 2){ //TODO:Fix values
+            Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.SIXTY_DEG_HOOD_ANGLE; //far
+            HOOD_ANGLE_DEGREES = 60.0;
+        }else{
+            Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.SEVENTY_DEG_HOOD_ANGLE;
+            HOOD_ANGLE_DEGREES = 70.0;
+        }
         
         double hoodRad = Math.toRadians(HOOD_ANGLE_DEGREES);
         

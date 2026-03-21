@@ -142,12 +142,12 @@ public class Launcher extends SubsystemBase {
         KickerKraken.setControl(velocityControl.withVelocity(RPM / 60.0));
     }
 
-    public void shuttle() {
-        setFlywheelVelocity(-2500);
-        runFlyWheel();
-        setHoodPosition(2.65);
-        runHood();
-    }
+    // public void shuttle() {
+    //     setFlywheelVelocity(-2500);
+    //     runFlyWheel();
+    //     setHoodPosition(2.65);
+    //     runHood();
+    // }
 
     public void stopFlyWheels() {
         FlywheelAKraken.stopMotor();
@@ -161,8 +161,8 @@ public class Launcher extends SubsystemBase {
     @Override
     public void periodic() {
 
-        //SmartDashboard.putNumber("Flywheel Actual RPS", FlywheelAKraken.getVelocity().getValueAsDouble() * 60.0);
-        SmartDashboard.putNumber("Flywheel Actual RPM", FlywheelAKraken.getVelocity().getValueAsDouble());
+        SmartDashboard.putNumber("Flywheel Actual RPS", FlywheelAKraken.getRotorVelocity().getValueAsDouble() * 60.0);
+        // SmartDashboard.putNumber("Flywheel Actual RPM", FlywheelAKraken.getVelocity().getValueAsInteger()  60);
         SmartDashboard.putNumber("Flywheel Target RPM", targetFlywheelRPM);
         SmartDashboard.putNumber("Flywheel Temperature", FlywheelAKraken.getDeviceTemp().getValueAsDouble());
         SmartDashboard.putNumber("Hood Position", HoodKraken.getPosition().getValueAsDouble());

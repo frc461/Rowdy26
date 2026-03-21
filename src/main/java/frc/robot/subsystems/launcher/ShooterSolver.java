@@ -11,7 +11,7 @@ import java.util.Optional;
 public class ShooterSolver {
 
     // --- TUNABLE CONSTANTS ---
-    public static final double EFFICIENCY = 0.59; //.62 on alpha
+    public static final double EFFICIENCY = 0.62; //.62 on alpha
     public static double HOOD_ANGLE_DEGREES = 0.0;
     public static final double SHOOTER_HEIGHT_METERS = 0.508; 
     public static final double WHEEL_RADIUS_METERS = 0.0508; 
@@ -102,7 +102,7 @@ public class ShooterSolver {
         double dy = currentTargetY - finalShooterPos.y;
         double distanceToTarget = Math.hypot(dx, dy);
 
-        if (distanceToTarget > 1.5){ 
+        if (distanceToTarget > 2){ 
             Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.SIXTY_DEG_HOOD_ANGLE; //far
             HOOD_ANGLE_DEGREES = 60.0;
         }else{

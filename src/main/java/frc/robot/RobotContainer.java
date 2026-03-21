@@ -221,20 +221,19 @@ public class RobotContainer {
     );
     
 
-    // Operator COntroller
+    // Operator COntrollerz 
 
-    opjoystick.leftTrigger().whileTrue(
-      Commands.startEnd(
-        () ->launcher.shuttle(),
-        ()->launcher.stopFlyWheels(),
-        launcher
-      )
-    );
+    // opjoystick.leftTrigger().whileTrue(
+    //   Commands.startEnd(
+    //     () ->launcher.shuttle(),
+    //     ()->launcher.stopFlyWheels(),
+    //     launcher
+    //   )
+    // );
 
     opjoystick.rightTrigger().whileTrue(
       Commands.startEnd(
         () -> {
-          
           launcher.runFlyWheel();
           launcher.runHood();
         },
@@ -245,9 +244,9 @@ public class RobotContainer {
       )
     );
 
-    opjoystick.rightTrigger().onTrue(
-       drivetrain.applyRequest(() -> xMode)
-    );
+    // opjoystick.rightTrigger().onTrue(
+    //    drivetrain.applyRequest(() -> xMode)
+    // );
 
 
     opjoystick.leftBumper().onTrue(Commands.run(

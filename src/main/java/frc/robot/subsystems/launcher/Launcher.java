@@ -36,14 +36,17 @@ public class Launcher extends SubsystemBase {
 
         CANcoderConfiguration encoderConfig = new CANcoderConfiguration();
         encoderConfig.MagnetSensor.MagnetOffset = Constants.LauncherConstants.ABSOLUTE_ENCODER_OFFSET;
+        encoderConfig.MagnetSensor.AbsoluteSensorDiscontinuityPoint = Constants.LauncherConstants.ABSOLUTE_ENCODER_DIS_PT;
         hoodAbsoluteEncoder.getConfigurator().apply(encoderConfig);
 
         TalonFXConfiguration config = new TalonFXConfiguration();
         HoodKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
-        config.CurrentLimits.SupplyCurrentLimit = 40;
-        config.Slot0.kP = 5;
-        config.Slot0.kI = 0.2;
+        config.CurrentLimits.SupplyCurrentLimit = 20;
+        config.CurrentLimits.StatorCurrentLimitEnable = true;
+        config.CurrentLimits.StatorCurrentLimit = 60;
+        config.Slot0.kP = 10;
+        config.Slot0.kI = 0.0;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.8;
         // config.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
@@ -160,7 +163,8 @@ public class Launcher extends SubsystemBase {
         SmartDashboard.putNumber("Flywheel Temperature", FlywheelAKraken.getDeviceTemp().getValueAsDouble());
         SmartDashboard.putNumber("Hood Position", HoodKraken.getPosition().getValueAsDouble());
         SmartDashboard.putNumber("Encoder Position", hoodAbsoluteEncoder.getPosition().getValueAsDouble());
-        SmartDashboard.putNumber("convertHoodPosition", convertHoodPosition(1.25));
+        SmartDashboard.putNumber("Hood Stator Current", HoodKraken.getStatorCurrent().getValueAsDouble());
+        SmartDashboard.putNumber("Hood Supply Current", HoodKraken.getSupplyCurrent().getValueAsDouble());
 
         
         // double hoodAngle = SmartDashboard.getNumber(KEY_HOOD_ANGLE, 0.0);

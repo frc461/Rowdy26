@@ -82,7 +82,8 @@ public final class Constants {
         public static double TRENCH_AUTO_START_HOOD_ANGLE = 1.25;
         public static double TRENCH_AUTO_RPM = -2375.0;
 
-        public static double ABSOLUTE_ENCODER_OFFSET = 0.722; 
+        public static double ABSOLUTE_ENCODER_OFFSET = 0.05; 
+        public static double ABSOLUTE_ENCODER_DIS_PT = 0.1; 
         public static double ENCODER_CONVERSION = 3.942;
 
 

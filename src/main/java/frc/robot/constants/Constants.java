@@ -7,10 +7,38 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.RobotIdentifier;
+import frc.robot.constants.CompConstants;
+import frc.robot.constants.AlphaConstants;
+import frc.robot.constants.RobotConstants;
 
-public final class Constants {
+public final class Constants implements RobotConstants{
 
     public static NetworkTableInstance NT_INSTANCE;
+
+    public enum RobotType {
+    COMP,
+    ALPHA,
+    UNKNOWN
+    }
+
+    public static final RobotConstants CURRENT;
+
+    static {
+        switch (RobotIdentifier.getRobot()) {
+            case COMP:
+                CURRENT = new CompConstants();
+                break;
+            case ALPHA:
+                CURRENT = new AlphaConstants();
+                break;
+            default:
+                CURRENT = new Constants();
+                break;
+        }
+    }
+
+    public static final RobotType ROBOT = RobotIdentifier.getRobot();
 
     public final class VisionConstants {
         // Trust Constants
@@ -87,5 +115,110 @@ public final class Constants {
 
 
         public static double ROTOR_TO_SENSOR_RATIO = 4.0;
+    }
+
+
+
+    @Override
+    public int FRONT_LEFT_ENCODER_ID() {
+         throw new UnsupportedOperationException("Unimplemented method 'FRONT_LEFT_ENCODER_ID'");
+    }
+
+
+
+    @Override
+    public int FRONT_RIGHT_ENCODER_ID() {
+         throw new UnsupportedOperationException("Unimplemented method 'FRONT_RIGHT_ENCODER_ID'");
+    }
+
+
+
+    @Override
+    public int BACK_LEFT_ENCODER_ID() {
+        throw new UnsupportedOperationException("Unimplemented method 'BACK_LEFT_ENCODER_ID'");
+    }
+
+
+
+    @Override
+    public int BACK_RIGHT_ENCODER_ID() {
+         throw new UnsupportedOperationException("Unimplemented method 'BACK_RIGHT_ENCODER_ID'");
+    }
+
+
+
+    @Override
+    public double FRONT_LEFT_OFFSET() {
+         throw new UnsupportedOperationException("Unimplemented method 'FRONT_LEFT_OFFSET'");
+    }
+
+
+
+    @Override
+    public double FRONT_RIGHT_OFFSET() {
+         throw new UnsupportedOperationException("Unimplemented method 'FRONT_RIGHT_OFFSET'");
+    }
+
+
+
+    @Override
+    public double BACK_LEFT_OFFSET() {
+         throw new UnsupportedOperationException("Unimplemented method 'BACK_LEFT_OFFSET'");
+    }
+
+
+
+    @Override
+    public double BACK_RIGHT_OFFSET() {
+         throw new UnsupportedOperationException("Unimplemented method 'BACK_RIGHT_OFFSET'");
+    }
+
+
+
+    @Override
+    public boolean FRONT_LEFT_INVERTED() {
+         throw new UnsupportedOperationException("Unimplemented method 'FRONT_LEFT_INVERTED'");
+    }
+
+
+
+    @Override
+    public boolean FRONT_RIGHT_INVERTED() {
+         throw new UnsupportedOperationException("Unimplemented method 'FRONT_RIGHT_INVERTED'");
+    }
+
+
+
+    @Override
+    public boolean BACK_LEFT_INVERTED() {
+         throw new UnsupportedOperationException("Unimplemented method 'BACK_LEFT_INVERTED'");
+    }
+
+
+
+    @Override
+    public boolean BACK_RIGHT_INVERTED() {
+         throw new UnsupportedOperationException("Unimplemented method 'BACK_RIGHT_INVERTED'");
+    }
+
+
+
+    @Override
+    public int HOOD_ENCODER_ID() {
+         throw new UnsupportedOperationException("Unimplemented method 'HOOD_ENCODER_ID'");
+    }
+
+
+
+    @Override
+    public double HOOD_OFFSET() {
+         throw new UnsupportedOperationException("Unimplemented method 'HOOD_OFFSET'");
+    }
+
+
+
+    @Override
+    public boolean HOOD_INVERTED() {
+         throw new UnsupportedOperationException("Unimplemented method 'HOOD_INVERTED'");
     }
 }

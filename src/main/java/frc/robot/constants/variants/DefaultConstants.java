@@ -43,9 +43,6 @@ public class DefaultConstants {
         public static Matrix<N3, N1> ODOM_STD_DEV = VecBuilder.fill(0.03, 0.03, Units.degreesToRadians(0.01));
     }
 
-    public static final class SwerveConstants {
-
-    }
 
 
 

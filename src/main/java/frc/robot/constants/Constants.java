@@ -92,6 +92,8 @@ public final class Constants {
         public static final double SIXTY_DEG_HOOD_ANGLE = 1.19; //Far
 
         public static double AUTO_AIM_HOOD_ANGLE = 0.0;
+
+        public static final double ABSOLUTE_ENCODER_DIS_PT = 0.1;
         
     }
 }

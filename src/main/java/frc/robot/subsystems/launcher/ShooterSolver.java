@@ -102,7 +102,7 @@ public class ShooterSolver {
         double dy = currentTargetY - finalShooterPos.y;
         double distanceToTarget = Math.hypot(dx, dy);
 
-        if (distanceToTarget > 2){ //TODO:Fix values
+        if (distanceToTarget > 1.5){ 
             Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.SIXTY_DEG_HOOD_ANGLE; //far
             HOOD_ANGLE_DEGREES = 60.0;
         }else{

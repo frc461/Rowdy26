@@ -45,7 +45,7 @@ public class Launcher extends SubsystemBase {
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.CurrentLimits.SupplyCurrentLimit = 20;
         config.CurrentLimits.StatorCurrentLimitEnable = true; 
-        config.CurrentLimits.StatorCurrentLimit = 60;
+        config.CurrentLimits.StatorCurrentLimit = 30;
         config.Slot0.kP = 5;
         config.Slot0.kI = 0.2;
         config.Slot0.kD = 0.0;
@@ -161,7 +161,8 @@ public class Launcher extends SubsystemBase {
     @Override
     public void periodic() {
 
-        SmartDashboard.putNumber("Flywheel Actual RPM", FlywheelAKraken.getVelocity().getValueAsDouble() * 60.0);
+        //SmartDashboard.putNumber("Flywheel Actual RPS", FlywheelAKraken.getVelocity().getValueAsDouble() * 60.0);
+        SmartDashboard.putNumber("Flywheel Actual RPM", FlywheelAKraken.getVelocity().getValueAsDouble());
         SmartDashboard.putNumber("Flywheel Target RPM", targetFlywheelRPM);
         SmartDashboard.putNumber("Flywheel Temperature", FlywheelAKraken.getDeviceTemp().getValueAsDouble());
         SmartDashboard.putNumber("Hood Position", HoodKraken.getPosition().getValueAsDouble());

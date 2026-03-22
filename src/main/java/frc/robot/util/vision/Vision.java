@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import frc.robot.constants.variants.DefaultConstants;
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
-import frc.robot.constants.Constants;
 import frc.robot.util.vision.Vision.BW.BWCamera;
 
 public final class Vision extends SubsystemBase {
@@ -70,11 +70,11 @@ public final class Vision extends SubsystemBase {
      */
     private void updateEstimationStdDevs(Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets, PhotonPoseEstimator photonEstimator) {
         if (estimatedPose.isEmpty()) {
-            curStdDevs = Constants.VisionConstants.kSINGLE_TAG_STD_DEVS;
+            curStdDevs = DefaultConstants.VisionConstants.kSINGLE_TAG_STD_DEVS;
             return;
         } 
 
-        var estStdDevs = Constants.VisionConstants.kSINGLE_TAG_STD_DEVS;
+        var estStdDevs = DefaultConstants.VisionConstants.kSINGLE_TAG_STD_DEVS;
         int numTags = 0;
         double avgDist = 0;
 
@@ -87,11 +87,11 @@ public final class Vision extends SubsystemBase {
         }
 
         if (numTags == 0) {
-            curStdDevs = Constants.VisionConstants.kSINGLE_TAG_STD_DEVS;
+            curStdDevs = DefaultConstants.VisionConstants.kSINGLE_TAG_STD_DEVS;
         } else {
             avgDist /= numTags;
             // Decrease std devs (increase trust) if multiple targets are visible
-            if (numTags > 1) estStdDevs = Constants.VisionConstants.kMULTI_TAG_STD_DEVS;
+            if (numTags > 1) estStdDevs = DefaultConstants.VisionConstants.kMULTI_TAG_STD_DEVS;
             // Increase std devs (decrease trust) if a single tag is very far away
             if (numTags == 1 && avgDist > 4) {
                 estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
@@ -165,43 +165,43 @@ public final class Vision extends SubsystemBase {
     public static final class BW {
         public enum BWCamera {
             CAMERA_FR (
-                new PhotonCamera(Constants.VisionConstants.CAMERA_FR_NAME),
+                new PhotonCamera(DefaultConstants.VisionConstants.CAMERA_FR_NAME),
                 new Transform3d(
-                    Constants.VisionConstants.CAMERA_FR_FORWARD,
-                    Constants.VisionConstants.CAMERA_FR_LEFT,
-                    Constants.VisionConstants.CAMERA_FR_UP,
+                    DefaultConstants.VisionConstants.CAMERA_FR_FORWARD,
+                    DefaultConstants.VisionConstants.CAMERA_FR_LEFT,
+                    DefaultConstants.VisionConstants.CAMERA_FR_UP,
                     new Rotation3d(
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_FR_PITCH),
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_FR_ROLL),
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_FR_YAW)
+                        Units.degreesToRadians(DefaultConstants.VisionConstants.CAMERA_FR_PITCH),
+                        Units.degreesToRadians(DefaultConstants.VisionConstants.CAMERA_FR_ROLL),
+                        Units.degreesToRadians(DefaultConstants.VisionConstants.CAMERA_FR_YAW)
                     )
                 )
             ),
             
             CAMERA_FL (
-                new PhotonCamera(Constants.VisionConstants.CAMERA_FL_NAME),
+                new PhotonCamera(DefaultConstants.VisionConstants.CAMERA_FL_NAME),
                 new Transform3d(
-                    Constants.VisionConstants.CAMERA_FL_FORWARD,
-                    Constants.VisionConstants.CAMERA_FL_LEFT,
-                    Constants.VisionConstants.CAMERA_FL_UP,
+                    DefaultConstants.VisionConstants.CAMERA_FL_FORWARD,
+                    DefaultConstants.VisionConstants.CAMERA_FL_LEFT,
+                    DefaultConstants.VisionConstants.CAMERA_FL_UP,
                     new Rotation3d(
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_FL_PITCH),
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_FL_ROLL),
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_FL_YAW)
+                        Units.degreesToRadians(DefaultConstants.VisionConstants.CAMERA_FL_PITCH),
+                        Units.degreesToRadians(DefaultConstants.VisionConstants.CAMERA_FL_ROLL),
+                        Units.degreesToRadians(DefaultConstants.VisionConstants.CAMERA_FL_YAW)
                     )
                 )
             ),
 
             CAMERA_BR (
-                new PhotonCamera(Constants.VisionConstants.CAMERA_BR_NAME),
+                new PhotonCamera(DefaultConstants.VisionConstants.CAMERA_BR_NAME),
                 new Transform3d(
-                    Constants.VisionConstants.CAMERA_BR_FORWARD,
-                    Constants.VisionConstants.CAMERA_BR_LEFT,
-                    Constants.VisionConstants.CAMERA_BR_UP,
+                    DefaultConstants.VisionConstants.CAMERA_BR_FORWARD,
+                    DefaultConstants.VisionConstants.CAMERA_BR_LEFT,
+                    DefaultConstants.VisionConstants.CAMERA_BR_UP,
                     new Rotation3d(
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_BR_PITCH),
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_BR_ROLL),
-                        Units.degreesToRadians(Constants.VisionConstants.CAMERA_BR_YAW)
+                        Units.degreesToRadians(DefaultConstants.VisionConstants.CAMERA_BR_PITCH),
+                        Units.degreesToRadians(DefaultConstants.VisionConstants.CAMERA_BR_ROLL),
+                        Units.degreesToRadians(DefaultConstants.VisionConstants.CAMERA_BR_YAW)
                     )
                 )
             );

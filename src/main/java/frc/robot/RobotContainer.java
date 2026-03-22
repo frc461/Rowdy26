@@ -5,31 +5,21 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.MetersPerSecond;
-import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
-import com.ctre.phoenix6.swerve.SwerveDrivetrain;
-import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
-import com.ctre.phoenix6.swerve.SwerveModuleConstants;
+import frc.robot.constants.CompConstants;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.launcher.Launcher;
-import frc.robot.subsystems.launcher.LauncherCommand;
 import frc.robot.subsystems.localizer.Localizer;
 import frc.robot.subsystems.spindexer.Spindexer;
-import frc.robot.util.FieldUtil;
 import frc.robot.util.vision.Vision;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
 
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -38,22 +28,13 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
-import frc.robot.constants.TunerConstants;
 import frc.robot.subsystems.drivetrain.AimAtHubCommand;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.drivetrain.Swerve;
-import frc.robot.subsystems.drivetrain.SwerveCommand;
 import frc.robot.subsystems.drivetrain.SwerveTelemetry;
 import frc.robot.subsystems.hubState.HubState;
 
-import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.controls.Follower;
-import com.ctre.phoenix6.signals.MotorAlignmentValue;
-import com.ctre.phoenix6.signals.InvertedValue;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-
-import frc.robot.subsystems.launcher.Launcher;
 
 public class RobotContainer {
 
@@ -70,7 +51,7 @@ public class RobotContainer {
   private final CommandXboxController opjoystick = new CommandXboxController(1); // operator controller port
   private final CommandXboxController drjoystick = new CommandXboxController(0);    
 
-  private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+  private double MaxSpeed = 1.0 * CompConstants.TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
   private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
   /* Setting up bindings for necessary control of the swerve drive platform */
@@ -82,7 +63,7 @@ public class RobotContainer {
 
   private final SwerveTelemetry logger = new SwerveTelemetry(MaxSpeed);
 
-  public final Swerve drivetrain = TunerConstants.createDrivetrain();
+  public final Swerve drivetrain = CompConstants.TunerConstants.createDrivetrain();
 
   private final AutoCommand autoCommand = new AutoCommand(launcher, spindexer, intake, drivetrain);
 

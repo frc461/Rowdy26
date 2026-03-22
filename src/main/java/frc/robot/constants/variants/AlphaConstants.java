@@ -1,4 +1,6 @@
-package frc.robot.constants;
+package frc.robot.constants.variants;
+
+import frc.robot.constants.RobotConstants;
 
 public class AlphaConstants implements RobotConstants {
     // CAN IDs

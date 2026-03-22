@@ -8,9 +8,8 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.RobotIdentifier;
-import frc.robot.constants.CompConstants;
-import frc.robot.constants.AlphaConstants;
-import frc.robot.constants.RobotConstants;
+import frc.robot.constants.variants.AlphaConstants;
+import frc.robot.constants.variants.CompConstants;
 
 public final class Constants implements RobotConstants{
 

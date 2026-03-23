@@ -395,5 +395,11 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
     public boolean isSlowMode() {
         return slowMode;
     }
+
+    // xmode maybe?
+
+    public void setXMode() {
+        this.setControl(new SwerveRequest.SwerveDriveBrake());
+    }
 }
 

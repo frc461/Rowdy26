@@ -129,15 +129,26 @@ public class RobotContainer {
     // Note that X is defined as forward according to WPILib convention,
     // and Y is defined as to the left according to WPILib convention.
     drivetrain.setDefaultCommand(
-            drivetrain.applyRequest(() -> {
-              // Determine scale: 0.1 if slow mode is active (90% reduction), otherwise 1.0
-              double multiplier = drivetrain.isSlowMode() ? 0.1 : 1.0;
+      drivetrain.applyRequest(() -> {
 
-              return drive
-                      .withVelocityX(-drjoystick.getLeftY() * MaxSpeed * multiplier)
-                      .withVelocityY(-drjoystick.getLeftX() * MaxSpeed * multiplier)
-                      .withRotationalRate(-drjoystick.getRightX() * MaxAngularRate * multiplier);
-            })
+        double xSpeed = -drjoystick.getLeftY() * MaxSpeed;
+        double ySpeed = -drjoystick.getLeftX() * MaxSpeed;
+        double rotSpeed = -drjoystick.getRightX() * MaxAngularRate;
+
+        double scale = drivetrain.isSlowMode() ? 0.1 : 1.0;
+
+        if (drivetrain.isSlowMode() &&
+                Math.abs(xSpeed) < 0.05 &&
+                Math.abs(ySpeed) < 0.05 &&
+                Math.abs(rotSpeed) < 0.05) {
+
+          return new SwerveRequest.SwerveDriveBrake();
+        }
+        return drive
+                .withVelocityX(xSpeed * scale)
+                .withVelocityY(ySpeed * scale)
+                .withRotationalRate(rotSpeed);
+      })
     );
 
     new Trigger(() ->

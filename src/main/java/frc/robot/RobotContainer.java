@@ -129,12 +129,15 @@ public class RobotContainer {
     // Note that X is defined as forward according to WPILib convention,
     // and Y is defined as to the left according to WPILib convention.
     drivetrain.setDefaultCommand(
-        // Drivetrain will execute this command periodically
-        drivetrain.applyRequest(() ->
-            drive.withVelocityX(-drjoystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                .withVelocityY(-drjoystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                .withRotationalRate(-drjoystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
-        )
+            drivetrain.applyRequest(() -> {
+              // Determine scale: 0.1 if slow mode is active (90% reduction), otherwise 1.0
+              double multiplier = drivetrain.isSlowMode() ? 0.1 : 1.0;
+
+              return drive
+                      .withVelocityX(-drjoystick.getLeftY() * MaxSpeed * multiplier)
+                      .withVelocityY(-drjoystick.getLeftX() * MaxSpeed * multiplier)
+                      .withRotationalRate(-drjoystick.getRightX() * MaxAngularRate * multiplier);
+            })
     );
 
     new Trigger(() ->
@@ -232,16 +235,18 @@ public class RobotContainer {
     // );
 
     opjoystick.rightTrigger().whileTrue(
-      Commands.startEnd(
-        () -> {
-          launcher.runFlyWheel();
-          launcher.runHood();
-        },
-
-        () -> launcher.stopFlyWheels(),
-        launcher
-     
-      )
+            Commands.startEnd(
+                    () -> {
+                      drivetrain.setSlowMode(true);
+                      launcher.runFlyWheel();
+                      launcher.runHood();
+                    },
+                    () -> {
+                      drivetrain.setSlowMode(false);
+                      launcher.stopFlyWheels();
+                    },
+                    launcher, drivetrain
+            )
     );
 
     // opjoystick.rightTrigger().onTrue(

@@ -71,7 +71,7 @@ public final class Constants {
         public static double HUB_CENTER_HEIGHT = 72;
 
         public static double HUB_HOOD_ANGLE = 0.0;
-        public static double HUB_RPM = -1725.0;
+        public static double HUB_RPM = -1750.0;
 
         public static double TOWER_HOOD_ANGLE = 1.25;
         public static double TOWER_RPM = -2125.0;
@@ -92,6 +92,8 @@ public final class Constants {
         public static final double SIXTY_DEG_HOOD_ANGLE = 1.19; //Far
 
         public static double AUTO_AIM_HOOD_ANGLE = 0.0;
+
+        public static final double ABSOLUTE_ENCODER_DIS_PT = 0.1;
         
     }
 }

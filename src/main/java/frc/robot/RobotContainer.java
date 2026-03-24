@@ -129,11 +129,26 @@ public class RobotContainer {
     // and Y is defined as to the left according to WPILib convention.
     drivetrain.setDefaultCommand(
         // Drivetrain will execute this command periodically
-        drivetrain.applyRequest(() ->
-            drive.withVelocityX(-drjoystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                .withVelocityY(-drjoystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                .withRotationalRate(-drjoystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
-        )
+        drivetrain.applyRequest(() -> {
+
+        double xSpeed = -drjoystick.getLeftY() * MaxSpeed;
+        double ySpeed = -drjoystick.getLeftX() * MaxSpeed;
+        double rotSpeed = -drjoystick.getRightX() * MaxAngularRate;
+
+        double scale = drivetrain.isSlowMode() ? 0.1 : 1.0;
+
+        if (drivetrain.isSlowMode() &&
+                Math.abs(xSpeed) < 0.05 &&
+                Math.abs(ySpeed) < 0.05 &&
+                Math.abs(rotSpeed) < 0.05) {
+
+          return new SwerveRequest.SwerveDriveBrake();
+        }
+        return drive
+                .withVelocityX(xSpeed * scale)
+                .withVelocityY(ySpeed * scale)
+                .withRotationalRate(rotSpeed);
+      })
     );
   
     // Idle while the robot is disabled. This ensures the configured
@@ -206,9 +221,9 @@ public class RobotContainer {
         )
     );
 
-    drjoystick.x().onTrue(
-      drivetrain.applyRequest(() -> xMode)
-    );
+    // drjoystick.x().onTrue(
+    //   drivetrain.applyRequest(() -> xMode)
+    // );
     
 
     // Operator COntroller
@@ -224,20 +239,19 @@ public class RobotContainer {
     opjoystick.rightTrigger().whileTrue(
       Commands.startEnd(
         () -> {
-          
+          drivetrain.setSlowMode(true);
           launcher.runFlyWheel();
           launcher.runHood();
         },
-
-        () -> launcher.stopFlyWheels(),
-        launcher
-     
+        () -> {
+          drivetrain.setSlowMode(false);
+          launcher.stopFlyWheels();
+        },
+        launcher, drivetrain
       )
     );
 
-    opjoystick.rightTrigger().onTrue(
-       drivetrain.applyRequest(() -> xMode)
-    );
+    
 
 
     opjoystick.leftBumper().onTrue(Commands.run(

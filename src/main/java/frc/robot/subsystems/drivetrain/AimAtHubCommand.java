@@ -54,7 +54,7 @@ public class AimAtHubCommand extends Command {
         turnPID.enableContinuousInput(0, 360); 
 
         // Require the subsystems so no other command can drive or shoot while aiming
-        addRequirements(drivetrain, launcher);
+        // addRequirements(drivetrain, launcher);
     }
 
     @Override

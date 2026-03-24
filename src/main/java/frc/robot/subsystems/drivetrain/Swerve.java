@@ -383,5 +383,23 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
     public Optional<Pose2d> samplePoseAt(double timestampSeconds) {
         return super.samplePoseAt(Utils.fpgaToCurrentTime(timestampSeconds));
     }
+
+    // xmode maybe?
+
+    public void setXMode() {
+        this.setControl(new SwerveRequest.SwerveDriveBrake());
+    }
+
+    // SLow mode
+
+    private boolean slowMode = false;
+
+    public void setSlowMode(boolean enabled) {
+        slowMode = enabled;
+    }
+
+    public boolean isSlowMode() {
+        return slowMode;
+    }
 }
 

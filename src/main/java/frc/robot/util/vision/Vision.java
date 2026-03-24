@@ -141,7 +141,8 @@ public final class Vision extends SubsystemBase {
                     currentVisionPoses.add(rawVisionPose);
 
                     // 2. ONLY feed the data to the Swerve drive if we are NOT in Autonomous
-                    if (!DriverStation.isAutonomous()) {
+                    // if (!DriverStation.isAutonomous()) {
+                    if (true) {
                         // Calculate trust based on distance and number of tags
                         updateEstimationStdDevs(visionEst, est.targetsUsed, estimator);
                         Matrix<N3, N1> stdDevs = getEstimationStdDevs();

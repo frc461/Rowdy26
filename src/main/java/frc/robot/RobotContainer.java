@@ -168,13 +168,13 @@ public class RobotContainer {
 );
   
 
-    new Trigger(() ->
-      Math.abs(drjoystick.getLeftY()) > 0.1 ||
-      Math.abs(drjoystick.getLeftX()) > 0.1 ||
-      Math.abs(drjoystick.getRightX()) > 0.1
-      ).onTrue(
-      drivetrain.getDefaultCommand()
-    );
+    // new Trigger(() ->
+    //   Math.abs(drjoystick.getLeftY()) > 0.1 ||
+    //   Math.abs(drjoystick.getLeftX()) > 0.1 ||
+    //   Math.abs(drjoystick.getRightX()) > 0.1
+    //   ).onTrue(
+    //   drivetrain.getDefaultCommand()
+    // );
   
     // Idle while the robot is disabled. This ensures the configured
     // neutral mode is applied to the drive motors while disabled.
@@ -264,15 +264,13 @@ public class RobotContainer {
     opjoystick.rightTrigger().whileTrue(
       Commands.startEnd(
         () -> {
-          drivetrain.setSlowMode(true);
           launcher.runFlyWheel();
           launcher.runHood();
         },
         () -> {
-          drivetrain.setSlowMode(false);
           launcher.stopFlyWheels();
         },
-        launcher, drivetrain
+        launcher
       )
     );
 

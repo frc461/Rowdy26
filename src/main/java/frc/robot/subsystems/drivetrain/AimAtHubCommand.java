@@ -18,6 +18,7 @@ import frc.robot.subsystems.launcher.ShooterSolver;
 import frc.robot.subsystems.launcher.ShooterSolver.ShotResult;
 
 public class AimAtHubCommand extends Command {
+    private static final double AUTO_AIM_TRANSLATION_SCALE = 0.5;
 
     private final Swerve drivetrain;
     private final Launcher launcher;
@@ -53,8 +54,9 @@ public class AimAtHubCommand extends Command {
         // This prevents the robot from spinning the long way around.
         turnPID.enableContinuousInput(0, 360); 
 
-        // Require the subsystems so no other command can drive or shoot while aiming
-        // addRequirements(drivetrain, launcher);
+        // Auto-aim owns drivetrain and launcher while active. Driver translation is
+        // still preserved through the supplied joystick inputs below.
+        addRequirements(drivetrain, launcher);
     }
 
     @Override
@@ -76,11 +78,11 @@ public class AimAtHubCommand extends Command {
         rotationalVelocity = MathUtil.clamp(rotationalVelocity, -3.0, 3.0);
 
         // 4. Command the Swerve Drive
-        // Joysticks control translation, PID controls rotation
+        // Driver controls translation, PID controls rotation toward the hub.
         drivetrain.setControl(
             driveRequest
-                .withVelocityX(forwardInput.getAsDouble())
-                .withVelocityY(strafeInput.getAsDouble())
+                .withVelocityX(forwardInput.getAsDouble() * AUTO_AIM_TRANSLATION_SCALE)
+                .withVelocityY(strafeInput.getAsDouble() * AUTO_AIM_TRANSLATION_SCALE)
                 .withRotationalRate(rotationalVelocity)
         );
 

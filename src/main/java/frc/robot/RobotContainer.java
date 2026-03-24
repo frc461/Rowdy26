@@ -147,23 +147,28 @@ public class RobotContainer {
             Math.abs(yInput) < 0.05 &&
             Math.abs(rotInput) < 0.05;
 
-        if (leftTrigger) {
-
-            if (isStopped) {
-                return xMode;
-            }
-
-            
-            return drive
-                .withVelocityX(xSpeed * 0.5)
-                .withVelocityY(ySpeed * 0.5)
-                .withRotationalRate(rotSpeed); 
-        }
-
         return drive
-            .withVelocityX(xSpeed)
-            .withVelocityY(ySpeed)
-            .withRotationalRate(rotSpeed);
+          .withVelocityX(xSpeed)
+          .withVelocityY(ySpeed)
+          .withRotationalRate(rotSpeed);
+
+        // if (leftTrigger) {
+        //     if (isStopped) {
+        //         return xMode;
+        //     }
+        //     else {
+        //       return drive
+        //         .withVelocityX(xSpeed * 0.5)
+        //         .withVelocityY(ySpeed * 0.5)
+        //         .withRotationalRate(rotSpeed); 
+        //     }
+        // }
+        // else {
+        //   return drive
+        //     .withVelocityX(xSpeed)
+        //     .withVelocityY(ySpeed)
+        //     .withRotationalRate(rotSpeed);
+        // }
     })
 );
   
@@ -246,9 +251,15 @@ public class RobotContainer {
         )
     );
 
-    // drjoystick.x().onTrue(
-    //   drivetrain.applyRequest(() -> xMode)
-    // );
+    final Command holdXMode = drivetrain.applyRequest(() -> xMode);
+
+    drjoystick.x().onTrue(holdXMode);
+
+    new Trigger(() ->
+        Math.abs(drjoystick.getLeftY()) > 0.1 ||
+        Math.abs(drjoystick.getLeftX()) > 0.1 ||
+        Math.abs(drjoystick.getRightX()) > 0.1
+    ).onTrue(Commands.runOnce(holdXMode::cancel));
     
 
     // Operator COntroller

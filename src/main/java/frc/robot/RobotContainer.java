@@ -38,6 +38,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.constants.TunerConstants;
 import frc.robot.subsystems.drivetrain.AimAtHubCommand;
 import frc.robot.constants.Constants;
@@ -142,13 +143,21 @@ public class RobotContainer {
                 Math.abs(ySpeed) < 0.05 &&
                 Math.abs(rotSpeed) < 0.05) {
 
-          return new SwerveRequest.SwerveDriveBrake();
+          return xMode;
         }
         return drive
                 .withVelocityX(xSpeed * scale)
                 .withVelocityY(ySpeed * scale)
                 .withRotationalRate(rotSpeed);
       })
+    );
+
+    new Trigger(() ->
+      Math.abs(drjoystick.getLeftY()) > 0.1 ||
+      Math.abs(drjoystick.getLeftX()) > 0.1 ||
+      Math.abs(drjoystick.getRightX()) > 0.1
+      ).onTrue(
+      drivetrain.getDefaultCommand()
     );
   
     // Idle while the robot is disabled. This ensures the configured

@@ -401,5 +401,6 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
     public boolean isSlowMode() {
         return slowMode;
     }
+
 }
 

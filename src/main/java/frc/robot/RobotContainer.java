@@ -132,25 +132,41 @@ public class RobotContainer {
         // Drivetrain will execute this command periodically
         drivetrain.applyRequest(() -> {
 
-        double xSpeed = -drjoystick.getLeftY() * MaxSpeed;
-        double ySpeed = -drjoystick.getLeftX() * MaxSpeed;
-        double rotSpeed = -drjoystick.getRightX() * MaxAngularRate;
+        double xInput = -drjoystick.getLeftY();
+        double yInput = -drjoystick.getLeftX();
+        double rotInput = -drjoystick.getRightX();
 
-        double scale = drivetrain.isSlowMode() ? 0.1 : 1.0;
+        double xSpeed = xInput * MaxSpeed;
+        double ySpeed = yInput * MaxSpeed;
+        double rotSpeed = rotInput * MaxAngularRate;
 
-        if (drivetrain.isSlowMode() &&
-                Math.abs(xSpeed) < 0.05 &&
-                Math.abs(ySpeed) < 0.05 &&
-                Math.abs(rotSpeed) < 0.05) {
+        boolean leftTrigger = drjoystick.getLeftTriggerAxis() > 0.1;
 
-          return xMode;
+        boolean isStopped =
+            Math.abs(xInput) < 0.05 &&
+            Math.abs(yInput) < 0.05 &&
+            Math.abs(rotInput) < 0.05;
+
+        if (leftTrigger) {
+
+            if (isStopped) {
+                return xMode;
+            }
+
+            
+            return drive
+                .withVelocityX(xSpeed * 0.5)
+                .withVelocityY(ySpeed * 0.5)
+                .withRotationalRate(rotSpeed); 
         }
+
         return drive
-                .withVelocityX(xSpeed * scale)
-                .withVelocityY(ySpeed * scale)
-                .withRotationalRate(rotSpeed);
-      })
-    );
+            .withVelocityX(xSpeed)
+            .withVelocityY(ySpeed)
+            .withRotationalRate(rotSpeed);
+    })
+);
+  
 
     new Trigger(() ->
       Math.abs(drjoystick.getLeftY()) > 0.1 ||

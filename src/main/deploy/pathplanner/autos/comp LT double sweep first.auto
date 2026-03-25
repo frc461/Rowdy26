@@ -5,15 +5,22 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "Extend Intake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot Trench Preset"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Extend Intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot Trench Preset"
+                }
+              }
+            ]
           }
         },
         {

@@ -18,7 +18,7 @@ import frc.robot.subsystems.launcher.ShooterSolver;
 import frc.robot.subsystems.launcher.ShooterSolver.ShotResult;
 
 public class AimAtHubCommand extends Command {
-    private static final double AUTO_AIM_TRANSLATION_SCALE = 0.5;
+    private static final double AUTO_AIM_TRANSLATION_SCALE = 0.1;
 
     private final Swerve drivetrain;
     private final Launcher launcher;
@@ -56,7 +56,7 @@ public class AimAtHubCommand extends Command {
 
         // Auto-aim owns drivetrain and launcher while active. Driver translation is
         // still preserved through the supplied joystick inputs below.
-        addRequirements(drivetrain, launcher);
+        // addRequirements(drivetrain, launcher);
     }
 
     @Override

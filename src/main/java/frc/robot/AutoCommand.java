@@ -34,9 +34,9 @@ public class AutoCommand extends SubsystemBase {
         return runOnce(() -> {
             launcher.setFlywheelVelocity(Constants.LauncherConstants.TEMP_AUTO_RPM);
             launcher.setHoodPosition(Constants.LauncherConstants.TEMP_AUTO_START_HOOD_ANGLE);
-            spindexer.setVoltage(16);
             launcher.runFlyWheel();
             launcher.runHood();
+            spindexer.setVoltage(16);
             intake.setIntakeVoltage(-16);
             }
         );
@@ -46,9 +46,9 @@ public class AutoCommand extends SubsystemBase {
         return runOnce(() -> {
             launcher.setFlywheelVelocity(Constants.LauncherConstants.TRENCH_AUTO_RPM);
             launcher.setHoodPosition(Constants.LauncherConstants.TRENCH_AUTO_START_HOOD_ANGLE);
-            spindexer.setVoltage(16);
             launcher.runFlyWheel();
             launcher.runHood();
+            spindexer.setVoltage(16);
             intake.setIntakeVoltage(-16);
             }
         );
@@ -58,9 +58,9 @@ public class AutoCommand extends SubsystemBase {
         return runOnce(() -> {
             launcher.setFlywheelVelocity(Constants.LauncherConstants.HUB_RPM);
             launcher.setHoodPosition(Constants.LauncherConstants.HUB_HOOD_ANGLE);
-            spindexer.setVoltage(16);
             launcher.runFlyWheel();
             launcher.runHood();
+            spindexer.setVoltage(16);
             intake.setIntakeVoltage(-16);
 
             }
@@ -71,14 +71,27 @@ public class AutoCommand extends SubsystemBase {
         return runOnce(() -> {
             launcher.setFlywheelVelocity(Constants.LauncherConstants.TOWER_RPM);
             launcher.setHoodPosition(Constants.LauncherConstants.TOWER_HOOD_ANGLE);
-            spindexer.setVoltage(16);
             launcher.runFlyWheel();
             launcher.runHood();
+            spindexer.setVoltage(16);
             intake.setIntakeVoltage(-16);
 
             }
         );
         }
+
+    public Command AutoShuttle() {
+        return runOnce(() -> {
+            launcher.setFlywheelVelocity(Constants.LauncherConstants.SHUTTLE_AUTO_RPM);
+            launcher.setHoodPosition(Constants.LauncherConstants.SHUTTLE_AUTO_START_HOOD_ANGLE);
+            launcher.runFlyWheel();
+            launcher.runHood();
+            spindexer.setVoltage(16);
+            intake.setIntakeVoltage(-16);
+        } 
+        
+        );
+    }
      
     public Command ExtendIntake() {
         return runOnce(() -> intake.ExtendIntake());

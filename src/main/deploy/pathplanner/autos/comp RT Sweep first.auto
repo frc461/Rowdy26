@@ -5,40 +5,27 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Extend Intake"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot Trench Preset"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.05
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Stop Launcher"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Red RT Exit to Center for sweep first"
-                }
-              }
-            ]
+            "pathName": "Red RT Exit to Center for sweep first"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Trench Preset"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.05
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop Launcher"
           }
         },
         {

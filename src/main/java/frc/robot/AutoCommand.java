@@ -118,8 +118,15 @@ public class AutoCommand extends SubsystemBase {
             launcher.runHood();
             intake.setIntakeVoltage(0);
         }
+
+    public void justShoot() {
+        
     }
 
+
+    }
+
+    
     // public void defenceX() {
     //     drivetrain.getModule(0).apply(
     //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(105))));

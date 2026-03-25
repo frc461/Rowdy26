@@ -95,15 +95,18 @@ public class AimAtHubCommand extends Command {
             SmartDashboard.putBoolean("Shooter/Solution Found", false);
         }
 
+        
+
         // Publish telemetry for tuning
         SmartDashboard.putNumber("Shooter/Target Heading", solution.headingDegrees);
         SmartDashboard.putNumber("Shooter/Current Heading", currentHeading);
         SmartDashboard.putNumber("Shooter/Target RPM", solution.rpm);
     }
 
-    @Override
-    public void end(boolean interrupted) {
-        // When the driver lets go of the button, stop the launcher
-        launcher.stopFlyWheels();
-    }
+    
+    // @Override
+    // public void end(boolean interrupted) {
+    //     // When the driver lets go of the button, stop the launcher
+    //     launcher.stopFlyWheels();
+    // }
 }

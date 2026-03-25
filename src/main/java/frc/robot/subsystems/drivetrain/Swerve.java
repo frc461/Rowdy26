@@ -17,6 +17,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
@@ -31,6 +32,8 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.constants.TunerConstants;
 import frc.robot.constants.TunerConstants.TunerSwerveDrivetrain;
 // import frc.robot.subsystems.localizer.Localizer;
+import frc.robot.subsystems.launcher.ShooterSolver;
+import frc.robot.subsystems.launcher.ShooterSolver.ShotResult;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
@@ -163,6 +166,8 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
         // Configure AutoBuilder last
         configureAutoBuilder();
     }
+
+    
 
 
     private void configureAutoBuilder() {

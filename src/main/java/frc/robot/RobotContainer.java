@@ -107,7 +107,7 @@ public class RobotContainer {
       NamedCommands.registerCommand("Stop All", Commands.run(() -> autoCommand.StopAll()));
       NamedCommands.registerCommand("Extend Intake", autoCommand.ExtendIntake());
       NamedCommands.registerCommand("Retract Intake", autoCommand.RetractIntake());
-      // NamedCommands.registerCommand("Auto Aim", aimAtHubCommand.AimAtHubCommand(drivetrain, launcher, m_localizer));
+      NamedCommands.registerCommand("Enable Auto Aim", new InstantCommand(() -> drive.setAutoAim(true)));
   
       configureBindings();
   

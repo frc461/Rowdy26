@@ -11,6 +11,7 @@ public class HubState extends SubsystemBase {
     
     private boolean isHubActive = true; 
     private String dashColor = "RED"; 
+    private boolean winAuto; 
     
     public void MatchStateSubsystem() {
         // Initialize Dashboard variables
@@ -42,6 +43,7 @@ public class HubState extends SubsystemBase {
             } else if (firstInactive == 'B' && alliance.get() == Alliance.Blue) {
                 weAreInactiveFirst = true;
             }
+            winAuto = weAreInactiveFirst;
             
             boolean shift1Active = !weAreInactiveFirst;
             
@@ -82,6 +84,8 @@ public class HubState extends SubsystemBase {
         SmartDashboard.putBoolean("Is Hub Active", isHubActive);
         SmartDashboard.putNumber("Shift Time Remaining", calculateShiftTime(matchTime));
         SmartDashboard.putString("Current Shift", currentShift(matchTime));
+        SmartDashboard.putBoolean("Win Auto", winAuto);
+
     }
     
     /**

@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 11.52087951807229,
-        "y": 0.636481927710844
+        "y": 0.6364819277108439
       },
       "isLocked": false,
       "linkedName": "RightTrenchStartPoint"
@@ -31,7 +31,14 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Extend Intake",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 3.0,

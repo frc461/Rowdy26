@@ -57,12 +57,12 @@ public class Launcher extends SubsystemBase {
 
         HoodKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
-        config.CurrentLimits.SupplyCurrentLimit = 40;
+        config.CurrentLimits.SupplyCurrentLimit = 20;
         config.Slot0.kP = 5;
         config.Slot0.kI = 0.2;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.8;
-        config.CurrentLimits.StatorCurrentLimit = 30;
+        config.CurrentLimits.StatorCurrentLimit = 60;
         config.CurrentLimits.StatorCurrentLimitEnable = true; 
 
         // config.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
@@ -78,12 +78,8 @@ public class Launcher extends SubsystemBase {
             new Follower(50, MotorAlignmentValue.Aligned)
         );
 
-        SmartDashboard.putNumber(KEY_HOOD_ANGLE, 0.0);
-        SmartDashboard.putNumber(KEY_FLY_RPM, 0.0);
-
-        // SmartDashboard.putNumber("Tuning Kp", lastP);
-        // SmartDashboard.putNumber("Tuning Ki", lastI);
-        // SmartDashboard.putNumber("Tuning Kd", lastD);        
+        SmartDashboard.putNumber("Auto Aim Efficiency", ShooterSolver.EFFICIENCY);
+      
     }
 
     private final VoltageOut voltageControl = new VoltageOut(0);
@@ -135,7 +131,7 @@ public class Launcher extends SubsystemBase {
     }
 
     public void shuttle() {
-        setFlywheelVelocity(-00);
+        setFlywheelVelocity(-3000);
         runFlyWheel();
         setHoodPosition(2.65);
         runHood();
@@ -146,26 +142,15 @@ public class Launcher extends SubsystemBase {
         FlywheelBKraken.stopMotor();
     }
 
-    private static final String KEY_FLY_RPM = "Launcher RPM";
-    private static final String KEY_HOOD_ANGLE = "Hood ANG" ;
-    
 
     @Override
     public void periodic() {
 
         SmartDashboard.putNumber("Flywheel Actual RPM", FlywheelAKraken.getVelocity().getValueAsDouble() * 60.0);
         SmartDashboard.putNumber("Flywheel Target RPM", targetFlywheelRPM);
-        SmartDashboard.putNumber("Flywheel Temperature", FlywheelAKraken.getDeviceTemp().getValueAsDouble());
         SmartDashboard.putNumber("Hood Position", HoodKraken.getPosition().getValueAsDouble());
         SmartDashboard.putNumber("Encoder Position", hoodAbsoluteEncoder.getPosition().getValueAsDouble());
-        SmartDashboard.putNumber("convertHoodPosition", convertHoodPosition(1.25));
+        ShooterSolver.EFFICIENCY = SmartDashboard.getNumber("Auto Aim Efficiency", 0.62);
 
-        
-        // double hoodAngle = SmartDashboard.getNumber(KEY_HOOD_ANGLE, 0.0);
-        // double launcherRPM = SmartDashboard.getNumber(KEY_FLY_RPM, 0.0);
-       
-        
-        // setFlywheelVelocity(launcherRPM);
-        // setHoodPosition(hoodAngle);
     }
 }

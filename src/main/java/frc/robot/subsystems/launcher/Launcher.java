@@ -131,7 +131,7 @@ public class Launcher extends SubsystemBase {
     }
 
     public void shuttle() {
-        setFlywheelVelocity(-3000);
+        setFlywheelVelocity(-4000);
         runFlyWheel();
         setHoodPosition(2.65);
         runHood();
@@ -140,6 +140,7 @@ public class Launcher extends SubsystemBase {
     public void stopFlyWheels() {
         FlywheelAKraken.stopMotor();
         FlywheelBKraken.stopMotor();
+        
     }
 
 

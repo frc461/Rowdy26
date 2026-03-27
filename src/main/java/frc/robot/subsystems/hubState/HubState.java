@@ -11,7 +11,7 @@ public class HubState extends SubsystemBase {
     
     private boolean isHubActive = true; 
     private String dashColor = "RED"; 
-    private boolean winAuto; 
+    private boolean winAuto = false; 
     
     public void MatchStateSubsystem() {
         // Initialize Dashboard variables

@@ -1,4 +1,4 @@
-package frc.robot.subsystems.launcher;
+    package frc.robot.subsystems.launcher;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -33,7 +33,7 @@ public class ShooterSolver {
     public static final double FIELD_LENGTH_METERS = 16.5417; 
     
     // Blue Alliance Hub Coordinates
-    public static final double BLUE_TARGET_X = 4.38; // 4.62 [m]
+    public static final double BLUE_TARGET_X = 4.45; // 4.62 [m]
     public static final double BLUE_TARGET_Y = 4.17; // 4.02 [m]
 
     // Ball Physics

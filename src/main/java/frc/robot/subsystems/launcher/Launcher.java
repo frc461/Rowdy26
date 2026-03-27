@@ -151,7 +151,7 @@ public class Launcher extends SubsystemBase {
         SmartDashboard.putNumber("Flywheel Target RPM", targetFlywheelRPM);
         SmartDashboard.putNumber("Hood Position", HoodKraken.getPosition().getValueAsDouble());
         SmartDashboard.putNumber("Encoder Position", hoodAbsoluteEncoder.getPosition().getValueAsDouble());
-        ShooterSolver.EFFICIENCY = SmartDashboard.getNumber("Auto Aim Efficiency", 0.62);
+        ShooterSolver.EFFICIENCY = SmartDashboard.getNumber("Auto Aim Efficiency", 0.63);
 
     }
 }

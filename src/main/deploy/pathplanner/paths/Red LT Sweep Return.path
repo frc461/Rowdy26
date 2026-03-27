@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.597831325301206,
-        "y": 4.952927710843373
+        "x": 8.267638020833335,
+        "y": 3.339659577546297
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.898457831325301,
-        "y": 2.1882168674698788
+        "x": 7.56826452685743,
+        "y": 0.5749487341728026
       },
       "isLocked": false,
       "linkedName": "RedLTSweep"
@@ -48,7 +48,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 1.0,
-    "rotation": 25.0
+    "rotation": -41.62769346811586
   },
   "useDefaultConstraints": false
 }

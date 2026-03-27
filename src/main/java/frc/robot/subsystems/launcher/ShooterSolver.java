@@ -11,7 +11,7 @@ import java.util.Optional;
 public class ShooterSolver {
 
     // --- TUNABLE CONSTANTS ---
-    public static double EFFICIENCY = 0.62;
+    public static double EFFICIENCY = 0.63;
     public static double HOOD_ANGLE_DEGREES = 0.0;
     public static final double SHOOTER_HEIGHT_METERS = 0.508; 
     public static final double WHEEL_RADIUS_METERS = 0.0508;
@@ -29,7 +29,7 @@ public class ShooterSolver {
     public static final double TARGET_HEIGHT_METERS = 1.83; 
     public static final double TARGET_RADIUS_METERS = 0.53; 
     
-    
+
     // Standard WPILib Field Length
     public static final double FIELD_LENGTH_METERS = 16.5417; 
     

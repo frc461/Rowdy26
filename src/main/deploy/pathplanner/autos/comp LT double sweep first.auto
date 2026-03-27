@@ -5,15 +5,22 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Red LT Exit for full sweep"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Extend Intake"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Red LT Exit for full sweep"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Extend Intake"
+                }
+              }
+            ]
           }
         },
         {
@@ -55,7 +62,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 7.0
+            "waitTime": 5.0
           }
         },
         {
@@ -91,7 +98,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 7.0
+            "waitTime": 5.0
           }
         },
         {

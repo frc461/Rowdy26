@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 10.39834006076389,
+        "x": 9.964326388888889,
         "y": 0.6364819277108438
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.61410843373494,
-        "y": 0.6036987951807224
+        "x": 8.416245876736111,
+        "y": 0.44262651909722184
       },
       "isLocked": false,
       "linkedName": "RedLTExit"
     },
     {
       "anchor": {
-        "x": 8.597831325301206,
-        "y": 4.952927710843373
+        "x": 8.267638020833335,
+        "y": 3.339659577546297
       },
       "prevControl": {
-        "x": 7.067951807228916,
-        "y": 2.9968674698795184
+        "x": 8.099109068217315,
+        "y": 1.3287916178603316
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 1.0,
-    "rotation": 25.0
+    "rotation": -41.62769346811586
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
-    "velocity": 2.0,
-    "rotation": 83.21552353675708
+    "velocity": 3.0,
+    "rotation": 0.5159042842634209
   },
   "useDefaultConstraints": false
 }

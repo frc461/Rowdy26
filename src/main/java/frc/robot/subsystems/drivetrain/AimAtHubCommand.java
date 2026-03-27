@@ -101,6 +101,7 @@ public class AimAtHubCommand extends Command {
         SmartDashboard.putNumber("Shooter/Target Heading", solution.headingDegrees);
         SmartDashboard.putNumber("Shooter/Current Heading", currentHeading);
         SmartDashboard.putNumber("Shooter/Target RPM", solution.rpm);
+        SmartDashboard.putNumber("Shooter/Target Hood Angle", Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE);
     }
 
     

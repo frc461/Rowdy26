@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "Red LT Exit for full sweep"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "Shoot Trench Preset"
@@ -20,12 +26,6 @@
           "type": "named",
           "data": {
             "name": "Stop Launcher"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red LT Exit for full sweep"
           }
         },
         {

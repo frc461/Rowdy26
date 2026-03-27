@@ -29,6 +29,7 @@ public class ShooterSolver {
     public static final double TARGET_HEIGHT_METERS = 1.83; 
     public static final double TARGET_RADIUS_METERS = 0.53; 
     
+    
     // Standard WPILib Field Length
     public static final double FIELD_LENGTH_METERS = 16.5417; 
     

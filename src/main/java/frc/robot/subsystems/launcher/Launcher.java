@@ -131,7 +131,7 @@ public class Launcher extends SubsystemBase {
     }
 
     public void shuttle() {
-        setFlywheelVelocity(-4000);
+        setFlywheelVelocity(-4750);
         runFlyWheel();
         setHoodPosition(2.65);
         runHood();

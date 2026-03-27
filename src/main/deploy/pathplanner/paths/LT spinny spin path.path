@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.6199156626506035,
-        "y": 0.5709156626506016
+        "x": 6.249392433449075,
+        "y": 0.15544921875000123
       },
       "isLocked": false,
       "linkedName": "RightTrenchStartPoint"
@@ -20,8 +20,8 @@
         "y": 6.908987951807229
       },
       "prevControl": {
-        "x": 9.056795180722892,
-        "y": 4.056855421686747
+        "x": 7.775559027777778,
+        "y": 4.1527709056712965
       },
       "nextControl": null,
       "isLocked": false,

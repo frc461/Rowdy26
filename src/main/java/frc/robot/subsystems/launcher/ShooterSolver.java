@@ -11,10 +11,10 @@ import java.util.Optional;
 public class ShooterSolver {
 
     // --- TUNABLE CONSTANTS ---
-    public static final double EFFICIENCY = 0.61;
+    public static double EFFICIENCY = 0.62;
     public static double HOOD_ANGLE_DEGREES = 0.0;
     public static final double SHOOTER_HEIGHT_METERS = 0.508; 
-    public static final double WHEEL_RADIUS_METERS = 0.0508; 
+    public static final double WHEEL_RADIUS_METERS = 0.0508;
     
     // Robot Geometry (Meters)
     // Based on: Length 32in, Width 26in. Shooter at Back-Right.
@@ -33,13 +33,15 @@ public class ShooterSolver {
     public static final double FIELD_LENGTH_METERS = 16.5417; 
     
     // Blue Alliance Hub Coordinates
-    public static final double BLUE_TARGET_X = 4.10; // 4.62 [m]
-    public static final double BLUE_TARGET_Y = 3.97; // 4.02 [m]
+    public static final double BLUE_TARGET_X = 4.38; // 4.62 [m]
+    public static final double BLUE_TARGET_Y = 4.17; // 4.02 [m]
 
     // Ball Physics
+
     public static final double BALL_MASS_KG = 0.215;
     public static final double BALL_RADIUS_METERS = 0.075;
     public static final double DRAG_COEFF = 0.45;
+
     public static final boolean ENABLE_DRAG = true;
 
     // Solver Settings

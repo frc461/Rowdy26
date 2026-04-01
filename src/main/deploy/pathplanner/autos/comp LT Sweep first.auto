@@ -5,40 +5,27 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Extend Intake"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Shoot Trench Preset"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.05
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Stop Launcher"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Red LT Exit for full sweep"
-                }
-              }
-            ]
+            "name": "Shoot Trench Preset"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.05
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop Launcher"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red LT Exit for full sweep"
           }
         },
         {
@@ -75,12 +62,6 @@
           "type": "named",
           "data": {
             "name": "Stop All"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0
           }
         }
       ]

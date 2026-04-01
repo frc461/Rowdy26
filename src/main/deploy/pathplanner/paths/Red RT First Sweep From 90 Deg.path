@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.45068486272952,
-        "y": 6.788737806762006
+        "x": 8.87466666667248,
+        "y": 6.988564102569917
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.947531264677654,
-        "y": 5.247971595437144
+        "x": 8.371513068620613,
+        "y": 5.447797891245055
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "RedRTPrepFirstSweep90Deg"
     },
     {
       "anchor": {
@@ -48,7 +48,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 140.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

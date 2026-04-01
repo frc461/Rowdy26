@@ -1,0 +1,127 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Extend Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red RT Auto align "
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Trench Preset"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop Launcher"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red RT Exit to Center"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red RT Center Prep First Sweep at 90 Deg"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red RT First Sweep From 90 Deg"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red Rotate at Sweep"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Tower Preset"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop Launcher"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red Rotate After Shuttle"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red RT First Sweep Return After Shuttle"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red RT First Sweep Shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Trench Preset"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop Launcher"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop All"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

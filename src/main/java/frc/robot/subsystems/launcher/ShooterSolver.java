@@ -8,11 +8,14 @@ import frc.robot.subsystems.launcher.Launcher;
 
 import java.util.Optional;
 
+import com.fasterxml.jackson.databind.node.DoubleNode;
+
 public class ShooterSolver {
 
     // --- TUNABLE CONSTANTS ---
     public static double EFFICIENCY = 0.63;
     public static double HOOD_ANGLE_DEGREES = 0.0;
+    public static double retureHoodPose = 0.0;
     public static final double SHOOTER_HEIGHT_METERS = 0.508; 
     public static final double WHEEL_RADIUS_METERS = 0.0508;
     
@@ -54,11 +57,13 @@ public class ShooterSolver {
     public static class ShotResult {
         public double headingDegrees;
         public double rpm;
+        public double hoodAngle;
         public boolean found;
 
-        public ShotResult(double heading, double rpm, boolean found) {
+        public ShotResult(double heading, double rpm, double hoodAngle, boolean found) {
             this.headingDegrees = heading;
             this.rpm = rpm;
+            this.hoodAngle = hoodAngle;
             this.found = found;
         }
     }
@@ -105,11 +110,11 @@ public class ShooterSolver {
         double dy = currentTargetY - finalShooterPos.y;
         double distanceToTarget = Math.hypot(dx, dy);
 
-        if (distanceToTarget > 2){ //TODO:Fix values
-            Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.SIXTY_DEG_HOOD_ANGLE; //far
+        if (distanceToTarget > 2){ 
+            retureHoodPose = Constants.LauncherConstants.SIXTY_DEG_HOOD_ANGLE;
             HOOD_ANGLE_DEGREES = 60.0;
         }else{
-            Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.SEVENTY_DEG_HOOD_ANGLE;
+            retureHoodPose = Constants.LauncherConstants.SEVENTY_DEG_HOOD_ANGLE;
             HOOD_ANGLE_DEGREES = 70.0;
         }
         
@@ -145,7 +150,7 @@ public class ShooterSolver {
         double rpm = calculateRPM(bestV);
         boolean found = Math.abs(minError) < 0.5;
 
-        return new ShotResult(headingDegrees, rpm, found);
+        return new ShotResult(headingDegrees, rpm, retureHoodPose, found);
     }
 
     private static SimResult simulateShot(double targetDist, double startZ, double vHoriz, double vZ) {

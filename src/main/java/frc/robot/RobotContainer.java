@@ -40,7 +40,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.constants.TunerConstants;
-import frc.robot.subsystems.drivetrain.AimAtHubCommand;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.drivetrain.Swerve;
 import frc.robot.subsystems.drivetrain.SwerveCommand;
@@ -64,9 +63,6 @@ public class RobotContainer {
   private final Spindexer spindexer = new Spindexer();
 
   private static HubState hubState = new HubState();
-
-  private final TalonFX leadMotor = new TalonFX(50);//Spindexer
-  private final TalonFX followMotor = new TalonFX(55);//Kicker
 
   private final CommandXboxController opjoystick = new CommandXboxController(1); // operator controller port
   private final CommandXboxController drjoystick = new CommandXboxController(0);    
@@ -148,28 +144,17 @@ public class RobotContainer {
             Math.abs(yInput) < 0.05 &&
             Math.abs(rotInput) < 0.05;
 
+        // --- NEW AIMING INJECTION ---
+        if (drivetrain.isAutoAiming) {
+            // Hijack rotation to track the hub
+            rotSpeed = drivetrain.calculateAutoAimRotation();
+        } 
+        // ----------------------------
+
         return drive
           .withVelocityX(xSpeed)
           .withVelocityY(ySpeed)
           .withRotationalRate(rotSpeed);
-
-        // if (leftTrigger) {
-        //     if (isStopped) {
-        //         return xMode;
-        //     }
-        //     else {
-        //       return drive
-        //         .withVelocityX(xSpeed * 0.5)
-        //         .withVelocityY(ySpeed * 0.5)
-        //         .withRotationalRate(rotSpeed); 
-        //     }
-        // }
-        // else {
-        //   return drive
-        //     .withVelocityX(xSpeed)
-        //     .withVelocityY(ySpeed)
-        //     .withRotationalRate(rotSpeed);
-        // }
     })
 );
   
@@ -242,15 +227,10 @@ public class RobotContainer {
     //       intake)
     // );
     
-    drjoystick.leftTrigger().whileTrue(
-      new AimAtHubCommand(
-          drivetrain, 
-          launcher, 
-          m_localizer, 
-          () -> -drjoystick.getLeftY() * MaxSpeed,   // Forward input
-          () -> -drjoystick.getLeftX() * MaxSpeed    // Strafe input
-        )
-    );
+    drjoystick.leftTrigger()
+        .onTrue(new InstantCommand(() -> drivetrain.setAutoAim(true)))
+        .whileTrue(new LauncherCommand(launcher, spindexer, drivetrain))
+        .onFalse(new InstantCommand(() -> drivetrain.setAutoAim(false)));
 
     final Command holdXMode = drivetrain.applyRequest(() -> xMode);
 
@@ -263,7 +243,7 @@ public class RobotContainer {
     ).onTrue(Commands.runOnce(holdXMode::cancel));
     
 
-    // Operator COntroller
+    // Operator Controller
 
     opjoystick.leftTrigger().whileTrue(
       Commands.startEnd(

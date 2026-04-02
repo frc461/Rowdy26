@@ -107,6 +107,10 @@ public class Launcher extends SubsystemBase {
         FlywheelBKraken.setControl(velocityControl.withVelocity(rps) );   
     }
 
+    public double getFlywheelVelocity(){
+        return FlywheelAKraken.getVelocity().getValueAsDouble() * 60.0;
+    }
+
     public void setHoodPosition(double pose) {
         this.targetHoodPosition = convertHoodPosition(pose);
         
@@ -118,8 +122,6 @@ public class Launcher extends SubsystemBase {
         double currentHoodMotorPose = HoodKraken.getPosition().getValueAsDouble();
         return ((currentHoodEncoderPose + encoderPose) * Constants.LauncherConstants.ENCODER_CONVERSION) + currentHoodMotorPose;
     }
-
-
 
     public void runHood() {
         HoodKraken.setControl(positionControl.withPosition(targetHoodPosition));

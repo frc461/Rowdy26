@@ -7,17 +7,15 @@ import java.util.function.Supplier;
 
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.Utils;
-import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
-import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
-import com.ctre.phoenix6.swerve.utility.WheelForceCalculator.Feedforwards;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
@@ -25,13 +23,13 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.constants.TunerConstants;
 import frc.robot.constants.TunerConstants.TunerSwerveDrivetrain;
-// import frc.robot.subsystems.localizer.Localizer;
 import frc.robot.subsystems.launcher.ShooterSolver;
 import frc.robot.subsystems.launcher.ShooterSolver.ShotResult;
 
@@ -39,12 +37,6 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
-import com.pathplanner.lib.path.PathPlannerPath;
-import com.pathplanner.lib.util.DriveFeedforwards;
-
-//
-// import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
-// import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
 /**
  * Class that extends the Phoenix 6 SwerveDrivetrain class and implements
@@ -60,10 +52,17 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
 
     private static final SwerveTelemetry m_telemetry = new SwerveTelemetry(1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond));
 
-
     private final SwerveRequest.RobotCentric m_robotCentricRequest = new SwerveRequest.RobotCentric();
 
     private final SwerveRequest.ApplyRobotSpeeds m_pathApplyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds();
+
+    // --- AIMING & DASHBOARD VARIABLES ---
+    private final Field2d m_field = new Field2d();
+    public boolean isAutoAiming = false;
+    private final PIDController turnPID = new PIDController(0.5, 0.0, 0.005);
+    
+    // Memory-optimized X-Mode
+    private final SwerveRequest.SwerveDriveBrake brakeRequest = new SwerveRequest.SwerveDriveBrake();
 
     // private Localizer localizer;
 
@@ -162,13 +161,15 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
         if (Utils.isSimulation()) {
             startSimThread();
         }
-        // localizer = new Localizer(this);
+        
+        // Add this right before configureAutoBuilder();
+        turnPID.enableContinuousInput(0, 360);
+        turnPID.setTolerance(2.0);
+        SmartDashboard.putData("Field2d Pose", m_field);
+
         // Configure AutoBuilder last
         configureAutoBuilder();
     }
-
-    
-
 
     private void configureAutoBuilder() {
         try {
@@ -301,7 +302,8 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
 
     @Override
     public void periodic() {
-        // m_telemetry.telemeterize(this.getState());
+        m_telemetry.telemeterize(this.getState());
+        m_field.setRobotPose(this.getState().Pose);
 
         /*
          * Periodically try to apply the operator perspective.
@@ -320,8 +322,6 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
                 m_hasAppliedOperatorPerspective = true;
             });
         }
-
-        // localizer.periodic();
     }
 
     private void startSimThread() {
@@ -392,7 +392,7 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
     // xmode maybe?
 
     public void setXMode() {
-        this.setControl(new SwerveRequest.SwerveDriveBrake());
+        this.setControl(brakeRequest);
     }
 
     // SLow mode
@@ -405,6 +405,40 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
 
     public boolean isSlowMode() {
         return slowMode;
+    }
+
+    // --- TELEOP & AUTO AIMING METHODS ---
+    public void setAutoAim(boolean enable) {
+        this.isAutoAiming = enable;
+        
+        if (enable) {
+            // PathPlanner 2024/2025 Standard: Hijack the rotation feedback dynamically
+            // We pass in our custom method below to feed it the exact rotation speed!
+            PPHolonomicDriveController.overrideRotationFeedback(this::calculateAutoAimRotation);
+        } else {
+            // Trigger released: Give rotation control back to the PathPlanner trajectory
+            PPHolonomicDriveController.clearRotationFeedbackOverride();
+        }
+    }
+
+    public double calculateAutoAimRotation() {
+        Pose2d currentPose = this.getState().Pose;
+        
+        // Cleaned up the long package names!
+        ShotResult solution = ShooterSolver.solve(currentPose);
+        
+        if (!solution.found) {
+            return 0.0; 
+        }
+        
+        double currentHeading = MathUtil.inputModulus(currentPose.getRotation().getDegrees(), 0, 360);
+        double rotationalVelocity = turnPID.calculate(currentHeading, solution.headingDegrees);
+        
+        return MathUtil.clamp(rotationalVelocity, -4.0, 4.0);
+    }
+
+    public boolean isAimLockedOn() {
+        return turnPID.atSetpoint();
     }
 
 }

@@ -75,7 +75,7 @@ public class Launcher extends SubsystemBase {
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.CurrentLimits.SupplyCurrentLimit = 40;
         KickerKraken.setControl(
-            new Follower(50, MotorAlignmentValue.Aligned)
+            new Follower(50, MotorAlignmentValue.Opposed)
         );
 
         SmartDashboard.putNumber("Auto Aim Efficiency", ShooterSolver.EFFICIENCY);

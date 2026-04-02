@@ -26,6 +26,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
+import edu.wpi.first.wpilibj.PowerDistribution;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -36,6 +37,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -61,6 +63,7 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Launcher launcher = new Launcher();
   private final Spindexer spindexer = new Spindexer();
+  private final PowerDistribution pdh = new PowerDistribution();
 
   private static HubState hubState = new HubState();
 
@@ -120,6 +123,16 @@ public class RobotContainer {
   
       SmartDashboard.putData("Auto Chooser", autoChooser);
       SmartDashboard.putData("Command Scheduler", CommandScheduler.getInstance());
+
+      // Register a periodic callback to publish total current without a new file.
+      // This creates an anonymous subsystem that is automatically called periodically
+      // by the CommandScheduler.
+      CommandScheduler.getInstance().registerSubsystem(new SubsystemBase() {
+          @Override
+          public void periodic() {
+              SmartDashboard.putNumber("Total Robot Current", pdh.getTotalCurrent());
+          }
+      });
     }
   
   private void configureBindings() {
@@ -148,6 +161,18 @@ public class RobotContainer {
         if (drivetrain.isAutoAiming) {
             // Hijack rotation to track the hub
             rotSpeed = drivetrain.calculateAutoAimRotation();
+
+            // Cap translational velocity during auto-aim if there is joystick input
+            boolean hasTranslationalInput = Math.abs(xInput) > 0.05 || Math.abs(yInput) > 0.05;
+            if (hasTranslationalInput) {
+                double requestedMagnitude = Math.hypot(xSpeed, ySpeed);
+                double cap = 0.2; // m/s
+                if (requestedMagnitude > cap) {
+                    double scalingFactor = cap / requestedMagnitude;
+                    xSpeed *= scalingFactor;
+                    ySpeed *= scalingFactor;
+                }
+            }
         } 
         // ----------------------------
 
@@ -157,15 +182,6 @@ public class RobotContainer {
           .withRotationalRate(rotSpeed);
     })
 );
-  
-
-    // new Trigger(() ->
-    //   Math.abs(drjoystick.getLeftY()) > 0.1 ||
-    //   Math.abs(drjoystick.getLeftX()) > 0.1 ||
-    //   Math.abs(drjoystick.getRightX()) > 0.1
-    //   ).onTrue(
-    //   drivetrain.getDefaultCommand()
-    // );
   
     // Idle while the robot is disabled. This ensures the configured
     // neutral mode is applied to the drive motors while disabled.
@@ -212,24 +228,10 @@ public class RobotContainer {
       );
   
     // drivetrain.registerTelemetry(logger::telemeterize);
-  
-    // drjoystick.rightBumper().onTrue(Commands.run(
-    // ()-> {
-    //   launcher.setHoodPosition(0.0);
-    //   launcher.runHood();
-    // },
-    // launcher));
-  
-    // drjoystick.leftTrigger().whileTrue(
-    //     Commands.startEnd(
-    //       () -> intake.setIntakeVoltage(16), 
-    //       () -> intake.setIntakeVoltage(0),
-    //       intake)
-    // );
     
     drjoystick.leftTrigger()
         .onTrue(new InstantCommand(() -> drivetrain.setAutoAim(true)))
-        .whileTrue(new LauncherCommand(launcher, spindexer, drivetrain))
+        .whileTrue(new LauncherCommand(launcher, spindexer, drivetrain, intake))
         .onFalse(new InstantCommand(() -> drivetrain.setAutoAim(false)));
 
     final Command holdXMode = drivetrain.applyRequest(() -> xMode);
@@ -266,22 +268,12 @@ public class RobotContainer {
       )
     );
 
-    
-
-
     opjoystick.leftBumper().onTrue(Commands.run(
       ()-> {
         launcher.setHoodPosition(0.0);
         launcher.runHood();
       },
       launcher));
-
-    // opjoystick.leftBumper().onTrue(new InstantCommand(() -> {
-    //         launcher.setFlywheelVelocity(Constants.LauncherConstants.TRENCH_AUTO_RPM);
-    //         launcher.setHoodPosition(Constants.LauncherConstants.TRENCH_AUTO_START_HOOD_ANGLE);
-    //       }
-    //     )
-    //     );
 
     opjoystick.rightBumper().whileTrue( 
       Commands.startEnd(
@@ -387,13 +379,6 @@ public class RobotContainer {
     String selected = autoChooser.getSelected().getName();
 
     return autoChooser.getSelected();
-
-    // if(selected.startsWith("comp LT")) {
-    //   return new PathPlannerAuto(selected, true);
-    // }
-    // else {
-    //   return autoChooser.getSelected();
-    // }
   }  
 
   public void StopAuto() {

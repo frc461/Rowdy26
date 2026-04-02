@@ -42,10 +42,7 @@ public class Intake extends SubsystemBase{
         intakeconfig.CurrentLimits.StatorCurrentLimitEnable = true;
         intakeconfig.CurrentLimits.StatorCurrentLimit = 80;
 
-        IntakeKraken.getConfigurator().apply(config);
-        IntakeKraken.setPosition(0);
-
-
+        IntakeKraken.getConfigurator().apply(intakeconfig);
     }
 
     private final DigitalInput RightForwardLimitSwitch = new DigitalInput(0);

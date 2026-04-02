@@ -38,29 +38,11 @@ public class Launcher extends SubsystemBase {
         encoderConfig.MagnetSensor.MagnetOffset = Constants.LauncherConstants.ABSOLUTE_ENCODER_OFFSET;
         encoderConfig.MagnetSensor.AbsoluteSensorDiscontinuityPoint = Constants.LauncherConstants.ABSOLUTE_ENCODER_DIS_PT;
         hoodAbsoluteEncoder.getConfigurator().apply(encoderConfig);
-
-        TalonFXConfiguration config = new TalonFXConfiguration();
-        HoodKraken.getConfigurator().apply(new TalonFXConfiguration());
-        config.CurrentLimits.SupplyCurrentLimitEnable = true;
-        config.CurrentLimits.SupplyCurrentLimit = 20;
-        config.CurrentLimits.StatorCurrentLimitEnable = true;
-        config.CurrentLimits.StatorCurrentLimit = 60;
-        config.Slot0.kP = 10;
-        config.Slot0.kI = 0.0;
-        config.Slot0.kD = 0.0;
-        config.Slot0.kV = 0.8;
-        // config.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
-        // config.Feedback.FeedbackRemoteSensorID = hoodAbsoluteEncoder.getDeviceID();
-        // config.Feedback.SensorToMechanismRatio = 1.0;
-        // config.Feedback.RotorToSensorRatio = 4.0;
-        HoodKraken.getConfigurator().apply(config);
-        HoodKraken.setPosition(0);
         
 
+        TalonFXConfiguration config = new TalonFXConfiguration();
 
         FlywheelAKraken.getConfigurator().apply(new TalonFXConfiguration());
-        config.CurrentLimits.SupplyCurrentLimitEnable = true;
-        config.CurrentLimits.SupplyCurrentLimit = 40;
         config.Slot0.kP = .4;
         config.Slot0.kI = 0;
         config.Slot0.kD = 0.0;
@@ -68,8 +50,6 @@ public class Launcher extends SubsystemBase {
         FlywheelAKraken.getConfigurator().apply(config);
 
         FlywheelBKraken.getConfigurator().apply(new TalonFXConfiguration());
-        config.CurrentLimits.SupplyCurrentLimitEnable = true;
-        config.CurrentLimits.SupplyCurrentLimit = 40;
         config.Slot0.kP = .4;
         config.Slot0.kI = 0;
         config.Slot0.kD = 0.0;
@@ -82,6 +62,18 @@ public class Launcher extends SubsystemBase {
         KickerKraken.setControl(
             new Follower(50, MotorAlignmentValue.Aligned)
         );
+
+
+        HoodKraken.getConfigurator().apply(new TalonFXConfiguration());
+        config.CurrentLimits.SupplyCurrentLimitEnable = true;
+        config.CurrentLimits.SupplyCurrentLimit = 20;
+        config.CurrentLimits.StatorCurrentLimitEnable = true;
+        config.CurrentLimits.StatorCurrentLimit = 60;
+        config.Slot0.kP = 10;
+        config.Slot0.kI = 0.0;
+        config.Slot0.kD = 0.0;
+        config.Slot0.kV = 0.8;
+        HoodKraken.getConfigurator().apply(config);
 
         SmartDashboard.putNumber(KEY_HOOD_ANGLE, 0.0);
         SmartDashboard.putNumber(KEY_FLY_RPM, 0.0);

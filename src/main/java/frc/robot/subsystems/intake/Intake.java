@@ -1,11 +1,9 @@
 package frc.robot.subsystems.intake;
 
-import java.io.ObjectInputFilter.Config;
-
-import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 
@@ -13,14 +11,12 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.robot.subsystems.spindexer.Spindexer;
-
 public class Intake extends SubsystemBase{
-    private final TalonFX DeployKraken = new TalonFX(52); 
+    private final TalonFX DeployKraken = new TalonFX(52);
     private final TalonFX IntakeKraken = new TalonFX(56); 
+    private final TalonFX IntakeSlave = new TalonFX(59); 
     private final VoltageOut voltageControl = new VoltageOut(0);
     private final PositionVoltage positionControl = new PositionVoltage(0);
-
 
     public Intake() {
         TalonFXConfiguration config = new TalonFXConfiguration();
@@ -42,8 +38,15 @@ public class Intake extends SubsystemBase{
         intakeconfig.CurrentLimits.StatorCurrentLimitEnable = true;
         intakeconfig.CurrentLimits.StatorCurrentLimit = 80;
 
-        IntakeKraken.getConfigurator().apply(config);
-        IntakeKraken.setPosition(0);
+        IntakeKraken.getConfigurator().apply(intakeconfig);
+    
+        IntakeSlave.getConfigurator().apply(new TalonFXConfiguration());
+        intakeconfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        IntakeSlave.getConfigurator().apply(intakeconfig);
+        
+        // IntakeSlave.setControl(
+        //     new Follower(56, MotorAlignmentValue.Aligned)
+        // );
 
 
     }
@@ -54,6 +57,7 @@ public class Intake extends SubsystemBase{
 
     public void setIntakeVoltage(double volts) {
         IntakeKraken.setControl(voltageControl.withOutput(volts));
+        IntakeSlave.setControl(voltageControl.withOutput(volts));
     }
 
     public void setDeployVoltage(double volts) {
@@ -68,6 +72,9 @@ public class Intake extends SubsystemBase{
             velocityControl.withVelocity(rotationsPerSecond)
         );
         IntakeKraken.setControl(
+            velocityControl.withVelocity(rotationsPerSecond)
+        );
+        IntakeSlave.setControl(
             velocityControl.withVelocity(rotationsPerSecond)
         );
     }

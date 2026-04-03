@@ -3,20 +3,28 @@ package frc.robot.constants;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.networktables.NetworkTableInstance;
 
 public final class Constants {
 
-
     public final class VisionConstants {
+        // Trust Constants
 
-        public static final NetworkTableInstance NT_INSTANCE = NetworkTableInstance.getDefault();
+        // --- STANDARD DEVIATIONS (Trust Matrices) ---
+        // The values are [X, Y, Theta]. Lower numbers mean you trust the camera MORE.
+        // Higher numbers mean you trust the camera LESS.
+        
+        // When you only see 1 tag, trust the camera less (especially rotation)
+        public static final Matrix<N3, N1> kSINGLE_TAG_STD_DEVS = VecBuilder.fill(0.9, 0.9, 0.9);
+        
+        // When you see 2+ tags, PhotonVision's PNP math is highly accurate. Trust it more.
+        public static final Matrix<N3, N1> kMULTI_TAG_STD_DEVS = VecBuilder.fill(0.3, 0.3, 0.1);
 
+
+        // --- CAMERA 1: FRONT RIGHT (FR) ---
+        // MUST match exactly what you typed in the PhotonVision Web UI
         public static final String CAMERA_FR_NAME = "CAMERA_FR"; 
         public static final double CAMERA_FR_YAW = 0;
         public static final double CAMERA_FR_PITCH = 28.812;
@@ -26,10 +34,10 @@ public final class Constants {
         public static final double CAMERA_FR_UP = Units.inchesToMeters(20);
 
         public static final String CAMERA_FL_NAME = "CAMERA_FL"; 
-        public static final double CAMERA_FL_YAW = 45;
+        public static final double CAMERA_FL_YAW = -135;
         public static final double CAMERA_FL_PITCH = 14.864;
         public static final double CAMERA_FL_ROLL = 0;
-        public static final double CAMERA_FL_FORWARD = Units.inchesToMeters(9.893);
+        public static final double CAMERA_FL_FORWARD = Units.inchesToMeters(7.893);
         public static final double CAMERA_FL_LEFT = Units.inchesToMeters(-7.310);
         public static final double CAMERA_FL_UP = Units.inchesToMeters(20);
 
@@ -40,20 +48,16 @@ public final class Constants {
         public static final double CAMERA_BR_FORWARD = 0;
         public static final double CAMERA_BR_LEFT = 0;
         public static final double CAMERA_BR_UP = 0;
-
-
-        
-        // Trust Constants
-
-        // The standard deviations of our vision estimated poses, which affect correction rate
-        // (Fake values. Experiment and determine estimation noise on an actual robot.)
-        public static final double MAX_VALID_DIST = 5.0; //Meters
-        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
-        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
-        public static final Matrix<N3, N1> ODOM_STD_DEV = VecBuilder.fill(0.03, 0.03, Units.degreesToRadians(0.01));
-
-
     }
+
+    public final class SwerveConstants {
+        public static Translation2d k_frontLeftLocation;
+        public static Translation2d k_frontRightLocation;
+        public static Translation2d k_backLeftLocation;
+        public static Translation2d k_backRightLocation;
+    }
+
+    
 
     public final class LauncherConstants {
         public static double SHOOTER_SIZE_IN = 7.0;
@@ -64,9 +68,21 @@ public final class Constants {
         public static double HUB_CENTER_HEIGHT = 72;
 
         public static double HUB_HOOD_ANGLE = 0.0;
-        public static double HUB_RPM = -1950.0;
+        public static double HUB_RPM = -1725.0;
 
         public static double TOWER_HOOD_ANGLE = 1.25;
-        public static double TOWER_RPM = -2250.0;
+        public static double TOWER_RPM = -2125.0;
+
+        public static double TEMP_AUTO_START_HOOD_ANGLE = 1.25;
+        public static double TEMP_AUTO_RPM = -2450.0;
+
+        public static double TRENCH_AUTO_START_HOOD_ANGLE = 1.25;
+        public static double TRENCH_AUTO_RPM = -2375.0;
+
+        public static double ABSOLUTE_ENCODER_OFFSET = -0.865;
+        public static double ENCODER_CONVERSION = 3.942;
+
+
+        public static double ROTOR_TO_SENSOR_RATIO = 4.0;
     }
 }

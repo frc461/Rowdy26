@@ -36,7 +36,7 @@ public class Launcher extends SubsystemBase {
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.CurrentLimits.SupplyCurrentLimit = 40;
         config.Slot0.kP = 5;
-        config.Slot0.kI = 0.0;
+        config.Slot0.kI = 0.2;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.8;
         HoodKraken.getConfigurator().apply(config);
@@ -46,18 +46,18 @@ public class Launcher extends SubsystemBase {
         FlywheelAKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.CurrentLimits.SupplyCurrentLimit = 40;
-        config.Slot0.kP = .25;
-        config.Slot0.kI = 0 ;
-        config.Slot0.kD = 0;
+        config.Slot0.kP = 15;
+        config.Slot0.kI = 0.0;
+        config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.2056;
         FlywheelAKraken.getConfigurator().apply(config);
 
         FlywheelBKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.CurrentLimits.SupplyCurrentLimit = 40;
-        config.Slot0.kP = .25;
-        config.Slot0.kI = 0;
-        config.Slot0.kD = 0;
+        config.Slot0.kP = 15;
+        config.Slot0.kI = 0.0;
+        config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.2056;
         FlywheelBKraken.getConfigurator().apply(config);
 
@@ -70,6 +70,10 @@ public class Launcher extends SubsystemBase {
 
         SmartDashboard.putNumber(KEY_HOOD_ANGLE, 0.0);
         SmartDashboard.putNumber(KEY_FLY_RPM, 0.0);
+
+        // SmartDashboard.putNumber("Tuning Kp", lastP);
+        // SmartDashboard.putNumber("Tuning Ki", lastI);
+        // SmartDashboard.putNumber("Tuning Kd", lastD);        
     }
 
     private final VoltageOut voltageControl = new VoltageOut(0);
@@ -130,9 +134,7 @@ public class Launcher extends SubsystemBase {
         double hoodAngle = SmartDashboard.getNumber(KEY_HOOD_ANGLE, 0.0);
         double launcherRPM = SmartDashboard.getNumber(KEY_FLY_RPM, 0.0);
        
-        // launcherRPM = (launcherRPM > 6000) ? 6000 : ((launcherRPM < 0) ? 0 : launcherRPM);
-        // kickerRPM = (kickerRPM > 6000) ? 6000 : ((kickerRPM < 0) ? 0 : kickerRPM);
-
+        
         setFlywheelVelocity(launcherRPM);
         setHoodPosition(hoodAngle);
     }

@@ -15,122 +15,74 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.*;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructPublisher;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.Matrix;
 import frc.robot.Robot;
+import frc.robot.constants.Constants;
+import frc.robot.subsystems.drivetrain.Swerve;
 import frc.robot.util.vision.Vision.BW;
 import frc.robot.util.vision.Vision.BW.BWCamera;
+import frc.robot.util.vision.Vision;
 
-public class Localizer {
-
-    private List<PhotonPipelineResult> lastResults;
-    private Matrix <N3, N1> curStdDevs;
-    private final EstimateConsumer estConsumer;
-
-    @FunctionalInterface
-    public static interface EstimateConsumer {
-        public void accept(Pose2d pose, double timestamp, Matrix<N3, N1> estimationStdDevs);
-    }
-    
-
-    public boolean hasTargets() {
-        if (lastResults == null || lastResults.isEmpty()) {
-            return false;
-        }
-        for (PhotonPipelineResult r : lastResults) {
-            if (r.hasTargets()) return true;
-        }
-        return false;
-    }
-
-
-    private final SwerveDrivePoseEstimator poseEstimator;
+public class Localizer extends SubsystemBase {
 
     private final AprilTagFieldLayout kTagLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
-    public final PhotonPoseEstimator frEstimator;
-    public final PhotonPoseEstimator flEstimator;
-    public final PhotonPoseEstimator brEstimator;
-    public final PhotonPoseEstimator blEstimator;
-
-    private final PhotonCamera frCam;
-    private final PhotonCamera flCam;
-    private final PhotonCamera brCam;
-    private final PhotonCamera blCam;
-
-    //TODO: ADD CONSTANTS
-    private static final Transform3d kRobotTofrCam = new Transform3d(new Translation3d(0,0,0), new Rotation3d(0,0,0));
-    private static final Transform3d kRobotToflCam = new Transform3d(new Translation3d(0,0,0), new Rotation3d(0,0,0));
-    private static final Transform3d kRobotTobrCam = new Transform3d(new Translation3d(0,0,0), new Rotation3d(0,0,0));
-    private static final Transform3d kRobotToblCam = new Transform3d(new Translation3d(0,0,0), new Rotation3d(0,0,0));
-
-    public Localizer(EstimateConsumer estConsumer) {
-
-        this.estConsumer = estConsumer;
-
-        //TODO: ADD CONSTANTS
-        poseEstimator = new SwerveDrivePoseEstimator(null, null, null, null);
-
-        frCam = new PhotonCamera("FR");
-        flCam = new PhotonCamera("FL");
-        brCam = new PhotonCamera("BR");
-        blCam = new PhotonCamera("BL");
-
-        frEstimator = new PhotonPoseEstimator(kTagLayout, kRobotTofrCam);
-        flEstimator = new PhotonPoseEstimator(kTagLayout, kRobotToflCam);
-        brEstimator = new PhotonPoseEstimator(kTagLayout, kRobotTobrCam);
-        blEstimator = new PhotonPoseEstimator(kTagLayout, kRobotToblCam);
-    }
-    private void updateEstimationStdDevs(Optional<EstimatedRobotPose> visionEst, List<PhotonTrackedTarget> targets) {
-        
-    }
-
-    public Matrix<N3, N1> getEstimationStdDevs() {
-        return curStdDevs;
-    }
-
-    //TODO: Standard Deviation Stuff
-    private EstimatedRobotPose cameraEstimate(PhotonCamera camera, PhotonPoseEstimator photonEstimator) {
-        Optional<EstimatedRobotPose> visionEst = Optional.empty();
-        for (var result : camera.getAllUnreadResults()) {
-            visionEst = photonEstimator.estimateCoprocMultiTagPose(result);
-            if (visionEst.isEmpty()) {
-                visionEst = photonEstimator.estimateLowestAmbiguityPose(result);
-            }
-
-            updateEstimationStdDevs(visionEst, result.getTargets());
+    private final Vision vision;
+    private final SwerveDrivePoseEstimator poseEstimator;
     
-            visionEst.ifPresent(
-                    est -> {
-                        // Change our trust in the measurement based on the tags we can see
-                        var estStdDevs = getEstimationStdDevs();
+    private final Swerve swerve;
 
-                        estConsumer.accept(est.estimatedPose.toPose2d(), est.timestampSeconds, estStdDevs);
-            });
+    public Field2d fieldOdom;
 
-        }
-        if(visionEst.isPresent()) {
-            return (visionEst.get());
-        }
-        else {
-            return null;
-        }
-    }        
+    private Pose2d currentPose;
 
-    public void updatePhotonEstimation() {
-        var frEst = cameraEstimate(frCam, frEstimator);
-        var flEst = cameraEstimate(flCam, frEstimator);
-        var blEst = cameraEstimate(blCam, blEstimator);
-        var brEst = cameraEstimate(brCam, brEstimator);
+    public Localizer(Swerve swerve) {
 
-        poseEstimator.addVisionMeasurement(frEst.estimatedPose.toPose2d(), frEst.timestampSeconds);
-        poseEstimator.addVisionMeasurement(flEst.estimatedPose.toPose2d(), flEst.timestampSeconds);
-        poseEstimator.addVisionMeasurement(brEst.estimatedPose.toPose2d(), brEst.timestampSeconds);
-        poseEstimator.addVisionMeasurement(blEst.estimatedPose.toPose2d(), blEst.timestampSeconds);
+        currentPose = new Pose2d();
+        fieldOdom = new Field2d();
 
-        //TODO: Add Constants
-        poseEstimator.update(null, null);
+        this.swerve = swerve;
+
+        poseEstimator = new SwerveDrivePoseEstimator(
+            this.swerve.getKinematics(), 
+            this.swerve.getState().RawHeading,
+            this.swerve.getState().ModulePositions,
+            this.swerve.getState().Pose,
+            Constants.VisionConstants.ODOM_STD_DEV,
+            Constants.VisionConstants.kMultiTagStdDevs
+        );
+       
+        vision = new Vision((pose, timestamp, stdDevs) -> {
+            poseEstimator.addVisionMeasurement(pose, timestamp, stdDevs);
+        });
+        //SmartDashboard.putData("Field2d Pose", fieldOdom);
+
+    }
+
+    public void resetPose(Rotation2d gyroAngle, SwerveModulePosition[] modulePositions, Pose2d newPose) {
+        poseEstimator.resetPosition(gyroAngle, modulePositions, newPose);
+    }
+
+    public void updateOdometry(Rotation2d gyroAngle, SwerveModulePosition[] modulePositions) {
+        poseEstimator.update(gyroAngle, modulePositions);
+    }
+
+    public void periodic() {
+        poseEstimator.update(this.swerve.getState().RawHeading, this.swerve.getState().ModulePositions);
+        vision.getEstimatedGlobalPoses(poseEstimator.getEstimatedPosition());
+        currentPose = poseEstimator.getEstimatedPosition();
+        fieldOdom.setRobotPose(currentPose);
+        SmartDashboard.putData("Field2d Pose", fieldOdom);
 
     }
     

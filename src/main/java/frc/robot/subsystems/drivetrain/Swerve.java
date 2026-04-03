@@ -29,7 +29,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.constants.TunerConstants;
 import frc.robot.constants.TunerConstants.TunerSwerveDrivetrain;
-import frc.robot.subsystems.localizer.Localizer;
+// import frc.robot.subsystems.localizer.Localizer;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
@@ -60,7 +60,7 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
 
     private final SwerveRequest.ApplyRobotSpeeds m_pathApplyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds();
 
-    private Localizer localizer;
+    // private Localizer localizer;
 
     /* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
     private static final Rotation2d kBlueAlliancePerspectiveRotation = Rotation2d.kZero;
@@ -157,7 +157,7 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
         if (Utils.isSimulation()) {
             startSimThread();
         }
-        localizer = new Localizer(this);
+        // localizer = new Localizer(this);
         // Configure AutoBuilder last
         configureAutoBuilder();
     }
@@ -217,7 +217,7 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
         if (Utils.isSimulation()) {
             startSimThread();
         }
-        localizer = new Localizer(this);
+        // localizer = new Localizer(this);
         configureAutoBuilder();
     }
 
@@ -251,7 +251,7 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
         if (Utils.isSimulation()) {
             startSimThread();
         }
-        localizer = new Localizer(this);
+        // localizer = new Localizer(this);
         configureAutoBuilder();
     }
 
@@ -309,7 +309,7 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
             });
         }
 
-        localizer.periodic();
+        // localizer.periodic();
     }
 
     private void startSimThread() {
@@ -372,4 +372,3 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
         return super.samplePoseAt(Utils.fpgaToCurrentTime(timestampSeconds));
     }
 }
-

@@ -25,7 +25,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LT to Human Player"
+            "pathName": "Red LT to Human Player"
           }
         },
         {
@@ -37,7 +37,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Human Player to Tower"
+            "pathName": "Red Human Player to Tower"
           }
         },
         {

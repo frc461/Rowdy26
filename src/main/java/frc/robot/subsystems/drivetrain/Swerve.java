@@ -3,6 +3,7 @@ package frc.robot.subsystems.drivetrain;
 import static edu.wpi.first.units.Units.*;
 
 import java.util.Optional;
+import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
 import com.ctre.phoenix6.SignalLogger;
@@ -14,7 +15,9 @@ import com.ctre.phoenix6.swerve.utility.WheelForceCalculator.Feedforwards;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -25,10 +28,12 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.constants.Constants;
 import frc.robot.constants.TunerConstants;
 import frc.robot.constants.TunerConstants.TunerSwerveDrivetrain;
 // import frc.robot.subsystems.localizer.Localizer;
@@ -78,6 +83,13 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
     private final SwerveRequest.SysIdSwerveTranslation m_translationCharacterization = new SwerveRequest.SysIdSwerveTranslation();
     private final SwerveRequest.SysIdSwerveSteerGains m_steerCharacterization = new SwerveRequest.SysIdSwerveSteerGains();
     private final SwerveRequest.SysIdSwerveRotation m_rotationCharacterization = new SwerveRequest.SysIdSwerveRotation();
+
+    // AimAtHubCommand fields
+    private static final double AUTO_AIM_TRANSLATION_SCALE = 0.1;
+    private final PIDController turnPID;
+    private final DoubleSupplier forwardInput;
+    private final DoubleSupplier strafeInput;
+    private final SwerveRequest.FieldCentric driveRequest = new SwerveRequest.FieldCentric();
 
     /* SysId routine for characterizing translation. This is used to find PID gains for the drive motors. */
     private final SysIdRoutine m_sysIdRoutineTranslation = new SysIdRoutine(
@@ -156,12 +168,21 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
            
     public Swerve(
         SwerveDrivetrainConstants drivetrainConstants,
+        DoubleSupplier forwardInput,
+        DoubleSupplier strafeInput,
         SwerveModuleConstants<?, ?, ?>... modules
-    ) {
+    ) { 
         super(drivetrainConstants, modules);
         if (Utils.isSimulation()) {
             startSimThread();
         }
+
+        // AimAtHubCommand constructor stuff:
+        this.forwardInput = forwardInput;
+        this.strafeInput = strafeInput;
+        turnPID = new PIDController(0.25, 0.0, 0.005);
+        turnPID.enableContinuousInput(0, 360);
+
         // localizer = new Localizer(this);
         // Configure AutoBuilder last
         configureAutoBuilder();
@@ -223,12 +244,21 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
     public Swerve(
         SwerveDrivetrainConstants drivetrainConstants,
         double odometryUpdateFrequency,
+        DoubleSupplier forwardInput, 
+        DoubleSupplier strafeInput,
         SwerveModuleConstants<?, ?, ?>... modules
     ) {
         super(drivetrainConstants, odometryUpdateFrequency, modules);
         if (Utils.isSimulation()) {
             startSimThread();
         }
+
+        // AimAtHubCommand constructor stuff
+        this.forwardInput = forwardInput;
+        this.strafeInput = strafeInput;
+        turnPID = new PIDController(0.25, 0.0, 0.005);
+        turnPID.enableContinuousInput(0, 360);
+
         // localizer = new Localizer(this);
         configureAutoBuilder();
     }
@@ -257,12 +287,21 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
         double odometryUpdateFrequency,
         Matrix<N3, N1> odometryStandardDeviation,
         Matrix<N3, N1> visionStandardDeviation,
+        DoubleSupplier forwardInput, 
+        DoubleSupplier strafeInput,
         SwerveModuleConstants<?, ?, ?>... modules
     ) {
         super(drivetrainConstants, odometryUpdateFrequency, odometryStandardDeviation, visionStandardDeviation, modules);
         if (Utils.isSimulation()) {
             startSimThread();
         }
+
+        // AimAtHubCommand constructor stuff
+        this.forwardInput = forwardInput;
+        this.strafeInput = strafeInput;
+        turnPID = new PIDController(0.25, 0.0, 0.005);
+        turnPID.enableContinuousInput(0, 360);
+
         // localizer = new Localizer(this);
         configureAutoBuilder();
     }
@@ -320,6 +359,39 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
                 m_hasAppliedOperatorPerspective = true;
             });
         }
+
+        // AimAtHubCommand Refactor:
+
+         // 1. Get the current, most accurate pose from your Localizer
+        Pose2d currentPose = this.getState().Pose;
+
+        // 2. Ask the solver for the math
+        ShotResult solution = ShooterSolver.solve(currentPose);
+
+        // 3. Calculate rotational velocity to aim the robot
+        // The solver normalizes to 0-360. We must ensure the current pose is also 0-360.
+        double currentHeading = MathUtil.inputModulus(currentPose.getRotation().getDegrees(), 0, 360);
+        
+        double rotationalVelocity = turnPID.calculate(currentHeading, solution.headingDegrees);
+
+        // Clamp the rotational speed to prevent violent spinning
+        // (Assuming max angular rate is ~3.0 radians/second)
+        rotationalVelocity = MathUtil.clamp(rotationalVelocity, -3.0, 3.0);
+
+        // 4. Command the Swerve Drive
+        // Driver controls translation, PID controls rotation toward the hub.
+        this.setControl(
+            driveRequest
+                .withVelocityX(forwardInput.getAsDouble() * AUTO_AIM_TRANSLATION_SCALE)
+                .withVelocityY(strafeInput.getAsDouble() * AUTO_AIM_TRANSLATION_SCALE)
+                .withRotationalRate(rotationalVelocity)
+        );
+
+        // Publish telemetry for tuning
+        SmartDashboard.putNumber("Shooter/Target Heading", solution.headingDegrees);
+        SmartDashboard.putNumber("Shooter/Current Heading", currentHeading);
+        SmartDashboard.putNumber("Shooter/Target RPM", solution.rpm);
+        SmartDashboard.putNumber("Shooter/Target Hood Angle", Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE);
 
         // localizer.periodic();
     }

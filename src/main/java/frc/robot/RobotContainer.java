@@ -40,10 +40,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.constants.TunerConstants;
-import frc.robot.subsystems.drivetrain.AimAtHubCommand;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.drivetrain.Swerve;
-import frc.robot.subsystems.drivetrain.SwerveCommand;
 import frc.robot.subsystems.drivetrain.SwerveTelemetry;
 import frc.robot.subsystems.hubState.HubState;
 
@@ -55,6 +53,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
 import frc.robot.subsystems.launcher.Launcher;
+import frc.robot.subsystems.launcher.LauncherCommand;
 
 public class RobotContainer {
 
@@ -242,14 +241,21 @@ public class RobotContainer {
     //       intake)
     // );
     
-    drjoystick.leftTrigger().whileTrue(
+    // If it doesn't work, then this is why:
+    /* drjoystick.leftTrigger().whileTrue(
       new AimAtHubCommand(
-          drivetrain, 
-          launcher, 
-          m_localizer, 
+          drivetrain,
+          m_localizer,
           () -> -drjoystick.getLeftY() * MaxSpeed,   // Forward input
           () -> -drjoystick.getLeftX() * MaxSpeed    // Strafe input
         )
+    ); */
+
+    drjoystick.leftTrigger().whileTrue(
+      new LauncherCommand(
+        drivetrain,
+        launcher
+      )
     );
 
     final Command holdXMode = drivetrain.applyRequest(() -> xMode);

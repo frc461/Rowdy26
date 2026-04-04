@@ -1,6 +1,7 @@
     package frc.robot.subsystems.launcher;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.constants.Constants;
@@ -105,11 +106,14 @@ public class ShooterSolver {
         double dy = currentTargetY - finalShooterPos.y;
         double distanceToTarget = Math.hypot(dx, dy);
 
-        if (distanceToTarget > 2){ //TODO:Fix values
+        if (distanceToTarget > 2 && distanceToTarget < Units.feetToMeters(14)){//Meters
             Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.SIXTY_DEG_HOOD_ANGLE; //far
             HOOD_ANGLE_DEGREES = 60.0;
+        }else if(distanceToTarget > Units.feetToMeters(14)){
+            Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.FIFTY_FIVE_DEG_HOOD_ANGLE; //really far
+            HOOD_ANGLE_DEGREES = 60.0;
         }else{
-            Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.SEVENTY_DEG_HOOD_ANGLE;
+            Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.SEVENTY_DEG_HOOD_ANGLE;//close
             HOOD_ANGLE_DEGREES = 70.0;
         }
         

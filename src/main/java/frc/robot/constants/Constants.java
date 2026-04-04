@@ -44,13 +44,13 @@ public final class Constants {
         public static final double CAMERA_FL_LEFT = Units.inchesToMeters(-7.310);
         public static final double CAMERA_FL_UP = Units.inchesToMeters(20);
 
-        public static final String CAMERA_BR_NAME = "CAMERA_BR"; 
-        public static final double CAMERA_BR_YAW = 0;
-        public static final double CAMERA_BR_PITCH = 0;
-        public static final double CAMERA_BR_ROLL = 0;
-        public static final double CAMERA_BR_FORWARD = 0;
-        public static final double CAMERA_BR_LEFT = 0;
-        public static final double CAMERA_BR_UP = 0;
+         public static final String CAMERA_BR_NAME = "CAMERA_BR"; 
+        public static final double CAMERA_BR_YAW = 180.0;
+        public static final double CAMERA_BR_PITCH = 15.0;
+        public static final double CAMERA_BR_ROLL = 0.0;
+        public static final double CAMERA_BR_FORWARD = Units.inchesToMeters(-11.379);   
+        public static final double CAMERA_BR_LEFT = Units.inchesToMeters(-9.25);
+        public static final double CAMERA_BR_UP = Units.inchesToMeters(8.51);
     }
 
     public final class SwerveConstants {
@@ -93,9 +93,10 @@ public final class Constants {
 
         public static final double SEVENTY_DEG_HOOD_ANGLE = 0.15; //Close
         public static final double SIXTY_DEG_HOOD_ANGLE = 1.19; //Far
+        public static final double FIFTY_FIVE_DEG_HOOD_ANGLE = 1.39; //Really Far
+
 
         public static double AUTO_AIM_HOOD_ANGLE = 0.0;
-
         public static final double ABSOLUTE_ENCODER_DIS_PT = 0.1;
         
     }

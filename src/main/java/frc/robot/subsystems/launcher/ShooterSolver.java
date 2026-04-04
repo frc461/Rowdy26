@@ -110,7 +110,7 @@ public class ShooterSolver {
             Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.SIXTY_DEG_HOOD_ANGLE; //far
             HOOD_ANGLE_DEGREES = 60.0;
         }else if(distanceToTarget > Units.feetToMeters(14)){
-            Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.FIFTY_FIVE_DEG_HOOD_ANGLE; //really far
+            Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.FIFTY_DEG_HOOD_ANGLE; //really far
             HOOD_ANGLE_DEGREES = 60.0;
         }else{
             Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.SEVENTY_DEG_HOOD_ANGLE;//close

@@ -46,6 +46,10 @@ public class Launcher extends SubsystemBase {
         config.Slot0.kI = 0;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.2056;
+        config.CurrentLimits.SupplyCurrentLimitEnable = true;
+        config.CurrentLimits.SupplyCurrentLimit = 40;
+        config.CurrentLimits.StatorCurrentLimitEnable = true;
+        config.CurrentLimits.StatorCurrentLimit = 100;        
         FlywheelAKraken.getConfigurator().apply(config);
 
         FlywheelBKraken.getConfigurator().apply(new TalonFXConfiguration());
@@ -53,6 +57,10 @@ public class Launcher extends SubsystemBase {
         config.Slot0.kI = 0;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.2056;
+        config.CurrentLimits.SupplyCurrentLimitEnable = true;
+        config.CurrentLimits.SupplyCurrentLimit = 40;
+        config.CurrentLimits.StatorCurrentLimitEnable = true;
+        config.CurrentLimits.StatorCurrentLimit = 100;
         FlywheelBKraken.getConfigurator().apply(config);
 
         HoodKraken.getConfigurator().apply(new TalonFXConfiguration());
@@ -74,6 +82,9 @@ public class Launcher extends SubsystemBase {
         KickerKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.CurrentLimits.SupplyCurrentLimit = 40;
+        config.CurrentLimits.StatorCurrentLimitEnable = true;
+        config.CurrentLimits.StatorCurrentLimit = 80;
+
         KickerKraken.setControl(
             new Follower(50, MotorAlignmentValue.Opposed)
         );

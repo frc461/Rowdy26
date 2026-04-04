@@ -12,7 +12,7 @@ import java.util.Optional;
 public class ShooterSolver {
 
     // --- TUNABLE CONSTANTS ---
-    public static double EFFICIENCY = 0.63;
+    public static double EFFICIENCY = 0.64;
     public static double HOOD_ANGLE_DEGREES = 0.0;
     public static final double SHOOTER_HEIGHT_METERS = 0.508; 
     public static final double WHEEL_RADIUS_METERS = 0.0508;
@@ -110,7 +110,7 @@ public class ShooterSolver {
             Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.SIXTY_DEG_HOOD_ANGLE; //far
             HOOD_ANGLE_DEGREES = 60.0;
         }else if(distanceToTarget > Units.feetToMeters(14)){
-            Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.FIFTY_FIVE_DEG_HOOD_ANGLE; //really far
+            Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.FIFTY_DEG_HOOD_ANGLE; //really far
             HOOD_ANGLE_DEGREES = 60.0;
         }else{
             Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.SEVENTY_DEG_HOOD_ANGLE;//close

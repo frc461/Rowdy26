@@ -255,8 +255,8 @@ public class RobotContainer {
       new LauncherCommand(
         drivetrain,
         launcher
-      )
-    );
+    ) 
+  );
 
     final Command holdXMode = drivetrain.applyRequest(() -> xMode);
 

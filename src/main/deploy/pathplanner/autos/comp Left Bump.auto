@@ -5,6 +5,30 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Extend Intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Tower Preset"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop Launcher"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Red LT Exit for full sweep"
@@ -14,6 +38,18 @@
           "type": "path",
           "data": {
             "pathName": "Red LT Sweep double"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red LT Bump"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Hub Preset"
           }
         }
       ]

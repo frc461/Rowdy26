@@ -389,10 +389,23 @@ public class RobotContainer {
       )
     );
 
-    opjoystick.leftStick().onTrue(
+    opjoystick.leftStick().and(opjoystick.rightTrigger())
+    .whileTrue(
+        Commands.sequence(
+            Commands.run(
+            () -> intake.setDeployVoltage(-6),
+            intake
+          ).withTimeout(0.25),
+            Commands.run(
+            () -> intake.setDeployVoltage(6),
+            intake
+          ).withTimeout(0.25)
+        ).repeatedly()
+    ).onFalse(
       Commands.runOnce(
-        () -> spindexer.setVoltage(0),
-        spindexer)
+        () -> intake.setDeployVoltage(0),
+        intake
+      )
     );
 
     opjoystick.rightStick().onTrue(new InstantCommand(() -> {

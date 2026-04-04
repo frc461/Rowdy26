@@ -93,6 +93,7 @@ public final class Constants {
 
         public static final double SEVENTY_DEG_HOOD_ANGLE = 0.15; //Close
         public static final double SIXTY_DEG_HOOD_ANGLE = 1.19; //Far
+        public static final double FIFTY_DEG_HOOD_ANGLE = 1.81; //Very Far
 
         public static double AUTO_AIM_HOOD_ANGLE = 0.0;
 

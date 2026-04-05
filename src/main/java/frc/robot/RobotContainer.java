@@ -5,32 +5,22 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.MetersPerSecond;
-import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
-import com.ctre.phoenix6.swerve.SwerveDrivetrain;
-import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
-import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.launcher.Launcher;
 import frc.robot.subsystems.launcher.LauncherCommand;
 import frc.robot.subsystems.localizer.Localizer;
 import frc.robot.subsystems.spindexer.Spindexer;
-import frc.robot.util.FieldUtil;
 import frc.robot.util.vision.Vision;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.wpilibj.PowerDistribution;
 
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -44,18 +34,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.constants.TunerConstants;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.drivetrain.Swerve;
-import frc.robot.subsystems.drivetrain.SwerveCommand;
 import frc.robot.subsystems.drivetrain.SwerveTelemetry;
 import frc.robot.subsystems.hubState.HubState;
-
-import com.ctre.phoenix6.SignalLogger;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.controls.Follower;
-import com.ctre.phoenix6.signals.MotorAlignmentValue;
-import com.ctre.phoenix6.signals.InvertedValue;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-
-import frc.robot.subsystems.launcher.Launcher;
 
 public class RobotContainer {
 
@@ -149,13 +129,6 @@ public class RobotContainer {
         double xSpeed = xInput * MaxSpeed;
         double ySpeed = yInput * MaxSpeed;
         double rotSpeed = rotInput * MaxAngularRate;
-
-        boolean leftTrigger = drjoystick.getLeftTriggerAxis() > 0.1;
-
-        boolean isStopped =
-            Math.abs(xInput) < 0.05 &&
-            Math.abs(yInput) < 0.05 &&
-            Math.abs(rotInput) < 0.05;
 
         // --- NEW AIMING INJECTION ---
         if (drivetrain.isAutoAiming) {
@@ -376,8 +349,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    String selected = autoChooser.getSelected().getName();
-
     return autoChooser.getSelected();
   }  
 

@@ -4,11 +4,8 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.launcher.Launcher;
 
 import java.util.Optional;
-
-import com.fasterxml.jackson.databind.node.DoubleNode;
 
 public class ShooterSolver {
 

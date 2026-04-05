@@ -1,21 +1,16 @@
 package frc.robot;
 
 import frc.robot.constants.Constants;
-
-import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.ctre.phoenix6.swerve.SwerveModule.ModuleRequest;
-import com.pathplanner.lib.path.PathPlannerPath;
-
-import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.launcher.Launcher;
+import frc.robot.subsystems.launcher.LauncherCommand;
 import frc.robot.subsystems.spindexer.Spindexer;
 import frc.robot.subsystems.drivetrain.Swerve;
 import frc.robot.subsystems.intake.Intake;
 
-public class AutoCommand extends SubsystemBase {
+public class AutoCommand {
 
     private Launcher launcher;
     private Spindexer spindexer;
@@ -31,7 +26,7 @@ public class AutoCommand extends SubsystemBase {
     }
 
     public Command AutoHumanPlayerShoot() {
-        return runOnce(() -> {
+        return Commands.runOnce(() -> {
             launcher.setFlywheelVelocity(Constants.LauncherConstants.TEMP_AUTO_RPM);
             launcher.setHoodPosition(Constants.LauncherConstants.TEMP_AUTO_START_HOOD_ANGLE);
             launcher.runFlyWheel();
@@ -43,7 +38,7 @@ public class AutoCommand extends SubsystemBase {
     }
 
     public Command AutoTrenchShoot() {
-        return runOnce(() -> {
+        return Commands.runOnce(() -> {
             launcher.setFlywheelVelocity(Constants.LauncherConstants.TRENCH_AUTO_RPM);
             launcher.setHoodPosition(Constants.LauncherConstants.TRENCH_AUTO_START_HOOD_ANGLE);
             launcher.runFlyWheel();
@@ -55,7 +50,7 @@ public class AutoCommand extends SubsystemBase {
     }
 
     public Command AutoHubShoot() {
-        return runOnce(() -> {
+        return Commands.runOnce(() -> {
             launcher.setFlywheelVelocity(Constants.LauncherConstants.HUB_RPM);
             launcher.setHoodPosition(Constants.LauncherConstants.HUB_HOOD_ANGLE);
             launcher.runFlyWheel();
@@ -68,7 +63,7 @@ public class AutoCommand extends SubsystemBase {
     }
 
     public Command AutoTowerShoot() {
-        return runOnce(() -> {
+        return Commands.runOnce(() -> {
             launcher.setFlywheelVelocity(Constants.LauncherConstants.TOWER_RPM);
             launcher.setHoodPosition(Constants.LauncherConstants.TOWER_HOOD_ANGLE);
             launcher.runFlyWheel();
@@ -78,10 +73,26 @@ public class AutoCommand extends SubsystemBase {
 
             }
         );
-        }
+    }
+
+    public Command AutoAimShoot(){
+        // This command enables auto-aim and then runs the LauncherCommand.
+        // It is designed to run continuously until cancelled by another command (like AutoAimStop).
+        // In PathPlanner, this should be used as a "Parallel" or "Start" event.
+        return new LauncherCommand(launcher, spindexer, drivetrain, intake)
+            .beforeStarting(new InstantCommand(() -> drivetrain.setAutoAim(true), drivetrain));
+    }
+
+    public Command AutoAimStop(){
+        // This command disables auto-aim and stops the launcher command by interrupting it.
+        return Commands.parallel(
+            new InstantCommand(() -> drivetrain.setAutoAim(false), drivetrain),
+            StopLauncher()
+        );
+    }
 
     public Command AutoShuttle() {
-        return runOnce(() -> {
+        return Commands.runOnce(() -> {
             launcher.setFlywheelVelocity(Constants.LauncherConstants.SHUTTLE_AUTO_RPM);
             launcher.setHoodPosition(Constants.LauncherConstants.SHUTTLE_AUTO_START_HOOD_ANGLE);
             launcher.runFlyWheel();
@@ -94,21 +105,24 @@ public class AutoCommand extends SubsystemBase {
     }
      
     public Command ExtendIntake() {
-        return runOnce(() -> intake.ExtendIntake());
+        return Commands.runOnce(() -> intake.ExtendIntake());
     }
 
     public Command RetractIntake() {
-        return runOnce(() -> intake.RetractIntake());
+        return Commands.runOnce(() -> intake.RetractIntake());
+    }
+
+    public Command RunIntake() {
+        return Commands.runOnce(() -> intake.setIntakeVoltage(-16));
     }
 
     public Command StopLauncher() {
-        return runOnce(() -> {
+        return Commands.runOnce(() -> {
             launcher.stopFlyWheels();
             spindexer.setVoltage(0);
             launcher.setHoodPosition(0);
             launcher.runHood();
-        }
-        );
+        }, launcher, spindexer); // Require subsystems to interrupt other commands
     }
 
     public void StopAll() {
@@ -117,30 +131,6 @@ public class AutoCommand extends SubsystemBase {
             launcher.setHoodPosition(0);
             launcher.runHood();
             intake.setIntakeVoltage(0);
-        }
-
-    public void justShoot() {
-        
     }
 
-
-    }
-
-    
-    // public void defenceX() {
-    //     drivetrain.getModule(0).apply(
-    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(105))));
-    //     drivetrain.getModule(0).apply(
-    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(-75))));
-    //     drivetrain.getModule(0).apply(
-    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(15))));
-    //     drivetrain.getModule(0).apply(
-    //         new ModuleRequest().withState( new SwerveModuleState(0, Rotation2d.fromDegrees(-75))));
-        
-    //     // drivetrain.configNeutralMode(NeutralModeValue.Brake);
-    // }
-
-    
-    
-    
-
+}

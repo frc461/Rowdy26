@@ -1,8 +1,5 @@
 package frc.robot.subsystems.intake;
 
-import java.io.ObjectInputFilter.Config;
-
-import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
@@ -12,8 +9,6 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import frc.robot.subsystems.spindexer.Spindexer;
 
 public class Intake extends SubsystemBase{
     private final TalonFX DeployKraken = new TalonFX(52); 
@@ -99,8 +94,5 @@ public class Intake extends SubsystemBase{
         SmartDashboard.putNumber("Intake Position", DeployKraken.getPosition().getValueAsDouble());
         CheckRearLimitSwitch();
         ResetExtension();
-
-        
-        
     }
 }

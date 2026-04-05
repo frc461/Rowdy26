@@ -17,12 +17,6 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Red LT Short Push to Shoot"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "Shoot Trench Preset"

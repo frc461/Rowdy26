@@ -16,32 +16,32 @@
     },
     {
       "anchor": {
-        "x": 9.369153952205883,
-        "y": 0.9149470932904422
+        "x": 10.220994791666667,
+        "y": 0.8881876446759258
       },
       "prevControl": {
-        "x": 10.283082962110049,
-        "y": 0.3087593953778174
+        "x": 10.426872279350503,
+        "y": 0.7463621883396514
       },
       "nextControl": {
-        "x": 8.708286075367647,
-        "y": 1.3532852711397059
+        "x": 9.266099103009259,
+        "y": 1.545998842592592
       },
       "isLocked": false,
       "linkedName": "Red LT SP Second Sweep"
     },
     {
       "anchor": {
-        "x": 9.369153952205883,
-        "y": 3.2695624425551477
+        "x": 9.806795500578703,
+        "y": 2.9669261429398146
       },
       "prevControl": {
-        "x": 8.051794806985294,
-        "y": 2.5915007467830886
+        "x": 9.194321180555557,
+        "y": 1.7977464554398146
       },
       "nextControl": {
-        "x": 10.227659096062215,
-        "y": 3.7114460820958173
+        "x": 10.254845661010398,
+        "y": 3.8222291808501345
       },
       "isLocked": false,
       "linkedName": null
@@ -57,10 +57,23 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Red LT SP Bump end"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.9940583881578946,
+      "rotationDegrees": 29.999999999999996
+    },
+    {
+      "waypointRelativePos": 1.7214226973684217,
+      "rotationDegrees": 40.0
+    },
+    {
+      "waypointRelativePos": 2.2424753289473682,
+      "rotationDegrees": 100.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -74,7 +87,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -25.0
+    "rotation": 134.351
   },
   "reversed": false,
   "folder": null,

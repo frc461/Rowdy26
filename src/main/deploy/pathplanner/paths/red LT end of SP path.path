@@ -16,16 +16,48 @@
     },
     {
       "anchor": {
-        "x": 9.905965820312499,
-        "y": 0.8983264016544126
+        "x": 9.606814597800927,
+        "y": 3.29780005787037
       },
       "prevControl": {
-        "x": 9.574767123434384,
-        "y": 1.499027392432081
+        "x": 9.300586515128394,
+        "y": 4.255538024148891
+      },
+      "nextControl": {
+        "x": 9.846555483217593,
+        "y": 2.5480028935185177
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 10.553640190972224,
+        "y": 0.6861728153935189
+      },
+      "prevControl": {
+        "x": 9.80199146266861,
+        "y": 0.6627956451233614
+      },
+      "nextControl": {
+        "x": 10.99454296875,
+        "y": 0.6998854166666673
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 12.815927710843374,
+        "y": 0.6364819277108438
+      },
+      "prevControl": {
+        "x": 12.40356551466282,
+        "y": 0.6238190949562135
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "LT Short Pushy Start"
+      "linkedName": "RedRightTrenchShoot"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +74,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 45.0
+    "rotation": 107.969
   },
   "reversed": false,
   "folder": null,

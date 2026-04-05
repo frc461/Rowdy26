@@ -1,0 +1,86 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 12.815927710843374,
+        "y": 0.6364819277108438
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 12.596691874957402,
+        "y": 0.5163334850934742
+      },
+      "isLocked": false,
+      "linkedName": "RedRightTrenchShoot"
+    },
+    {
+      "anchor": {
+        "x": 9.369153952205883,
+        "y": 0.9149470932904422
+      },
+      "prevControl": {
+        "x": 10.283082962110049,
+        "y": 0.3087593953778174
+      },
+      "nextControl": {
+        "x": 8.708286075367647,
+        "y": 1.3532852711397059
+      },
+      "isLocked": false,
+      "linkedName": "Red LT SP Second Sweep"
+    },
+    {
+      "anchor": {
+        "x": 9.369153952205883,
+        "y": 3.2695624425551477
+      },
+      "prevControl": {
+        "x": 8.051794806985294,
+        "y": 2.5915007467830886
+      },
+      "nextControl": {
+        "x": 10.227659096062215,
+        "y": 3.7114460820958173
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 10.832087431066178,
+        "y": 2.652981675091912
+      },
+      "prevControl": {
+        "x": 10.698458386953561,
+        "y": 2.441692114134565
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Red LT SP Bump end"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -25.0
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 107.96913974015672
+  },
+  "useDefaultConstraints": true
+}

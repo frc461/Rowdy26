@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 9.905965820312499,
+        "y": 0.8983264016544126
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 10.835838809742647,
+        "y": 0.5010970818014711
+      },
+      "isLocked": false,
+      "linkedName": "LT Short Pushy Start"
+    },
+    {
+      "anchor": {
+        "x": 12.815927710843374,
+        "y": 0.6364819277108438
+      },
+      "prevControl": {
+        "x": 11.815927710843374,
+        "y": 0.636481927710844
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "RedRightTrenchShoot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 9.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 107.96913974015672
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 45.0
+  },
+  "useDefaultConstraints": false
+}

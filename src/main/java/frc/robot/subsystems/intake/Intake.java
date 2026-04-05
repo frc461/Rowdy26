@@ -43,10 +43,16 @@ public class Intake extends SubsystemBase{
         intakeconfig.CurrentLimits.SupplyCurrentLimitEnable = true;
         intakeconfig.CurrentLimits.SupplyCurrentLimit = 60;
         intakeconfig.CurrentLimits.StatorCurrentLimitEnable = true;
-        intakeconfig.CurrentLimits.StatorCurrentLimit = 160;
+        intakeconfig.CurrentLimits.StatorCurrentLimit = 80;
 
-        IntakeKraken.getConfigurator().apply(config);
+
+        IntakeKraken.getConfigurator().apply(intakeconfig);
         IntakeKraken.setPosition(0);
+
+        SmartDashboard.putNumber("Intake Stator", IntakeKraken.getStatorCurrent().getValueAsDouble());
+        SmartDashboard.putNumber("Intake SUpply", IntakeKraken.getSupplyCurrent().getValueAsDouble());
+
+
 
 
     }
@@ -103,6 +109,10 @@ public class Intake extends SubsystemBase{
         SmartDashboard.putBoolean("Left Forward Limit Switch", !LeftForwardLimitSwitch.get());
         SmartDashboard.putBoolean("Rear Limit Switch", !RearLimitSwitch.get());
         SmartDashboard.putNumber("Intake Position", DeployKraken.getPosition().getValueAsDouble());
+
+        SmartDashboard.putNumber("Intake Stator", IntakeKraken.getStatorCurrent().getValueAsDouble());
+                SmartDashboard.putNumber("Intake SUpply", IntakeKraken.getSupplyCurrent().getValueAsDouble());
+
         CheckRearLimitSwitch();
         ResetExtension();
 

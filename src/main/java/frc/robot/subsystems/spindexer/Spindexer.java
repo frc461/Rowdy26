@@ -5,6 +5,7 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
@@ -19,6 +20,8 @@ public class Spindexer extends SubsystemBase{
         config.CurrentLimits.StatorCurrentLimitEnable = true;
         config.CurrentLimits.StatorCurrentLimit = 80;
         SpindexerKraken.getConfigurator().apply(config);
+
+        SmartDashboard.putNumber("Spindexer Supply", SpindexerKraken.getSupplyCurrent().getValueAsDouble());
     }
 
     private final VoltageOut voltageControl = new VoltageOut(0);

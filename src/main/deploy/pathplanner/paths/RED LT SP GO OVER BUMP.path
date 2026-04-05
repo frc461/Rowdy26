@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 10.832087431066178,
+        "y": 2.652981675091912
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 11.565950884650738,
+        "y": 2.645374712775735
+      },
+      "isLocked": false,
+      "linkedName": "Red LT SP Bump end"
+    },
+    {
+      "anchor": {
+        "x": 13.258500000000002,
+        "y": 2.6547531594669125
+      },
+      "prevControl": {
+        "x": 12.258500000000002,
+        "y": 2.6547531594669125
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "RED LT SP shoot at bump"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 134.351
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 134.351
+  },
+  "useDefaultConstraints": true
+}

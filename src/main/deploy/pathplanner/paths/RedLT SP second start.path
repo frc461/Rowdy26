@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 12.815927710843374,
+        "y": 0.6364819277108438
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 12.044981100643382,
+        "y": 0.6103038832720596
+      },
+      "isLocked": false,
+      "linkedName": "RedRightTrenchShoot"
+    },
+    {
+      "anchor": {
+        "x": 10.48518910845588,
+        "y": 0.8459634076286773
+      },
+      "prevControl": {
+        "x": 10.984435087316177,
+        "y": 0.3975173483455888
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "RED LT SP Second Sweep Exit"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 59.99999999999999
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 107.96913974015672
+  },
+  "useDefaultConstraints": true
+}

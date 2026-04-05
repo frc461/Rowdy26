@@ -1,0 +1,86 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.942605667372881,
+        "y": 3.5197682733050843
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.404129449541998,
+        "y": 3.5354935087316184
+      },
+      "isLocked": false,
+      "linkedName": "RedLTshortpushyendpoint"
+    },
+    {
+      "anchor": {
+        "x": 9.606814597800927,
+        "y": 3.29780005787037
+      },
+      "prevControl": {
+        "x": 9.300586515128394,
+        "y": 4.255538024148891
+      },
+      "nextControl": {
+        "x": 9.846555483217593,
+        "y": 2.5480028935185177
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 10.553640190972224,
+        "y": 0.6861728153935189
+      },
+      "prevControl": {
+        "x": 9.80199146266861,
+        "y": 0.6627956451233614
+      },
+      "nextControl": {
+        "x": 10.99454296875,
+        "y": 0.6998854166666673
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 12.815927710843374,
+        "y": 0.6364819277108438
+      },
+      "prevControl": {
+        "x": 12.40356551466282,
+        "y": 0.6238190949562135
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "RedRightTrenchShoot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 8.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 107.969
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 15.33
+  },
+  "useDefaultConstraints": false
+}

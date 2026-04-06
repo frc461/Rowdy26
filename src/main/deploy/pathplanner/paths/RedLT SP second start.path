@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.267638020833335,
-        "y": 3.339659577546297
+        "x": 12.815927710843374,
+        "y": 0.6364819277108438
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.221086392597087,
-        "y": 0.5820157766990293
+        "x": 12.044981100643382,
+        "y": 0.6103038832720596
       },
       "isLocked": false,
-      "linkedName": "RedLTSweep"
+      "linkedName": "RedRightTrenchShoot"
     },
     {
       "anchor": {
-        "x": 13.574850213980028,
-        "y": 2.4370756062767476
+        "x": 10.48518910845588,
+        "y": 0.8459634076286773
       },
       "prevControl": {
-        "x": 12.416993325242718,
-        "y": 3.387359071601942
+        "x": 10.984435087316177,
+        "y": 0.3975173483455888
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RedLBShoot"
+      "linkedName": "RED LT SP Second Sweep Exit"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 132.2072976342868
+    "rotation": 59.99999999999999
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -41.62769346811586
+    "rotation": 107.96913974015672
   },
   "useDefaultConstraints": true
 }

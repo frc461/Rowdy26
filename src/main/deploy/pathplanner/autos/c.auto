@@ -5,21 +5,27 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Extend Intake"
+            "pathName": "Red LT SP path"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "red LT end of SP path"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Shoot Tower Preset"
+            "name": "Shoot Trench Preset"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
+            "waitTime": 4.0
           }
         },
         {
@@ -31,25 +37,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red LT Exit for full sweep"
+            "pathName": "RED LT SP SECOND SWEEP"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red LT Sweep double"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red LT Bump"
+            "pathName": "RED LT SP GO OVER BUMP"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "Shoot Hub Preset"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop All"
           }
         }
       ]

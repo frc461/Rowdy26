@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.267638020833335,
-        "y": 3.339659577546297
+        "x": 12.52087951807229,
+        "y": 0.6364819277108438
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.221086392597087,
-        "y": 0.5820157766990293
+        "x": 12.73681309147134,
+        "y": 0.5104950558585877
       },
       "isLocked": false,
-      "linkedName": "RedLTSweep"
+      "linkedName": "RightTrenchStartPoint"
     },
     {
       "anchor": {
-        "x": 13.574850213980028,
-        "y": 2.4370756062767476
+        "x": 9.365367838541667,
+        "y": 2.5075211950231484
       },
       "prevControl": {
-        "x": 12.416993325242718,
-        "y": 3.387359071601942
+        "x": 9.212719930702683,
+        "y": 2.2685809805104364
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RedLBShoot"
+      "linkedName": "LT Short Pushy Start"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 132.2072976342868
+    "rotation": 45.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -41.62769346811586
+    "rotation": 88.87669728592469
   },
   "useDefaultConstraints": true
 }

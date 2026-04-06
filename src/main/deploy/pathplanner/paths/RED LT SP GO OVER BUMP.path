@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.267638020833335,
-        "y": 3.339659577546297
+        "x": 10.832087431066178,
+        "y": 2.652981675091912
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.221086392597087,
-        "y": 0.5820157766990293
+        "x": 11.565950884650738,
+        "y": 2.645374712775735
       },
       "isLocked": false,
-      "linkedName": "RedLTSweep"
+      "linkedName": "Red LT SP Bump end"
     },
     {
       "anchor": {
-        "x": 13.574850213980028,
-        "y": 2.4370756062767476
+        "x": 13.258500000000002,
+        "y": 2.6547531594669125
       },
       "prevControl": {
-        "x": 12.416993325242718,
-        "y": 3.387359071601942
+        "x": 12.258500000000002,
+        "y": 2.6547531594669125
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RedLBShoot"
+      "linkedName": "RED LT SP shoot at bump"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 132.2072976342868
+    "rotation": 134.351
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -41.62769346811586
+    "rotation": 134.351
   },
   "useDefaultConstraints": true
 }

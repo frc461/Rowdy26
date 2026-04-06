@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.267638020833335,
-        "y": 3.339659577546297
+        "x": 7.942605667372881,
+        "y": 3.5197682733050843
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.221086392597087,
-        "y": 0.5820157766990293
+        "x": 7.558801125919118,
+        "y": 3.824193359375
       },
       "isLocked": false,
-      "linkedName": "RedLTSweep"
+      "linkedName": "RedLTshortpushyendpoint"
     },
     {
       "anchor": {
-        "x": 13.574850213980028,
-        "y": 2.4370756062767476
+        "x": 8.998757410386029,
+        "y": 3.6008821231617647
       },
       "prevControl": {
-        "x": 12.416993325242718,
-        "y": 3.387359071601942
+        "x": 8.24853377757353,
+        "y": 4.591496892136092
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RedLBShoot"
+      "linkedName": "Red LT middle short pushy end "
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
+    "maxVelocity": 7.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 132.2072976342868
+    "rotation": -160.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -41.62769346811586
+    "rotation": 15.33
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

@@ -1,18 +1,54 @@
 package frc.robot.subsystems.hubState;
 
-import java.util.Optional;
+import java.util.Optional; 
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.led.CANdle;
+import com.ctre.phoenix.led.CANdleConfiguration;
 
 public class HubState extends SubsystemBase {
-    
+      
     private boolean isHubActive = true; 
     private String dashColor = "RED"; 
     private boolean winAuto = false; 
+    private com.ctre.phoenix.led.CANdle candle = new com.ctre.phoenix.led.CANdle(0, "rio");
+    private boolean flashState = false;
+    private double lastFlashTime = 0;
     
+    private void updateCandleLEDs(double shiftTimeRemaining, boolean isHubActive) {
+    double currentTime = edu.wpi.first.wpilibj.Timer.getFPGATimestamp();
+
+    int r = 0, g = 0, b = 0;
+
+    if (isHubActive) {
+        r = 0; g = 255; b = 0;
+
+    } else if (shiftTimeRemaining <= 2.0) {
+        r = 255; g = 200; b = 0;
+
+    } else if (shiftTimeRemaining <= 5.0) {
+        if (currentTime - lastFlashTime > 0.2) {
+            flashState = !flashState;
+            lastFlashTime = currentTime;
+        }
+
+        if (flashState) {
+            r = 255; g = 200; b = 0;
+        } else {
+            r = 0; g = 0; b = 0;
+        }
+
+    } else {
+
+        r = 0; g = 0; b = 0;
+    }
+
+    candle.setLEDs(r, g, b);
+}
+
     public void MatchStateSubsystem() {
         // Initialize Dashboard variables
         SmartDashboard.putBoolean("Is Hub Active", true);
@@ -64,6 +100,7 @@ public class HubState extends SubsystemBase {
         }
         
         double shiftTimeRemaining = calculateShiftTime(matchTime);
+        updateCandleLEDs(shiftTimeRemaining, isHubActive);
         //boolean willBeActiveNext = !isHubActive; // If not active now, it will be next
 
         if (isHubActive || shiftTimeRemaining < 2.0) {

@@ -8,27 +8,64 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.927489004629631,
-        "y": 1.4738272569444448
+        "x": 9.344110026041667,
+        "y": 1.0305624999999998
       },
       "isLocked": false,
       "linkedName": "RedLTExit"
     },
     {
       "anchor": {
-        "x": 10.607965711805555,
-        "y": 4.54013548900463
+        "x": 9.190778211805556,
+        "y": 1.4657571614583333
       },
       "prevControl": {
-        "x": 10.188780020254628,
-        "y": 4.243903935185185
+        "x": 9.428616391782407,
+        "y": 0.6210215567129627
+      },
+      "nextControl": {
+        "x": 9.070730604325258,
+        "y": 1.8921331466469802
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 9.190778211805556,
+        "y": 3.3889330873842596
+      },
+      "prevControl": {
+        "x": 8.70695415462669,
+        "y": 2.7748510803642255
+      },
+      "nextControl": {
+        "x": 9.705230396412036,
+        "y": 4.041889105902777
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 10.040631438078703,
+        "y": 3.9328444010416668
+      },
+      "prevControl": {
+        "x": 9.677477141203703,
+        "y": 4.062097149884259
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "deeper second sweep"
+      "linkedName": "RedLTDoubleSweepSecondGoingEnd"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.8409539473684204,
+      "rotationDegrees": 0.52
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -41,8 +78,8 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 1.0,
-    "rotation": -47.35329686610844
+    "velocity": 3.0,
+    "rotation": -90.0
   },
   "reversed": false,
   "folder": null,

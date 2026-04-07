@@ -3,61 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.942605667372881,
-        "y": 3.5197682733050843
+        "x": 9.330987919560185,
+        "y": 3.4924665075231487
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.404129449541998,
-        "y": 3.5354935087316184
+        "x": 9.690028714064773,
+        "y": 3.301374181222708
       },
       "isLocked": false,
-      "linkedName": "RedLTshortpushyendpoint"
+      "linkedName": "Red LT Mid"
     },
     {
       "anchor": {
-        "x": 9.606814597800927,
-        "y": 3.29780005787037
+        "x": 10.158467954282408,
+        "y": 2.7582846498842595
       },
       "prevControl": {
-        "x": 9.300586515128394,
-        "y": 4.255538024148891
+        "x": 9.629740947962155,
+        "y": 3.2976342453602627
       },
       "nextControl": {
-        "x": 9.846555483217593,
-        "y": 2.5480028935185177
+        "x": 10.709533637677813,
+        "y": 2.1961475737236498
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 10.553640190972224,
-        "y": 0.6861728153935189
+        "x": 13.258500000000002,
+        "y": 2.6547531594669125
       },
       "prevControl": {
-        "x": 9.80199146266861,
-        "y": 0.6627956451233614
-      },
-      "nextControl": {
-        "x": 10.99454296875,
-        "y": 0.6998854166666673
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 12.815927710843374,
-        "y": 0.6364819277108438
-      },
-      "prevControl": {
-        "x": 12.40356551466282,
-        "y": 0.6238190949562135
+        "x": 12.846137803819447,
+        "y": 2.6420903267122826
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RedRightTrenchShoot"
+      "linkedName": "RED LT SP shoot at bump"
     }
   ],
   "rotationTargets": [],
@@ -73,14 +57,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 107.969
+    "velocity": 0.0,
+    "rotation": 134.351
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": 15.33
+    "velocity": 3.0,
+    "rotation": 180.0
   },
   "useDefaultConstraints": false
 }

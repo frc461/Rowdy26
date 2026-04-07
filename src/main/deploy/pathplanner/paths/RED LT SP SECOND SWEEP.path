@@ -3,57 +3,89 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.815927710843374,
-        "y": 0.6364819277108438
+        "x": 13.258500000000002,
+        "y": 2.6547531594669125
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.596691874957402,
-        "y": 0.5163334850934742
+        "x": 13.03926416411403,
+        "y": 2.534604716849543
       },
       "isLocked": false,
-      "linkedName": "RedRightTrenchShoot"
+      "linkedName": "RED LT SP shoot at bump"
     },
     {
       "anchor": {
-        "x": 10.220994791666667,
-        "y": 0.8881876446759258
+        "x": 10.829138816550927,
+        "y": 2.761302734375
       },
       "prevControl": {
-        "x": 10.426872279350503,
-        "y": 0.7463621883396514
+        "x": 11.070105016402236,
+        "y": 2.6947047574596388
       },
       "nextControl": {
-        "x": 9.266099103009259,
-        "y": 1.545998842592592
-      },
-      "isLocked": false,
-      "linkedName": "Red LT SP Second Sweep"
-    },
-    {
-      "anchor": {
-        "x": 9.806795500578703,
-        "y": 2.9669261429398146
-      },
-      "prevControl": {
-        "x": 9.194321180555557,
-        "y": 1.7977464554398146
-      },
-      "nextControl": {
-        "x": 10.254845661010398,
-        "y": 3.8222291808501345
+        "x": 10.554956999474738,
+        "y": 2.8370808075467533
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 10.832087431066178,
-        "y": 2.652981675091912
+        "x": 9.637520326967593,
+        "y": 3.6475698061342596
       },
       "prevControl": {
-        "x": 10.698458386953561,
-        "y": 2.441692114134565
+        "x": 10.346901403356483,
+        "y": 3.45421556712963
+      },
+      "nextControl": {
+        "x": 9.396319592855573,
+        "y": 3.7133132914679745
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.82729586226852,
+        "y": 1.7257717013888896
+      },
+      "prevControl": {
+        "x": 8.507735465125384,
+        "y": 2.1147707852301663
+      },
+      "nextControl": {
+        "x": 9.121690321180557,
+        "y": 1.3674069733796297
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 10.364616247106483,
+        "y": 0.7459440104166675
+      },
+      "prevControl": {
+        "x": 10.125076453825969,
+        "y": 0.8175029891344469
+      },
+      "nextControl": {
+        "x": 11.142757161458333,
+        "y": 0.513485894097222
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 13.383947337962963,
+        "y": 0.7459440104166675
+      },
+      "prevControl": {
+        "x": 13.211273283911515,
+        "y": 0.5651577524836108
       },
       "nextControl": null,
       "isLocked": false,
@@ -62,16 +94,16 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.9940583881578946,
-      "rotationDegrees": 29.999999999999996
+      "waypointRelativePos": 1.094777960526316,
+      "rotationDegrees": 134.35
     },
     {
-      "waypointRelativePos": 1.7214226973684217,
-      "rotationDegrees": 40.0
+      "waypointRelativePos": 1.7460937499999996,
+      "rotationDegrees": 150.0
     },
     {
-      "waypointRelativePos": 2.2424753289473682,
-      "rotationDegrees": 100.0
+      "waypointRelativePos": 2.4640727796052624,
+      "rotationDegrees": -150.0
     }
   ],
   "constraintZones": [],
@@ -93,7 +125,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 107.96913974015672
+    "rotation": 134.351
   },
   "useDefaultConstraints": true
 }

@@ -28,7 +28,12 @@
       "linkedName": "RedRTEntrance"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.19402985074626758,
+      "rotationDegrees": -25.617366849589583
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],

@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "Red RT Exit to Center for sweep first"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "Extend Intake"
@@ -13,13 +19,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot Tower Preset"
+            "name": "Shoot Trench Preset"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
+            "waitTime": 0.05
           }
         },
         {
@@ -31,55 +37,73 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red LT Exit for full sweep"
+            "pathName": "Red RT Center Prep First Sweep"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Red LT Sweep double"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red LT Bump"
+            "pathName": "Red RT First Sweep"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Shoot Hub Preset"
+            "name": "Shoot Trench Preset"
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "Red LT Bump to Red LT Trench Start point"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red LT Exit for full sweep"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red LT Sweep double"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red LT Bump"
+            "waitTime": 5.0
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Shoot Hub Preset"
+            "name": "Stop Launcher"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop All"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red RB Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red RB Shoot to Red RT Trench StartPoint"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red RT Exit to Center for sweep first"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red RT Center Prep First Sweep"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red RT First Sweep"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red RB Shoot"
           }
         }
       ]

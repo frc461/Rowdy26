@@ -1,12 +1,6 @@
 package frc.robot.subsystems.lights;
 
-import edu.wpi.first.wpilibj.AddressableLED;
-import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-import edu.wpi.first.wpilibj.util.Color;
 import java.util.Optional;
-
-import com.ctre.phoenix.led.CANdle;
-import com.ctre.phoenix.led.CANdleConfiguration;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -15,18 +9,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 // this is the set that will flash via match time when played on a practice match
 
-
+@SuppressWarnings("removal")
 public class Lights extends SubsystemBase {
 
-    private final CANdle candle = new CANdle(0, "rio");
+    private final com.ctre.phoenix.led.CANdle candle = new com.ctre.phoenix.led.CANdle(0, "rio");
 
-    private boolean isHubActive = true;
     private boolean flashState = false;
     private double lastFlashTime = 0;
 
     public Lights() {
-        CANdleConfiguration config = new CANdleConfiguration();
-        config.stripType = CANdle.LEDStripType.RGB;
+        com.ctre.phoenix.led.CANdleConfiguration config = new com.ctre.phoenix.led.CANdleConfiguration();
+        config.stripType = com.ctre.phoenix.led.CANdle.LEDStripType.RGB;
         config.brightnessScalar = 0.5;
         candle.configAllSettings(config);
     }
@@ -37,6 +30,8 @@ public class Lights extends SubsystemBase {
         double matchTime = DriverStation.getMatchTime();
         String gameData = DriverStation.getGameSpecificMessage();
         Optional<Alliance> alliance = DriverStation.getAlliance();
+        
+        boolean isHubActive;
 
         // SAFETY FALLBACK (practice mode or no FMS)
         if (matchTime < 0) {
@@ -83,7 +78,7 @@ public class Lights extends SubsystemBase {
     private void updateLEDs(double shiftTimeRemaining, boolean isActive) {
         double currentTime = Timer.getFPGATimestamp();
 
-        int r = 0, g = 0, b = 0;
+        int r, g, b;
 
         if (isActive) {
             r = 0; g = 255; b = 0;
@@ -119,4 +114,3 @@ public class Lights extends SubsystemBase {
         return time;
     }
 }
-     

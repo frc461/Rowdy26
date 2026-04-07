@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.56826452685743,
-        "y": 0.5749487341728026
+        "x": 10.404878744650498,
+        "y": 4.507261055634808
       },
       "isLocked": false,
       "linkedName": "RedLTSweep"
@@ -20,15 +20,20 @@
         "y": 0.6364819277108438
       },
       "prevControl": {
-        "x": 9.660814161893846,
-        "y": 0.15418890712149824
+        "x": 8.684037089871612,
+        "y": -0.111840228245362
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "RedLTShoot"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.10660980810234517,
+      "rotationDegrees": -119.5196171533528
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],

@@ -8,6 +8,9 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,6 +21,7 @@ import frc.robot.subsystems.spindexer.Spindexer;
 public class Intake extends SubsystemBase{
     private final TalonFX DeployKraken = new TalonFX(52); 
     private final TalonFX IntakeKraken = new TalonFX(56); 
+    private final TalonFX IntakeFollower = new TalonFX(20);
     private final VoltageOut voltageControl = new VoltageOut(0);
     private final PositionVoltage positionControl = new PositionVoltage(0);
 
@@ -44,17 +48,20 @@ public class Intake extends SubsystemBase{
         intakeconfig.CurrentLimits.SupplyCurrentLimit = 60;
         intakeconfig.CurrentLimits.StatorCurrentLimitEnable = true;
         intakeconfig.CurrentLimits.StatorCurrentLimit = 80;
-
-
+        
         IntakeKraken.getConfigurator().apply(intakeconfig);
         IntakeKraken.setPosition(0);
+        
+        IntakeFollower.setControl(
+            new Follower(56, MotorAlignmentValue.Opposed)
+        );
+
+        IntakeFollower.getConfigurator().apply(new TalonFXConfiguration());
+        //intakeconfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        IntakeFollower.getConfigurator().apply(intakeconfig);
 
         SmartDashboard.putNumber("Intake Stator", IntakeKraken.getStatorCurrent().getValueAsDouble());
         SmartDashboard.putNumber("Intake SUpply", IntakeKraken.getSupplyCurrent().getValueAsDouble());
-
-
-
-
     }
 
     private final DigitalInput RightForwardLimitSwitch = new DigitalInput(0);

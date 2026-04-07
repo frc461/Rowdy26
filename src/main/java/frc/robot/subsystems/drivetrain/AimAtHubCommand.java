@@ -72,7 +72,7 @@ public class AimAtHubCommand extends Command {
         double currentHeading = MathUtil.inputModulus(currentPose.getRotation().getDegrees(), 0, 360);
         
         double rotationalVelocity = turnPID.calculate(currentHeading, solution.headingDegrees);
-
+        
         // Clamp the rotational speed to prevent violent spinning
         // (Assuming max angular rate is ~3.0 radians/second)
         rotationalVelocity = MathUtil.clamp(rotationalVelocity, -3.0, 3.0);

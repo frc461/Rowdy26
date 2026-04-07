@@ -85,7 +85,7 @@ public final class Constants {
         public static double SHUTTLE_AUTO_START_HOOD_ANGLE = 2.65;
         public static double SHUTTLE_AUTO_RPM = -1759.0;
 
-        public static double ABSOLUTE_ENCODER_OFFSET = -0.865;
+        public static double ABSOLUTE_ENCODER_OFFSET = 0.24;
         public static double ENCODER_CONVERSION = 3.942;
 
 

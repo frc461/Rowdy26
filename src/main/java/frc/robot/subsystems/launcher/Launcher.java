@@ -137,7 +137,7 @@ public class Launcher extends SubsystemBase {
     }
 
     public double convertHoodPosition(double pose) {
-        double currentHoodEncoderPose = hoodAbsoluteEncoder.getPosition().getValueAsDouble();
+        double currentHoodEncoderPose = hoodAbsoluteEncoder.getPosition().getValueAsDouble() - 1;
         double encoderPose = pose / Constants.LauncherConstants.ENCODER_CONVERSION;
         double currentHoodMotorPose = HoodKraken.getPosition().getValueAsDouble();
         return ((currentHoodEncoderPose + encoderPose) * Constants.LauncherConstants.ENCODER_CONVERSION) + currentHoodMotorPose;

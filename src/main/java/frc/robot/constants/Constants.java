@@ -63,6 +63,8 @@ public final class Constants {
     
 
     public final class LauncherConstants {
+
+        public static double LAUNCHER_MULT = 1.28;
         public static double SHOOTER_SIZE_IN = 7.0;
     
     /** Center of shooter is 11.5 inches from the side edge */
@@ -71,19 +73,19 @@ public final class Constants {
         public static double HUB_CENTER_HEIGHT = 72;
 
         public static double HUB_HOOD_ANGLE = 0.0;
-        public static double HUB_RPM = -1750.0;
+        public static double HUB_RPM = -1750.0 * LAUNCHER_MULT;
 
         public static double TOWER_HOOD_ANGLE = 1.25;
-        public static double TOWER_RPM = -2125.0;
+        public static double TOWER_RPM = -2125.0 * LAUNCHER_MULT;
 
         public static double TEMP_AUTO_START_HOOD_ANGLE = 1.25;
-        public static double TEMP_AUTO_RPM = -2450.0;
+        public static double TEMP_AUTO_RPM = -2450.0 * LAUNCHER_MULT;
 
         public static double TRENCH_AUTO_START_HOOD_ANGLE = 1.25;
-        public static double TRENCH_AUTO_RPM = -2250.0;
+        public static double TRENCH_AUTO_RPM = -2250.0 * LAUNCHER_MULT;
 
         public static double SHUTTLE_AUTO_START_HOOD_ANGLE = 2.65;
-        public static double SHUTTLE_AUTO_RPM = -1759.0;
+        public static double SHUTTLE_AUTO_RPM = -1759.0 * LAUNCHER_MULT;
 
         public static double ABSOLUTE_ENCODER_OFFSET = 0.24;
         public static double ENCODER_CONVERSION = 3.942;

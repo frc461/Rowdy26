@@ -98,7 +98,7 @@ public class Launcher extends SubsystemBase {
             new Follower(50, MotorAlignmentValue.Opposed)
         );
 
-                                        SmartDashboard.putNumber("Kicker Supply", KickerKraken.getSupplyCurrent().getValueAsDouble());
+        SmartDashboard.putNumber("Kicker Supply", KickerKraken.getSupplyCurrent().getValueAsDouble());
 
         
 
@@ -137,7 +137,7 @@ public class Launcher extends SubsystemBase {
     }
 
     public double convertHoodPosition(double pose) {
-        double currentHoodEncoderPose = hoodAbsoluteEncoder.getPosition().getValueAsDouble() - 1;
+        double currentHoodEncoderPose = hoodAbsoluteEncoder.getPosition().getValueAsDouble();
         double encoderPose = pose / Constants.LauncherConstants.ENCODER_CONVERSION;
         double currentHoodMotorPose = HoodKraken.getPosition().getValueAsDouble();
         return ((currentHoodEncoderPose + encoderPose) * Constants.LauncherConstants.ENCODER_CONVERSION) + currentHoodMotorPose;

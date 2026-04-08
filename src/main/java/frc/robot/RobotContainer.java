@@ -40,7 +40,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.constants.TunerConstants;
-import frc.robot.subsystems.drivetrain.AimAtHubCommand;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.drivetrain.Swerve;
 import frc.robot.subsystems.drivetrain.SwerveCommand;
@@ -243,13 +242,13 @@ public class RobotContainer {
     // );
     
     drjoystick.leftTrigger().whileTrue(
-      new AimAtHubCommand(
-          drivetrain, 
-          launcher, 
-          m_localizer, 
-          () -> -drjoystick.getLeftY() * MaxSpeed,   // Forward input
-          () -> -drjoystick.getLeftX() * MaxSpeed    // Strafe input
-        )
+      Commands.parallel(
+        drivetrain.aimAtHub(
+          () -> -drjoystick.getLeftY() * MaxSpeed,
+          () -> -drjoystick.getLeftX() * MaxSpeed
+        ),
+        new LauncherCommand(launcher, drivetrain)
+      )
     );
 
     final Command holdXMode = drivetrain.applyRequest(() -> xMode);

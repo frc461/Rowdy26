@@ -35,6 +35,11 @@ import frc.robot.constants.TunerConstants.TunerSwerveDrivetrain;
 import frc.robot.subsystems.launcher.ShooterSolver;
 import frc.robot.subsystems.launcher.ShooterSolver.ShotResult;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import java.util.function.DoubleSupplier;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
@@ -407,5 +412,35 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
         return slowMode;
     }
 
-}
+    /**
+     * Aim at the hub using ShooterSolver while allowing translation
+     * @param forwardInput forward translation
+     * @param strafeInput strafe translation
+     * @return Command that aims at the hub
+     */
+    public Command aimAtHub(DoubleSupplier forwardInput, DoubleSupplier strafeInput) {
+        final PIDController turnPID = new PIDController(0.25, 0.0, 0.005);
+        turnPID.enableContinuousInput(0, 360);
+        final SwerveRequest.FieldCentric driveRequest = new SwerveRequest.FieldCentric();
+        final double AUTO_AIM_TRANSLATION_SCALE = 0.1;
 
+        return this.run(() -> {
+            Pose2d currentPose = this.getState().Pose;
+            ShotResult solution = ShooterSolver.solve(currentPose);
+            
+            double currentHeading = MathUtil.inputModulus(currentPose.getRotation().getDegrees(), 0, 360);
+            double rotationalVelocity = turnPID.calculate(currentHeading, solution.headingDegrees);
+            rotationalVelocity = MathUtil.clamp(rotationalVelocity, -3.0, 3.0);
+
+            this.setControl(
+                driveRequest
+                    .withVelocityX(forwardInput.getAsDouble() * AUTO_AIM_TRANSLATION_SCALE)
+                    .withVelocityY(strafeInput.getAsDouble() * AUTO_AIM_TRANSLATION_SCALE)
+                    .withRotationalRate(rotationalVelocity)
+            );
+
+            SmartDashboard.putNumber("Shooter/Target Heading", solution.headingDegrees);
+            SmartDashboard.putNumber("Shooter/Current Heading", currentHeading);
+        });
+    }
+}

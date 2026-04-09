@@ -9,8 +9,6 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
-import frc.robot.constants.TunerConstants;
-
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -46,28 +44,14 @@ public class Launcher extends SubsystemBase {
         config.Slot0.kI = 0;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.2056;
-        config.CurrentLimits.SupplyCurrentLimitEnable = true;
-        config.CurrentLimits.SupplyCurrentLimit = 40;
-        config.CurrentLimits.StatorCurrentLimitEnable = true;
-        config.CurrentLimits.StatorCurrentLimit = 100;        
         FlywheelAKraken.getConfigurator().apply(config);
-
-        SmartDashboard.putNumber("FlywheelAKraken Supply", FlywheelAKraken.getSupplyCurrent().getValueAsDouble());
-
 
         FlywheelBKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.Slot0.kP = .4;
         config.Slot0.kI = 0;
         config.Slot0.kD = 0.0;
         config.Slot0.kV = 0.2056;
-        config.CurrentLimits.SupplyCurrentLimitEnable = true;
-        config.CurrentLimits.SupplyCurrentLimit = 40;
-        config.CurrentLimits.StatorCurrentLimitEnable = true;
-        config.CurrentLimits.StatorCurrentLimit = 100;
         FlywheelBKraken.getConfigurator().apply(config);
-
-                        SmartDashboard.putNumber("FlywheelBKraken Supply", FlywheelBKraken.getSupplyCurrent().getValueAsDouble());
-
 
         HoodKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
@@ -79,9 +63,6 @@ public class Launcher extends SubsystemBase {
         config.CurrentLimits.StatorCurrentLimit = 60;
         config.CurrentLimits.StatorCurrentLimitEnable = true; 
 
-                                SmartDashboard.putNumber("Hood Supply", HoodKraken.getSupplyCurrent().getValueAsDouble());
-
-
         // config.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
         // config.Feedback.FeedbackRemoteSensorID = hoodAbsoluteEncoder.getDeviceID();
         // config.Feedback.SensorToMechanismRatio = 1.0;
@@ -91,16 +72,9 @@ public class Launcher extends SubsystemBase {
         KickerKraken.getConfigurator().apply(new TalonFXConfiguration());
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
         config.CurrentLimits.SupplyCurrentLimit = 40;
-        config.CurrentLimits.StatorCurrentLimitEnable = true;
-        config.CurrentLimits.StatorCurrentLimit = 80;
-
         KickerKraken.setControl(
             new Follower(50, MotorAlignmentValue.Opposed)
         );
-
-        SmartDashboard.putNumber("Kicker Supply", KickerKraken.getSupplyCurrent().getValueAsDouble());
-
-        
 
         SmartDashboard.putNumber("Auto Aim Efficiency", ShooterSolver.EFFICIENCY);
       
@@ -131,6 +105,10 @@ public class Launcher extends SubsystemBase {
         FlywheelBKraken.setControl(velocityControl.withVelocity(rps) );   
     }
 
+    public double getFlywheelVelocity(){
+        return FlywheelAKraken.getVelocity().getValueAsDouble() * 60.0;
+    }
+
     public void setHoodPosition(double pose) {
         this.targetHoodPosition = convertHoodPosition(pose);
         
@@ -142,8 +120,6 @@ public class Launcher extends SubsystemBase {
         double currentHoodMotorPose = HoodKraken.getPosition().getValueAsDouble();
         return ((currentHoodEncoderPose + encoderPose) * Constants.LauncherConstants.ENCODER_CONVERSION) + currentHoodMotorPose;
     }
-
-
 
     public void runHood() {
         HoodKraken.setControl(positionControl.withPosition(targetHoodPosition));
@@ -176,15 +152,6 @@ public class Launcher extends SubsystemBase {
         SmartDashboard.putNumber("Hood Position", HoodKraken.getPosition().getValueAsDouble());
         SmartDashboard.putNumber("Encoder Position", hoodAbsoluteEncoder.getPosition().getValueAsDouble());
         ShooterSolver.EFFICIENCY = SmartDashboard.getNumber("Auto Aim Efficiency", 0.63);
-
-        SmartDashboard.putNumber("Kicker Supply", KickerKraken.getSupplyCurrent().getValueAsDouble());
-        SmartDashboard.putNumber("FlywheelAKraken Supply", FlywheelAKraken.getSupplyCurrent().getValueAsDouble());
-        SmartDashboard.putNumber("FlywheelBKraken Supply", FlywheelBKraken.getSupplyCurrent().getValueAsDouble());
-        SmartDashboard.putNumber("Hood Supply", HoodKraken.getSupplyCurrent().getValueAsDouble());
-
-
-
-
 
     }
 }

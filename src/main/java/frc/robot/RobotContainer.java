@@ -5,55 +5,37 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.MetersPerSecond;
-import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
-import com.ctre.phoenix6.swerve.SwerveDrivetrain;
-import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
-import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.launcher.Launcher;
 import frc.robot.subsystems.launcher.LauncherCommand;
 import frc.robot.subsystems.localizer.Localizer;
 import frc.robot.subsystems.spindexer.Spindexer;
-import frc.robot.util.FieldUtil;
 import frc.robot.util.vision.Vision;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
+import edu.wpi.first.wpilibj.PowerDistribution;
 
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.constants.TunerConstants;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.drivetrain.Swerve;
-import frc.robot.subsystems.drivetrain.SwerveCommand;
 import frc.robot.subsystems.drivetrain.SwerveTelemetry;
 import frc.robot.subsystems.hubState.HubState;
-
-import com.ctre.phoenix6.SignalLogger;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.controls.Follower;
-import com.ctre.phoenix6.signals.MotorAlignmentValue;
-import com.ctre.phoenix6.signals.InvertedValue;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-
-import frc.robot.subsystems.launcher.Launcher;
 
 public class RobotContainer {
 
@@ -61,11 +43,9 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Launcher launcher = new Launcher();
   private final Spindexer spindexer = new Spindexer();
+  private final PowerDistribution pdh = new PowerDistribution();
 
   private static HubState hubState = new HubState();
-
-  private final TalonFX leadMotor = new TalonFX(50);//Spindexer
-  private final TalonFX followMotor = new TalonFX(55);//Kicker
 
   private final CommandXboxController opjoystick = new CommandXboxController(1); // operator controller port
   private final CommandXboxController drjoystick = new CommandXboxController(0);    
@@ -106,6 +86,10 @@ public class RobotContainer {
       NamedCommands.registerCommand("Stop All", Commands.run(() -> autoCommand.StopAll()));
       NamedCommands.registerCommand("Extend Intake", autoCommand.ExtendIntake());
       NamedCommands.registerCommand("Retract Intake", autoCommand.RetractIntake());
+      NamedCommands.registerCommand("Auto Aim Shoot", autoCommand.AutoAimShoot());
+      NamedCommands.registerCommand("Auto Aim Stop", autoCommand.AutoAimStop());
+
+
       // NamedCommands.registerCommand("Enable Auto Aim", new InstantCommand(() -> drive.setAutoAim(true)));
   
       configureBindings();
@@ -123,6 +107,16 @@ public class RobotContainer {
   
       SmartDashboard.putData("Auto Chooser", autoChooser);
       SmartDashboard.putData("Command Scheduler", CommandScheduler.getInstance());
+
+      // Register a periodic callback to publish total current without a new file.
+      // This creates an anonymous subsystem that is automatically called periodically
+      // by the CommandScheduler.
+      CommandScheduler.getInstance().registerSubsystem(new SubsystemBase() {
+          @Override
+          public void periodic() {
+              SmartDashboard.putNumber("Total Robot Current", pdh.getTotalCurrent());
+          }
+      });
     }
   
   private void configureBindings() {
@@ -140,46 +134,31 @@ public class RobotContainer {
         double ySpeed = yInput * MaxSpeed;
         double rotSpeed = rotInput * MaxAngularRate;
 
-        boolean leftTrigger = drjoystick.getLeftTriggerAxis() > 0.1;
+        // --- NEW AIMING INJECTION ---
+        if (drivetrain.isAutoAiming) {
+            // Hijack rotation to track the hub
+            rotSpeed = drivetrain.calculateAutoAimRotation();
 
-        boolean isStopped =
-            Math.abs(xInput) < 0.05 &&
-            Math.abs(yInput) < 0.05 &&
-            Math.abs(rotInput) < 0.05;
+            // Cap translational velocity during auto-aim if there is joystick input
+            boolean hasTranslationalInput = Math.abs(xInput) > 0.05 || Math.abs(yInput) > 0.05;
+            if (hasTranslationalInput) {
+                double requestedMagnitude = Math.hypot(xSpeed, ySpeed);
+                double cap = 0.2; // m/s
+                if (requestedMagnitude > cap) {
+                    double scalingFactor = cap / requestedMagnitude;
+                    xSpeed *= scalingFactor;
+                    ySpeed *= scalingFactor;
+                }
+            }
+        } 
+        // ----------------------------
 
         return drive
           .withVelocityX(xSpeed)
           .withVelocityY(ySpeed)
           .withRotationalRate(rotSpeed);
-
-        // if (leftTrigger) {
-        //     if (isStopped) {
-        //         return xMode;
-        //     }
-        //     else {
-        //       return drive
-        //         .withVelocityX(xSpeed * 0.5)
-        //         .withVelocityY(ySpeed * 0.5)
-        //         .withRotationalRate(rotSpeed); 
-        //     }
-        // }
-        // else {
-        //   return drive
-        //     .withVelocityX(xSpeed)
-        //     .withVelocityY(ySpeed)
-        //     .withRotationalRate(rotSpeed);
-        // }
     })
 );
-  
-
-    // new Trigger(() ->
-    //   Math.abs(drjoystick.getLeftY()) > 0.1 ||
-    //   Math.abs(drjoystick.getLeftX()) > 0.1 ||
-    //   Math.abs(drjoystick.getRightX()) > 0.1
-    //   ).onTrue(
-    //   drivetrain.getDefaultCommand()
-    // );
   
     // Idle while the robot is disabled. This ensures the configured
     // neutral mode is applied to the drive motors while disabled.
@@ -226,30 +205,10 @@ public class RobotContainer {
       );
   
     // drivetrain.registerTelemetry(logger::telemeterize);
-  
-    // drjoystick.rightBumper().onTrue(Commands.run(
-    // ()-> {
-    //   launcher.setHoodPosition(0.0);
-    //   launcher.runHood();
-    // },
-    // launcher));
-  
-    // drjoystick.leftTrigger().whileTrue(
-    //     Commands.startEnd(
-    //       () -> intake.setIntakeVoltage(16), 
-    //       () -> intake.setIntakeVoltage(0),
-    //       intake)
-    // );
     
-    drjoystick.leftTrigger().whileTrue(
-      Commands.parallel(
-        drivetrain.aimAtHub(
-          () -> -drjoystick.getLeftY() * MaxSpeed,
-          () -> -drjoystick.getLeftX() * MaxSpeed
-        ),
-        new LauncherCommand(launcher, drivetrain)
-      )
-    );
+    drjoystick.leftTrigger()
+        .onTrue(new InstantCommand(() -> drivetrain.setAutoAim(true)))
+        .onFalse(new InstantCommand(() -> drivetrain.setAutoAim(false)));
 
     final Command holdXMode = drivetrain.applyRequest(() -> xMode);
 
@@ -262,17 +221,14 @@ public class RobotContainer {
     ).onTrue(Commands.runOnce(holdXMode::cancel));
     
 
-    // Operator COntroller
-
-    opjoystick.leftTrigger().whileTrue(
-      Commands.startEnd(
-        () ->launcher.shuttle(),
-        ()->launcher.stopFlyWheels(),
-        launcher
-      )
-    );
+    // Operator Controller
 
     opjoystick.rightTrigger().whileTrue(
+      new LauncherCommand(launcher, spindexer, drivetrain, intake)
+
+    );
+
+    opjoystick.leftTrigger().whileTrue(
       Commands.startEnd(
         () -> {
           launcher.runFlyWheel();
@@ -285,22 +241,12 @@ public class RobotContainer {
       )
     );
 
-    
-
-
     opjoystick.leftBumper().onTrue(Commands.run(
       ()-> {
         launcher.setHoodPosition(0.0);
         launcher.runHood();
       },
       launcher));
-
-    // opjoystick.leftBumper().onTrue(new InstantCommand(() -> {
-    //         launcher.setFlywheelVelocity(Constants.LauncherConstants.TRENCH_AUTO_RPM);
-    //         launcher.setHoodPosition(Constants.LauncherConstants.TRENCH_AUTO_START_HOOD_ANGLE);
-    //       }
-    //     )
-    //     );
 
     opjoystick.rightBumper().whileTrue( 
       Commands.startEnd(
@@ -388,22 +334,11 @@ public class RobotContainer {
       )
     );
 
-    opjoystick.leftStick().and(opjoystick.rightTrigger())
-    .whileTrue(
-        Commands.sequence(
-            Commands.run(
-            () -> intake.setDeployVoltage(-6),
-            intake
-          ).withTimeout(0.25),
-            Commands.run(
-            () -> intake.setDeployVoltage(6),
-            intake
-          ).withTimeout(0.25)
-        ).repeatedly()
-    ).onFalse(
-      Commands.runOnce(
-        () -> intake.setDeployVoltage(0),
-        intake
+    opjoystick.leftStick().whileTrue(
+      Commands.startEnd(
+        () ->launcher.shuttle(),
+        ()->launcher.stopFlyWheels(),
+        launcher
       )
     );
 
@@ -416,16 +351,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    String selected = autoChooser.getSelected().getName();
-
     return autoChooser.getSelected();
-
-    // if(selected.startsWith("comp LT")) {
-    //   return new PathPlannerAuto(selected, true);
-    // }
-    // else {
-    //   return autoChooser.getSelected();
-    // }
   }  
 
   public void StopAuto() {

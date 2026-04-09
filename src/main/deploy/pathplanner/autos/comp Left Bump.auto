@@ -47,15 +47,34 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "Shoot Hub Preset"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Red LT Bump to Red LT Trench Start point"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Auto Aim Shoot"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Red LT Bump to Red LT Trench Start point"
+            "name": "Auto Aim Stop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop Launcher"
           }
         },
         {
@@ -77,9 +96,34 @@
           }
         },
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Red LT Bump to Red LT Trench Start point"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Auto Aim Shoot"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "Shoot Hub Preset"
+            "name": "Auto Aim Stop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop All"
           }
         }
       ]

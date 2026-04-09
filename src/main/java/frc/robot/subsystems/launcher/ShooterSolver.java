@@ -1,19 +1,19 @@
-    package frc.robot.subsystems.launcher;
+package frc.robot.subsystems.launcher;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.launcher.Launcher;
 
 import java.util.Optional;
 
 public class ShooterSolver {
 
     // --- TUNABLE CONSTANTS ---
-    public static double EFFICIENCY = 0.80;
+    public static double EFFICIENCY = 0.82
+    ;
     public static double HOOD_ANGLE_DEGREES = 0.0;
+    public static double retureHoodPose = 0.0;
     public static final double SHOOTER_HEIGHT_METERS = 0.508; 
     public static final double WHEEL_RADIUS_METERS = 0.0508;
     
@@ -36,7 +36,7 @@ public class ShooterSolver {
     
     // Blue Alliance Hub Coordinates
     public static final double BLUE_TARGET_X = 4.65; // 4.62 [m]
-    public static final double BLUE_TARGET_Y = 4.35; // 4.02 [m]`   
+    public static final double BLUE_TARGET_Y = 4.35; // 4.02 [m]
 
     // Ball Physics
 
@@ -55,11 +55,13 @@ public class ShooterSolver {
     public static class ShotResult {
         public double headingDegrees;
         public double rpm;
+        public double hoodAngle;
         public boolean found;
 
-        public ShotResult(double heading, double rpm, boolean found) {
+        public ShotResult(double heading, double rpm, double hoodAngle, boolean found) {
             this.headingDegrees = heading;
             this.rpm = rpm;
+            this.hoodAngle = hoodAngle;
             this.found = found;
         }
     }
@@ -87,6 +89,20 @@ public class ShooterSolver {
             // currentTargetY = FIELD_WIDTH_METERS - BLUE_TARGET_Y; 
         }
 
+        if (robotX > 4.5 && robotX < 12.0){
+            if (currentTargetX > 8){
+                currentTargetX = 14.25;
+            }else{
+                currentTargetX = 2.25;
+            }
+            
+            if (robotY > 4.6){
+                currentTargetY = 6.5;
+            }else{
+                currentTargetY = 1.5;
+            }
+        }
+
         // 2. Iteratively solve Heading (Shooter Offset Compensation)
         double headingRad = 0.0;
         
@@ -106,14 +122,14 @@ public class ShooterSolver {
         double dy = currentTargetY - finalShooterPos.y;
         double distanceToTarget = Math.hypot(dx, dy);
 
-        if (distanceToTarget > 2 && distanceToTarget < Units.feetToMeters(14)){//Meters
-            Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.SIXTY_DEG_HOOD_ANGLE; //far
+        if (distanceToTarget > 4.25){ 
+            retureHoodPose = Constants.LauncherConstants.FIFTY_DEG_HOOD_ANGLE;
             HOOD_ANGLE_DEGREES = 60.0;
-        }else if(distanceToTarget > Units.feetToMeters(14)){
-            Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.FIFTY_DEG_HOOD_ANGLE; //really far
+        }else if (distanceToTarget > 2 && distanceToTarget < 4.25){
+            retureHoodPose = Constants.LauncherConstants.SIXTY_DEG_HOOD_ANGLE;
             HOOD_ANGLE_DEGREES = 60.0;
         }else{
-            Constants.LauncherConstants.AUTO_AIM_HOOD_ANGLE = Constants.LauncherConstants.SEVENTY_DEG_HOOD_ANGLE;//close
+            retureHoodPose = Constants.LauncherConstants.SEVENTY_DEG_HOOD_ANGLE;
             HOOD_ANGLE_DEGREES = 70.0;
         }
         
@@ -149,7 +165,7 @@ public class ShooterSolver {
         double rpm = calculateRPM(bestV);
         boolean found = Math.abs(minError) < 0.5;
 
-        return new ShotResult(headingDegrees, rpm, found);
+        return new ShotResult(headingDegrees, rpm, retureHoodPose, found);
     }
 
     private static SimResult simulateShot(double targetDist, double startZ, double vHoriz, double vZ) {

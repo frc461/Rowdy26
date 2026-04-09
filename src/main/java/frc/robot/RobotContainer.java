@@ -223,10 +223,10 @@ public class RobotContainer {
 
     // Operator Controller
 
-    opjoystick.rightTrigger().whileTrue(
-      new LauncherCommand(launcher, spindexer, drivetrain, intake)
-
-    );
+    opjoystick.rightTrigger()
+    .whileTrue(new LauncherCommand(launcher, spindexer, drivetrain, intake))
+    .onTrue(holdXMode)
+    ;
 
     opjoystick.leftTrigger().whileTrue(
       Commands.startEnd(

@@ -16,9 +16,9 @@ public class Spindexer extends SubsystemBase{
         SpindexerKraken.getConfigurator().apply(new TalonFXConfiguration());
         TalonFXConfiguration config = new TalonFXConfiguration();
         config.CurrentLimits.SupplyCurrentLimitEnable = true;
-        config.CurrentLimits.SupplyCurrentLimit = 50;
+        config.CurrentLimits.SupplyCurrentLimit = 70;
         config.CurrentLimits.StatorCurrentLimitEnable = true;
-        config.CurrentLimits.StatorCurrentLimit = 80;
+        config.CurrentLimits.StatorCurrentLimit = 100;
         SpindexerKraken.getConfigurator().apply(config);
 
         SmartDashboard.putNumber("Spindexer Supply", SpindexerKraken.getSupplyCurrent().getValueAsDouble());

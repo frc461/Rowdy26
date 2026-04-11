@@ -77,6 +77,10 @@ public class Launcher extends SubsystemBase {
         );
 
         SmartDashboard.putNumber("Auto Aim Efficiency", ShooterSolver.EFFICIENCY);
+        
+        SmartDashboard.putBoolean("Ready to Shoot", false);
+        SmartDashboard.putBoolean("Ready Drivetrain", false);
+        SmartDashboard.putBoolean("Ready Solution", false);
       
     }
 

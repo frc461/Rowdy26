@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.52689927466165,
-        "y": 2.5199654918553636
+        "x": 10.761518072289157,
+        "y": 2.0570843373493988
       },
       "isLocked": false,
       "linkedName": "RedLTSweep"
     },
     {
       "anchor": {
-        "x": 13.574850213980028,
-        "y": 2.4370756062767476
+        "x": 14.225602409638554,
+        "y": 2.4395542168674704
       },
       "prevControl": {
-        "x": 13.30313837375178,
-        "y": 2.372382310984309
+        "x": 12.761289156626505,
+        "y": 3.193566265060241
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 132.2072976342868
+    "rotation": 143.39292518739256
   },
   "reversed": false,
   "folder": null,

@@ -95,14 +95,14 @@ public class Intake extends SubsystemBase{
     }
 
     public void ResetExtension() {
-        if (!RightForwardLimitSwitch.get() && !LeftForwardLimitSwitch.get()) {
+        if (!RightForwardLimitSwitch.get() || !LeftForwardLimitSwitch.get()) {
             DeployKraken.setPosition(-70);
         }
     }
 
     public void ExtendIntake() {
         DeployKraken.setControl(positionControl.withPosition(-70)
-        .withLimitForwardMotion(!RightForwardLimitSwitch.get() && !LeftForwardLimitSwitch.get())
+        .withLimitForwardMotion(!RightForwardLimitSwitch.get() || !LeftForwardLimitSwitch.get())
         );
     }
 

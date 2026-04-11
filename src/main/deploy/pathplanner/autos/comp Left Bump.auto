@@ -13,19 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot Tower Preset"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.05
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Stop Launcher"
+            "name": "Run Intake"
           }
         },
         {
@@ -51,15 +39,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "Red LT Bump to Red LT Trench Start point"
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "Auto Aim Shoot"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Red LT Bump to Red LT Trench Start point"
                 }
               }
             ]

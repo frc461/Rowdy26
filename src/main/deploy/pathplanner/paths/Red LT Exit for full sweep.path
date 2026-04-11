@@ -16,19 +16,24 @@
     },
     {
       "anchor": {
-        "x": 9.939087018544935,
-        "y": 0.8714978601997154
+        "x": 9.515759036144578,
+        "y": 0.6364819277108438
       },
       "prevControl": {
-        "x": 10.939087018544935,
-        "y": 0.8714978601997155
+        "x": 10.515759036144578,
+        "y": 0.6364819277108439
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "RedLTExit"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5278008298755186,
+      "rotationDegrees": 90.63948367763969
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -48,7 +53,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": 88.87669728592469
+    "rotation": 90.0
   },
   "useDefaultConstraints": false
 }

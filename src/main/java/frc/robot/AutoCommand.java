@@ -127,7 +127,9 @@ public class AutoCommand extends SubsystemBase {
         // It is designed to run continuously until cancelled by another command (like AutoAimStop).
         // In PathPlanner, this should be used as a "Parallel" or "Start" event.
         return new LauncherCommand(launcher, spindexer, drivetrain, intake)
-            .beforeStarting(new InstantCommand(() -> drivetrain.setAutoAim(true)));
+            .beforeStarting(new InstantCommand(() -> drivetrain.setAutoAim(true))
+            .withTimeout(4).andThen(new InstantCommand(() -> drivetrain.setAutoAim(false)))
+            );
     }
 
     public Command AutoAimStop(){

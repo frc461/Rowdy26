@@ -86,6 +86,7 @@ public class RobotContainer {
       NamedCommands.registerCommand("Stop All", Commands.run(() -> autoCommand.StopAll()));
       NamedCommands.registerCommand("Extend Intake", autoCommand.ExtendIntake());
       NamedCommands.registerCommand("Retract Intake", autoCommand.RetractIntake());
+      NamedCommands.registerCommand("Run Intake", autoCommand.RunIntake());
       NamedCommands.registerCommand("Auto Aim Shoot", autoCommand.AutoAimShoot());
       NamedCommands.registerCommand("Auto Aim Stop", autoCommand.AutoAimStop());
 

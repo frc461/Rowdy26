@@ -1,5 +1,6 @@
 package frc.robot.subsystems.launcher;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.drivetrain.Swerve;
 import frc.robot.subsystems.intake.Intake;
@@ -55,7 +56,10 @@ public class LauncherCommand extends Command {
             
             // boolean isSpunUp = Math.abs(launcher.getFlywheelVelocity() - targetRpm) < 50.0;
             boolean isSpunUp = launcher.getFlywheelVelocity() < targetRpm;
-            readyToFire = isSpunUp && drivetrain.isAimLockedOn() && solution.found;
+            readyToFire = isSpunUp  && solution.found; // && drivetrain.isAimLockedOn()
+            
+            SmartDashboard.putBoolean("Ready Drivetrain", drivetrain.isAimLockedOn());
+            SmartDashboard.putBoolean("Ready Solution", solution.found);
             
         } else {
             targetRpm = presetRpm;
@@ -73,9 +77,11 @@ public class LauncherCommand extends Command {
         launcher.runHood();
 
         if (readyToFire) {
+            SmartDashboard.putBoolean("Ready to Shoot", readyToFire);
             spindexer.setVoltage(16); 
             intake.setIntakeVoltage(-16); 
         } else {
+            SmartDashboard.putBoolean("Ready to Shoot", readyToFire);
             spindexer.setVoltage(0);  
             intake.setIntakeVoltage(0); 
         }

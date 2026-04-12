@@ -88,6 +88,7 @@ public class RobotContainer {
       NamedCommands.registerCommand("Retract Intake", autoCommand.RetractIntake());
       NamedCommands.registerCommand("Run Intake", autoCommand.RunIntake());
       NamedCommands.registerCommand("Auto Aim Shoot", autoCommand.AutoAimShoot());
+      NamedCommands.registerCommand("Auto Aim Start", autoCommand.AutoAimStart());
       NamedCommands.registerCommand("Auto Aim Stop", autoCommand.AutoAimStop());
 
 

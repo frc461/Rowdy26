@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.515759036144578,
-        "y": 0.6364819277108438
+        "x": 9.177,
+        "y": 1.3467831325301212
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.086792469356594,
-        "y": 0.5927710843373495
+        "x": 8.510409638554215,
+        "y": 1.357710843373495
       },
       "isLocked": false,
       "linkedName": "RedLTExit"
     },
     {
       "anchor": {
-        "x": 8.267638020833335,
-        "y": 3.339659577546297
+        "x": 8.565048192771085,
+        "y": 3.1717108433734937
       },
       "prevControl": {
-        "x": 8.038156093122492,
-        "y": 1.4054547582691885
+        "x": 8.561513442727989,
+        "y": 2.8794321273913037
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 2.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -41,13 +41,13 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": -41.62769346811586
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
-    "velocity": 1.0,
+    "velocity": 4.0,
     "rotation": 0.5159042842634209
   },
   "useDefaultConstraints": false

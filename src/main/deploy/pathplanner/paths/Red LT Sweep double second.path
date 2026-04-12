@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.515759036144578,
-        "y": 0.6364819277108438
+        "x": 9.177,
+        "y": 1.3467831325301212
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.47892165188532,
-        "y": 1.4738272569444448
+        "x": 10.140162615740742,
+        "y": 2.1841284617637227
       },
       "isLocked": false,
       "linkedName": "RedLTExit"
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

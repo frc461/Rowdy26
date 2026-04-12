@@ -56,7 +56,7 @@ public class LauncherCommand extends Command {
             
             // boolean isSpunUp = Math.abs(launcher.getFlywheelVelocity() - targetRpm) < 50.0;
             boolean isSpunUp = launcher.getFlywheelVelocity() < targetRpm;
-            readyToFire = isSpunUp  && solution.found; // && drivetrain.isAimLockedOn()
+            readyToFire = isSpunUp && drivetrain.isAimLockedOn() && solution.found; // && drivetrain.isAimLockedOn()
             
             SmartDashboard.putBoolean("Ready Drivetrain", drivetrain.isAimLockedOn());
             SmartDashboard.putBoolean("Ready Solution", solution.found);

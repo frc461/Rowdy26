@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 14.225602409638554,
-        "y": 2.4395542168674704
+        "x": 14.487867469879518,
+        "y": 2.0680120481927715
       },
       "prevControl": null,
       "nextControl": {
-        "x": 16.575060240963854,
-        "y": 1.1063734939759036
+        "x": 13.657361445783133,
+        "y": 0.9643132530120502
       },
       "isLocked": false,
       "linkedName": "RedLBShoot"
@@ -20,8 +20,8 @@
         "y": 0.6364819277108438
       },
       "prevControl": {
-        "x": 14.192819277108434,
-        "y": 0.35236144578313194
+        "x": 14.203746987951808,
+        "y": 0.5927710843373495
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.5,
+    "maxVelocity": 2.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -47,7 +47,7 @@
   "reversed": false,
   "folder": null,
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 1.0,
     "rotation": 143.39292518739256
   },
   "useDefaultConstraints": false

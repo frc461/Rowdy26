@@ -122,14 +122,16 @@ public class AutoCommand extends SubsystemBase {
             intake.setIntakeVoltage(0);
         }
 
-    public Command AutoAimShoot(){
+    public Command AutoAimStart(){
         // This command enables auto-aim and then runs the LauncherCommand.
         // It is designed to run continuously until cancelled by another command (like AutoAimStop).
         // In PathPlanner, this should be used as a "Parallel" or "Start" event.
-        return new LauncherCommand(launcher, spindexer, drivetrain, intake)
-            .beforeStarting(new InstantCommand(() -> drivetrain.setAutoAim(true))
-            .withTimeout(4).andThen(new InstantCommand(() -> drivetrain.setAutoAim(false)))
+        return new InstantCommand(() -> drivetrain.setAutoAim(true)
             );
+    }
+
+    public Command AutoAimShoot(){
+        return new LauncherCommand(launcher, spindexer, drivetrain, intake).withTimeout(2);
     }
 
     public Command AutoAimStop(){

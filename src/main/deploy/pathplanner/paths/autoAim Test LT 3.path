@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 14.53724927662037,
-        "y": 2.4094990596064814
+        "x": 14.098249204282409,
+        "y": 4.673718532986111
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.706743252523985,
-        "y": 1.30580026442576
+        "x": 15.098249204282409,
+        "y": 4.673718532986111
       },
       "isLocked": false,
-      "linkedName": "RedLBShoot"
+      "linkedName": "autoaimtest2"
     },
     {
       "anchor": {
-        "x": 12.52087951807229,
-        "y": 0.6364819277108438
+        "x": 15.30436762152778,
+        "y": 6.772796296296296
       },
       "prevControl": {
-        "x": 14.203746987951808,
-        "y": 0.5927710843373495
+        "x": 14.30436762152778,
+        "y": 6.772796296296296
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RightTrenchStartPoint"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 5.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -47,8 +47,8 @@
   "reversed": false,
   "folder": null,
   "idealStartingState": {
-    "velocity": 1.0,
-    "rotation": 143.39292518739256
+    "velocity": 0,
+    "rotation": 180.0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

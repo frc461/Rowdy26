@@ -1,0 +1,37 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "autoAim Test LT 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Aim Start"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Aim Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "autoAim Test LT 2"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

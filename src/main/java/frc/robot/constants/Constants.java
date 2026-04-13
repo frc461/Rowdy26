@@ -83,10 +83,24 @@ public final class Constants {
         public static double TRENCH_AUTO_RPM = -2375.0;
 
         public static double ABSOLUTE_ENCODER_OFFSET = 0.05; 
+
+        public static double SHUTTLE_AUTO_RPM = -1759.0;
+
+        public static double SHUTTLE_AUTO_START_HOOD_ANGLE = 2.65;
+
+
         public static double ABSOLUTE_ENCODER_DIS_PT = 0.1; 
+
         public static double ENCODER_CONVERSION = 3.942;
 
 
         public static double ROTOR_TO_SENSOR_RATIO = 4.0;
+
+        public static final double SEVENTY_DEG_HOOD_ANGLE = 0.15; //Close
+        public static final double SIXTY_DEG_HOOD_ANGLE = 1.19; //Far
+        public static final double FIFTY_DEG_HOOD_ANGLE = 1.81; //Really Far
+
+
+        public static double AUTO_AIM_HOOD_ANGLE = 0.0;        
     }
 }

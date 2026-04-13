@@ -5,6 +5,18 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Extend Intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Run Intake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Red LT SP path"
@@ -20,6 +32,12 @@
           "type": "path",
           "data": {
             "pathName": "red LT end of SP path"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Hub Preset"
           }
         },
         {
@@ -49,7 +67,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot Hub Preset"
+            "name": "Shoot Trench Preset"
           }
         },
         {

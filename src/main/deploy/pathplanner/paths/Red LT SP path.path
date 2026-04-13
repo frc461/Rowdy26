@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 7.680408318014706,
-        "y": 0.22750695082720618
+        "y": 0.2275069508272063
       },
       "isLocked": false,
       "linkedName": "RightTrenchStartPoint"
@@ -40,7 +40,7 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 9.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,

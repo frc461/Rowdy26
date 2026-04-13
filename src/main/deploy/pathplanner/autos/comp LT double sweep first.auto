@@ -26,19 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot Trench Preset"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.05
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Stop Launcher"
+            "name": "Run Intake"
           }
         },
         {

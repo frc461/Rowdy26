@@ -75,6 +75,9 @@ public class RobotContainer {
   public final Localizer m_localizer = new Localizer(drivetrain, m_vision);  
     
     public RobotContainer() {
+
+      SmartDashboard.putData("Field", m_field);
+
   
       autoChooser = new SendableChooser<>();
 

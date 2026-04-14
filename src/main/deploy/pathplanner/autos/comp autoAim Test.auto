@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Auto Aim Start"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "autoAim Test LT 1"
@@ -13,13 +19,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Auto Aim Start"
+            "name": "Auto Aim Shoot"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Auto Aim Shoot"
+            "name": "Auto Aim Stop"
           }
         },
         {

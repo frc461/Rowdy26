@@ -1,0 +1,127 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 13.454249023437502,
+        "y": 4.931579503676471
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 13.822812442807468,
+        "y": 5.176271675969986
+      },
+      "isLocked": false,
+      "linkedName": "RedRTHubTeagan"
+    },
+    {
+      "anchor": {
+        "x": 11.650759917185212,
+        "y": 7.490665435120791
+      },
+      "prevControl": {
+        "x": 14.840017856639205,
+        "y": 7.590650209749962
+      },
+      "nextControl": {
+        "x": 11.400882683289543,
+        "y": 7.4828316633185965
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 9.875385020131771,
+        "y": 7.361033240300146
+      },
+      "prevControl": {
+        "x": 10.385717766288433,
+        "y": 7.656868537243778
+      },
+      "nextControl": {
+        "x": 9.40523983720346,
+        "y": 7.088494311834994
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 9.73703805591142,
+        "y": 6.200620195827233
+      },
+      "prevControl": {
+        "x": 9.658029581430377,
+        "y": 6.521991863964195
+      },
+      "nextControl": {
+        "x": 9.996561813689604,
+        "y": 5.144991878660322
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 10.583200665721083,
+        "y": 5.017538376189605
+      },
+      "prevControl": {
+        "x": 10.38271646759459,
+        "y": 4.8681861539042455
+      },
+      "nextControl": {
+        "x": 12.350068287884334,
+        "y": 6.3337797973096635
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 13.454249023437502,
+        "y": 4.931579503676471
+      },
+      "prevControl": {
+        "x": 13.337042379660698,
+        "y": 4.710756944469814
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "RedRTHubTeagan"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.46231065775109204,
+      "rotationDegrees": 150.0
+    },
+    {
+      "waypointRelativePos": 0.953278520742358,
+      "rotationDegrees": 180.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 8.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -140.0
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -140.0
+  },
+  "useDefaultConstraints": false
+}

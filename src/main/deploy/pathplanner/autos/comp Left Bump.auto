@@ -35,15 +35,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "Auto Aim Shoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red LT Bump to Red LT Trench Start point"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Auto Aim Shoot"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Red LT Bump to Red LT Trench Start point"
+                }
+              }
+            ]
           }
         },
         {
@@ -77,25 +84,19 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "Auto Aim Start"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "Auto Aim Shoot"
-                }
-              },
-              {
                 "type": "path",
                 "data": {
                   "pathName": "Red LT Bump to Red LT Trench Start point"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Auto Aim Shoot"
                 }
               }
             ]

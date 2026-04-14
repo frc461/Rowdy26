@@ -3,46 +3,71 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.45068486272952,
-        "y": 6.788737806762006
+        "x": 8.467989430147059,
+        "y": 7.176519129136029
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.947518072289157,
-        "y": 5.247975903614458
+        "x": 7.536709673713235,
+        "y": 6.45859903492647
       },
       "isLocked": false,
       "linkedName": "RedRTPrepFirstSweep"
     },
     {
       "anchor": {
-        "x": 9.089578313253012,
-        "y": 4.078710843373495
+        "x": 8.22082380124451,
+        "y": 5.200133544564421
       },
       "prevControl": {
-        "x": 9.220710843373496,
-        "y": 3.5213975903614463
+        "x": 7.849365515520079,
+        "y": 5.9371159129848206
+      },
+      "nextControl": {
+        "x": 8.389672458363835,
+        "y": 4.865133658949487
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 9.0467958984375,
+        "y": 4.213346794577206
+      },
+      "prevControl": {
+        "x": 9.041398351332722,
+        "y": 3.7525232572062155
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RedRTFirstSweep"
+      "linkedName": "RedRTTeaganFirst"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.332406522925764,
+      "rotationDegrees": -160.0
+    },
+    {
+      "waypointRelativePos": 1.078039710698689,
+      "rotationDegrees": -140.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 2.5,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 2.0,
-    "rotation": 140.0
+    "velocity": 7.0,
+    "rotation": -140.0
   },
   "reversed": false,
   "folder": null,

@@ -17,24 +17,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "Shoot Trench Preset"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.05
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Stop Launcher"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Red RT Center Prep First Sweep"
@@ -49,7 +31,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot Trench Preset"
+            "name": "Shoot Hub Preset"
           }
         },
         {
@@ -79,31 +61,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red RB Shoot to Red RT Trench StartPoint"
+            "pathName": "Red RT Second Sweep Teagan"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Red RT Exit to Center for sweep first"
+            "name": "Shoot Hub Preset"
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "Red RT Center Prep First Sweep"
+            "waitTime": 5.0
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Red RT First Sweep"
+            "name": "Stop Launcher"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Red RB Shoot"
+            "name": "Stop All"
           }
         }
       ]

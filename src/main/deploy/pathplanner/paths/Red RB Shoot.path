@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.089578313253012,
-        "y": 4.078710843373495
+        "x": 9.0467958984375,
+        "y": 4.213346794577206
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.87811697574893,
-        "y": 5.555292439372327
+        "x": 10.447291761987556,
+        "y": 5.897522591050513
       },
       "isLocked": false,
-      "linkedName": "RedRTFirstSweep"
+      "linkedName": "RedRTTeaganFirst"
     },
     {
       "anchor": {
-        "x": 13.393708987161197,
-        "y": 5.658801711840229
+        "x": 13.454249023437502,
+        "y": 4.931579503676471
       },
       "prevControl": {
-        "x": 12.449186875891584,
-        "y": 5.425905848787447
+        "x": 12.900347541360295,
+        "y": 5.836547506893383
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RedRBShoot"
+      "linkedName": "RedRTHubTeagan"
     }
   ],
   "rotationTargets": [],
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 2.5,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 2.0,
-    "rotation": -119.05460409907717
+    "rotation": -140.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 140.0
+    "rotation": -140.0
   },
   "useDefaultConstraints": true
 }

@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 8.510409638554215,
-        "y": 1.357710843373495
+        "y": 1.3577108433734948
       },
       "isLocked": false,
       "linkedName": "RedLTExit"
@@ -45,7 +45,7 @@
     "rotation": -41.62769346811586
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Red",
   "idealStartingState": {
     "velocity": 4.0,
     "rotation": 0.5159042842634209

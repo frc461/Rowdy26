@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 14.225602409638554,
-        "y": 2.4395542168674704
+        "x": 14.487867469879518,
+        "y": 2.0680120481927715
       },
       "prevControl": null,
       "nextControl": {
-        "x": 16.575060240963854,
-        "y": 1.1063734939759036
+        "x": 16.837325301204817,
+        "y": 0.7348313253012047
       },
       "isLocked": false,
       "linkedName": "RedLBShoot"
@@ -21,7 +21,7 @@
       },
       "prevControl": {
         "x": 14.192819277108434,
-        "y": 0.35236144578313233
+        "y": 0.3523614457831323
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": 90.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Red",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 143.39292518739256

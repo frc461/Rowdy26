@@ -13,49 +13,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Run Intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red LT SP path"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red LT middle SP end point"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "red LT end of SP path"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot Hub Preset"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "Shoot Hub Preset"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 4.0
+            "waitTime": 3.0
           }
         },
         {
@@ -65,33 +29,45 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Red LT Circle Sweep"
+            "name": "Run Intake"
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Shoot Hub Preset"
+            "pathName": "Red Hub to Depot"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 5.0
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Depot Shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Tower Preset"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 6.0
           }
         },
         {
           "type": "named",
           "data": {
             "name": "Stop All"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0
           }
         }
       ]

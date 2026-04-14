@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 6.434144578313253,
-        "y": 0.4566345667978622
+        "y": 0.4566345667978624
       },
       "isLocked": false,
       "linkedName": "RightTrenchStartPoint"
@@ -45,7 +45,7 @@
     "rotation": 179.49297093908524
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Red",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 90.0

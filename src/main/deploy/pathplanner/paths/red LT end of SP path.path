@@ -3,32 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.330987919560185,
-        "y": 3.4924665075231487
+        "x": 9.450192771084337,
+        "y": 2.559759036144578
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.690028714064773,
-        "y": 3.301374181222708
+        "x": 10.094927710843374,
+        "y": 2.811096385542169
       },
       "isLocked": false,
       "linkedName": "Red LT Mid"
-    },
-    {
-      "anchor": {
-        "x": 10.158467954282408,
-        "y": 2.7582846498842595
-      },
-      "prevControl": {
-        "x": 9.425994162311577,
-        "y": 2.942492080321751
-      },
-      "nextControl": {
-        "x": 10.654942853009258,
-        "y": 2.633427806712963
-      },
-      "isLocked": false,
-      "linkedName": null
     },
     {
       "anchor": {
@@ -77,10 +61,10 @@
     "rotation": 134.351
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Red",
   "idealStartingState": {
     "velocity": 3.0,
-    "rotation": 180.0
+    "rotation": -148.877529803208
   },
   "useDefaultConstraints": false
 }

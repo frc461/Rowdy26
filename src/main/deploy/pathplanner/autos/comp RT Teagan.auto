@@ -29,6 +29,12 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "Shoot Hub Preset"
@@ -44,12 +50,6 @@
           "type": "named",
           "data": {
             "name": "Stop Launcher"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Stop All"
           }
         },
         {

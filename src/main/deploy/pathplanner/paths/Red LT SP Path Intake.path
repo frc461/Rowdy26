@@ -3,37 +3,44 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 10.184318504050925,
-        "y": 4.735720486111111
+        "x": 9.3399765625,
+        "y": 0.9722347366898145
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.58481436760098,
-        "y": 6.419896282584418
+        "x": 8.093310836226852,
+        "y": 0.9826668113425933
       },
       "isLocked": false,
-      "linkedName": "RedRTTeaganFirst"
+      "linkedName": "RedLTSPPushystart"
     },
     {
       "anchor": {
-        "x": 13.454249023437502,
-        "y": 4.931579503676471
+        "x": 7.995091869212963,
+        "y": 3.387358434606482
       },
       "prevControl": {
-        "x": 12.900347541360295,
-        "y": 5.836547506893383
+        "x": 7.9429314959490736,
+        "y": 2.120091001157408
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RedRTHubTeagan"
+      "linkedName": "RedLTshortpushyendpoint"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Extend Intake",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 7.0,
+    "maxVelocity": 2.0,
     "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +49,13 @@
   },
   "goalEndState": {
     "velocity": 2.0,
-    "rotation": -140.0
+    "rotation": -35.3090930117444
   },
   "reversed": false,
   "folder": "Red",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -140.0
+    "rotation": 45.0
   },
   "useDefaultConstraints": false
 }

@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.680408318014706,
-        "y": 0.22750695082720618
+        "x": 12.030533275462963,
+        "y": 0.5258206741898153
       },
       "isLocked": false,
       "linkedName": "RightTrenchStartPoint"
     },
     {
       "anchor": {
-        "x": 7.995091869212963,
-        "y": 3.387358434606482
+        "x": 9.3399765625,
+        "y": 0.9722347366898145
       },
       "prevControl": {
-        "x": 8.051084375093758,
-        "y": 1.4028694007315452
+        "x": 9.248318648726853,
+        "y": 0.5991732494212956
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RedLTshortpushyendpoint"
+      "linkedName": "RedLTSPPushystart"
     }
   ],
   "rotationTargets": [],
@@ -40,7 +40,7 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.0,
+    "maxVelocity": 7.0,
     "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -49,7 +49,7 @@
   },
   "goalEndState": {
     "velocity": 2.0,
-    "rotation": -35.3090930117444
+    "rotation": 45.0
   },
   "reversed": false,
   "folder": "Red",

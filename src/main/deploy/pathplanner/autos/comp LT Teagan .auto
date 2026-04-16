@@ -25,6 +25,12 @@
         {
           "type": "path",
           "data": {
+            "pathName": "Red LT SP Path Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "Red LT middle SP end point"
           }
         },

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 10.744435619212963,
-        "y": 7.499
+        "x": 10.276632523148148,
+        "y": 7.499084337349398
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.744435619212963,
-        "y": 7.499
+        "x": 11.276632523148148,
+        "y": 7.499084337349398
       },
       "isLocked": false,
       "linkedName": "RedRTEntrance"

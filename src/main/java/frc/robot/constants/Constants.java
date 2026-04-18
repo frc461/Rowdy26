@@ -29,7 +29,7 @@ public final class Constants {
         // --- CAMERA 1: FRONT RIGHT (FR) ---
         // MUST match exactly what you typed in the PhotonVision Web UI
         public static final String CAMERA_FR_NAME = "CAMERA_FR"; 
-        public static final double CAMERA_FR_YAW = 3.0;
+        public static final double CAMERA_FR_YAW = 0.0;
         public static final double CAMERA_FR_PITCH = 28.812;
         public static final double CAMERA_FR_ROLL = 0;
         public static final double CAMERA_FR_FORWARD = Units.inchesToMeters(15.03);
@@ -64,7 +64,7 @@ public final class Constants {
 
     public final class LauncherConstants {
 
-        public static double LAUNCHER_MULT = 1.28;
+        public static double LAUNCHER_MULT = 1.40;
         public static double SHOOTER_SIZE_IN = 7.0;
     
     /** Center of shooter is 11.5 inches from the side edge */
@@ -73,19 +73,19 @@ public final class Constants {
         public static double HUB_CENTER_HEIGHT = 72;
 
         public static double HUB_HOOD_ANGLE = 0.0;
-        public static double HUB_RPM = -1750.0 * LAUNCHER_MULT;
+        public static double HUB_RPM = -1600.0 * LAUNCHER_MULT;
 
-        public static double TOWER_HOOD_ANGLE = 1.25;
-        public static double TOWER_RPM = -2125.0 * LAUNCHER_MULT;
+        public static double TOWER_HOOD_ANGLE = 1.15;
+        public static double TOWER_RPM = -2300.0 * LAUNCHER_MULT;
 
-        public static double TEMP_AUTO_START_HOOD_ANGLE = 1.25;
+        public static double TEMP_AUTO_START_HOOD_ANGLE = 1.20;
         public static double TEMP_AUTO_RPM = -2450.0 * LAUNCHER_MULT;
 
         public static double TRENCH_AUTO_START_HOOD_ANGLE = 1.25;
         public static double TRENCH_AUTO_RPM = -2250.0 * LAUNCHER_MULT;
 
         public static double SHUTTLE_AUTO_START_HOOD_ANGLE = 2.65;
-        public static double SHUTTLE_AUTO_RPM = -1759.0 * LAUNCHER_MULT;
+        public static double SHUTTLE_AUTO_RPM = -2500.0 * LAUNCHER_MULT;
 
         public static double ABSOLUTE_ENCODER_OFFSET = 0.23;
         public static double ENCODER_CONVERSION = 3.942;
@@ -94,8 +94,8 @@ public final class Constants {
         public static double ROTOR_TO_SENSOR_RATIO = 4.0;
 
         public static final double SEVENTY_DEG_HOOD_ANGLE = 0.15; //Close
-        public static final double SIXTY_DEG_HOOD_ANGLE = 1.19; //Far
-        public static final double FIFTY_DEG_HOOD_ANGLE = 1.81; //Really Far
+        public static final double SIXTY_DEG_HOOD_ANGLE = 1.15; //Far
+        public static final double FIFTY_DEG_HOOD_ANGLE = 1.67; //Really Far
 
 
         public static double AUTO_AIM_HOOD_ANGLE = 0.0;

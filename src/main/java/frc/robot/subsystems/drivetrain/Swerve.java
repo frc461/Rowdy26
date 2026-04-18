@@ -59,7 +59,7 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
     // --- AIMING & DASHBOARD VARIABLES ---
     private final Field2d m_field = new Field2d();
     public boolean isAutoAiming = false;
-    private final PIDController turnPID = new PIDController(0.5, 0.0, 0.005);
+    private final PIDController turnPID = new PIDController(0.3, 0.0, 0.005);
     
     // Memory-optimized X-Mode
     private final SwerveRequest.SwerveDriveBrake brakeRequest = new SwerveRequest.SwerveDriveBrake();

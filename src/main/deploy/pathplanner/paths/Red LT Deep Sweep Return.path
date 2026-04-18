@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 10.724293185763889,
-        "y": 0.8322218605324077
+        "x": 10.27549215406562,
+        "y": 0.7785421686746998
       },
       "prevControl": {
-        "x": 10.565778139467593,
-        "y": 1.1703785445601853
+        "x": 10.116977107769324,
+        "y": 1.1166988527024775
       },
       "nextControl": {
-        "x": 10.830403905320718,
-        "y": 0.6058581814778122
+        "x": 10.38160287362245,
+        "y": 0.5521784896201044
       },
       "isLocked": false,
       "linkedName": null
@@ -52,9 +52,16 @@
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Auto Aim Start",
+      "waypointRelativePos": 1.2744416873449123,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 5.0,
+    "maxVelocity": 4.0,
     "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,

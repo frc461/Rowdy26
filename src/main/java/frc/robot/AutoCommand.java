@@ -131,7 +131,7 @@ public class AutoCommand extends SubsystemBase {
     }
 
     public Command AutoAimShoot(){
-        return new LauncherCommand(launcher, spindexer, drivetrain, intake).withTimeout(2);
+        return new LauncherCommand(launcher, spindexer, drivetrain, intake).withTimeout(5.5);
     }
 
     public Command AutoAimStop(){

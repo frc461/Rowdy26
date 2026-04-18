@@ -36,8 +36,8 @@ public class ShooterSolver {
     public static final double FIELD_LENGTH_METERS = 16.5417; 
     
     // Blue Alliance Hub Coordinates
-    public static final double BLUE_TARGET_X = 4.65; // 4.62 [m]
-    public static final double BLUE_TARGET_Y = 4.05; // 4.02 [m]
+    public static final double BLUE_TARGET_X = 4.58; // 4.62 [m]
+    public static final double BLUE_TARGET_Y = 4.35;// 4.02 [m]
 
     // Ball Physics
 

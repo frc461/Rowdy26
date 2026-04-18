@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.3399765625,
-        "y": 0.9722347366898145
+        "x": 8.401132530120481,
+        "y": 1.1937951807228921
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.093310836226852,
-        "y": 0.9826668113425933
+        "x": 7.154466803847333,
+        "y": 1.2042272553756708
       },
       "isLocked": false,
       "linkedName": "RedLTSPPushystart"
@@ -54,7 +54,7 @@
   "reversed": false,
   "folder": "Red",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 2.0,
     "rotation": 45.0
   },
   "useDefaultConstraints": false

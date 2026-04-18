@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.52087951807229,
-        "y": 0.6364819277108438
+        "x": 12.149337349397591,
+        "y": 0.6474096385542167
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.249392433449075,
-        "y": 0.15544921875000123
+        "x": 5.877850264774376,
+        "y": 0.1663769295933742
       },
       "isLocked": false,
       "linkedName": "RightTrenchStartPoint"
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
+    "maxVelocity": 4.0,
     "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,

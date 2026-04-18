@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.177,
-        "y": 1.3467831325301212
+        "x": 8.42298795180723,
+        "y": 1.3030722891566269
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.140162615740742,
-        "y": 2.1841284617637227
+        "x": 9.386150567547972,
+        "y": 2.140417618390228
       },
       "isLocked": false,
       "linkedName": "RedLTExit"
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
+    "maxVelocity": 4.0,
     "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -48,7 +48,7 @@
   "folder": "Red",
   "idealStartingState": {
     "velocity": 2.0,
-    "rotation": 0.5159042842634209
+    "rotation": -18.434948822922106
   },
   "useDefaultConstraints": true
 }

@@ -5,12 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "Red RT Exit to Center for sweep first"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "Extend Intake"
@@ -19,13 +13,43 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot Trench Preset"
+            "name": "Run Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red LT SP path"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red LT middle SP end point"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "red LT end of SP path"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Hub Preset"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Hub Preset"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.05
+            "waitTime": 4.0
           }
         },
         {
@@ -37,25 +61,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red RT Center Prep First Sweep"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red RT First Sweep"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red RT First Sweep Return"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red RT First Sweep Shoot"
+            "pathName": "RED LT SP SECOND SWEEP"
           }
         },
         {
@@ -73,12 +79,6 @@
         {
           "type": "named",
           "data": {
-            "name": "Stop Launcher"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "Stop All"
           }
         }
@@ -86,6 +86,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Trash",
   "choreoAuto": false
 }

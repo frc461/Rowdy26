@@ -13,6 +13,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.launcher.Launcher;
 import frc.robot.subsystems.launcher.LauncherCommand;
+import frc.robot.subsystems.lights.LEDSubsystem;
 import frc.robot.subsystems.localizer.Localizer;
 import frc.robot.subsystems.spindexer.Spindexer;
 import frc.robot.util.vision.Vision;
@@ -44,6 +45,7 @@ public class RobotContainer {
   private final Launcher launcher = new Launcher();
   private final Spindexer spindexer = new Spindexer();
   private final PowerDistribution pdh = new PowerDistribution();
+  // private final LEDSubsystem teaganled = new LEDSubsystem();
 
   private static HubState hubState = new HubState();
 
@@ -210,6 +212,7 @@ public class RobotContainer {
     
     drjoystick.leftTrigger()
         .onTrue(new InstantCommand(() -> drivetrain.setAutoAim(true)))
+        .whileTrue(new LauncherCommand(launcher, spindexer, drivetrain, intake))
         .onFalse(new InstantCommand(() -> drivetrain.setAutoAim(false)));
 
     final Command holdXMode = drivetrain.applyRequest(() -> xMode);
@@ -225,10 +228,10 @@ public class RobotContainer {
 
     // Operator Controller
 
-    opjoystick.rightTrigger()
-    .whileTrue(new LauncherCommand(launcher, spindexer, drivetrain, intake))
-    .onTrue(holdXMode)
-    ;
+    // opjoystick.rightTrigger()
+    // .whileTrue(new LauncherCommand(launcher, spindexer, drivetrain, intake))
+    // .onTrue(holdXMode)
+    // ;
 
     opjoystick.leftTrigger().whileTrue(
       Commands.startEnd(

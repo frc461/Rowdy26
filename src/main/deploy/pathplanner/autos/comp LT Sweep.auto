@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Auto Aim Start"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Red LT Auto align"
@@ -35,6 +41,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Auto Aim Stop"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Red LT Exit"
@@ -55,25 +67,19 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot Trench Preset"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 5.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Stop Launcher"
+            "name": "Auto Aim Shoot"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "Stop All"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Aim Stop"
           }
         }
       ]

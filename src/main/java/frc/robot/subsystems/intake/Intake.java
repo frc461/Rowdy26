@@ -45,7 +45,7 @@ public class Intake extends SubsystemBase{
         TalonFXConfiguration intakeconfig = new TalonFXConfiguration();
         IntakeKraken.getConfigurator().apply(new TalonFXConfiguration());
         intakeconfig.CurrentLimits.SupplyCurrentLimitEnable = true;
-        intakeconfig.CurrentLimits.SupplyCurrentLimit = 60;
+        intakeconfig.CurrentLimits.SupplyCurrentLimit = 30;
         intakeconfig.CurrentLimits.StatorCurrentLimitEnable = true;
         intakeconfig.CurrentLimits.StatorCurrentLimit = 80;
         
@@ -99,6 +99,7 @@ public class Intake extends SubsystemBase{
             DeployKraken.setPosition(-70);
         }
     }
+    
 
     public void ExtendIntake() {
         DeployKraken.setControl(positionControl.withPosition(-70)

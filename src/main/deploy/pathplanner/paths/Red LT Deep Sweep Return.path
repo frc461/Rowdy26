@@ -3,41 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 10.27549215406562,
-        "y": 4.442567760342368
+        "x": 10.193277108433733,
+        "y": 3.7399518072289153
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.82163422582488,
-        "y": 4.4552305930969975
+        "x": 9.745240963855421,
+        "y": -0.08474698795180746
       },
       "isLocked": false,
       "linkedName": "deeper second sweep"
     },
     {
       "anchor": {
-        "x": 10.27549215406562,
-        "y": 0.7785421686746998
-      },
-      "prevControl": {
-        "x": 10.116977107769324,
-        "y": 1.1166988527024775
-      },
-      "nextControl": {
-        "x": 10.38160287362245,
-        "y": 0.5521784896201044
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 12.815927710843374,
+        "x": 12.8,
         "y": 0.6364819277108438
       },
       "prevControl": {
-        "x": 12.05806045100541,
-        "y": 0.7532030648636214
+        "x": 11.471819277108434,
+        "y": 0.2867951807228918
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,16 +30,30 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.15,
-      "rotationDegrees": -119.99999999999999
+      "waypointRelativePos": 0.01493775933609972,
+      "rotationDegrees": -150.0
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.76228287841191,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 0.5,
+        "maxAcceleration": 2.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [
     {
       "name": "Auto Aim Start",
-      "waypointRelativePos": 1.2744416873449123,
+      "waypointRelativePos": 0.65,
       "endWaypointRelativePos": null,
       "command": null
     }

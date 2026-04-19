@@ -108,12 +108,12 @@ public class LEDSubsystem extends SubsystemBase {
      * Command that simulates a 135-second teleop practice match timing internally, 
      * ignoring the real FMS timer.
      */
-    public Command updateLEDsSimulated() {
-        return runOnce(() -> m_simulatedStartTime = Timer.getFPGATimestamp())
-            .andThen(run(() -> {
-                double elapsed = Timer.getFPGATimestamp() - m_simulatedStartTime;
-                double simulatedMatchTime = Math.max(0, 135.0 - elapsed);
-                applyLEDState(simulatedMatchTime);
-            }));
-    }
+    // public Command updateLEDsSimulated() {
+    //     return runOnce(() -> m_simulatedStartTime = Timer.getFPGATimestamp())
+    //         .andThen(run(() -> {
+    //             double elapsed = Timer.getFPGATimestamp() - m_simulatedStartTime;
+    //             double simulatedMatchTime = Math.max(0, 135.0 - elapsed);
+    //             applyLEDState(simulatedMatchTime);
+    //         }));
+    // }
 }

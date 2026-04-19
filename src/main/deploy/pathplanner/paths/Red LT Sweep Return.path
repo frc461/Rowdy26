@@ -3,24 +3,24 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.401132530120481,
-        "y": 2.330277108433736
+        "x": 8.30278313253012,
+        "y": 3.41212048192771
       },
       "prevControl": null,
       "nextControl": {
-        "x": 9.84359036144578,
-        "y": 2.931301204819279
+        "x": 9.810807228915662,
+        "y": 2.8766626506024076
       },
       "isLocked": false,
       "linkedName": "RedLTSweep"
     },
     {
       "anchor": {
-        "x": 12.815927710843374,
+        "x": 12.8,
         "y": 0.6364819277108438
       },
       "prevControl": {
-        "x": 8.684037089871612,
+        "x": 8.66810937902824,
         "y": -0.111840228245362
       },
       "nextControl": null,
@@ -34,7 +34,21 @@
       "rotationDegrees": -119.5196171533528
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.92,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 0.5,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [
     {

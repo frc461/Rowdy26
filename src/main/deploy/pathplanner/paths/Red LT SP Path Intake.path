@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.154466803847333,
-        "y": 1.2042272553756708
+        "x": 8.302133090155477,
+        "y": 1.7692943824217693
       },
       "isLocked": false,
       "linkedName": "RedLTSPPushystart"
@@ -20,8 +20,8 @@
         "y": 3.387358434606482
       },
       "prevControl": {
-        "x": 7.9429314959490736,
-        "y": 2.120091001157408
+        "x": 8.172334173554228,
+        "y": 2.4769872743249333
       },
       "nextControl": null,
       "isLocked": false,

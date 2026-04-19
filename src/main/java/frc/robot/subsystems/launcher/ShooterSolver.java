@@ -98,7 +98,7 @@ public class ShooterSolver {
             }
             
             if (robotY > 4.6){
-                currentTargetY = 6.5;
+                currentTargetY = 6.0;
             }else{
                 currentTargetY = 1.5;
             }

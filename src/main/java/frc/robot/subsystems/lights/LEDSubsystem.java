@@ -25,12 +25,12 @@ public class LEDSubsystem extends SubsystemBase {
     private final CANdle m_candle = new CANdle(15, kCANBus);
 
     private final StrobeAnimation m_flashingGreen = new StrobeAnimation(0, 0)
-        .withColor(new RGBWColor(0, 255, 0, 0))
-        .withFrameRate(Hertz.of(2)); // Flashing approx 2 times a second
-    private final SolidColor m_solidGreen = new SolidColor(0, 0)
-        .withColor(new RGBWColor(0, 255, 0, 0));
-    private final SolidColor m_solidRed = new SolidColor(0, 0)
-        .withColor(new RGBWColor(255, 0, 0, 0));
+        .withColor(new RGBWColor(0, 238, 0, 0))
+        .withFrameRate(Hertz.of(5)); // Flashing approx 2 times a second
+    private final SolidColor m_solidGreen = new SolidColor(1234, 0)
+        .withColor(new RGBWColor(0, 238, 0));
+    private final StrobeAnimation m_flashingRed = new StrobeAnimation(1234, 0)
+        .withColor(new RGBWColor(238, 0, 0, 0));
     
     // For simulated test mode
     private double m_simulatedStartTime = 0;
@@ -62,10 +62,10 @@ public class LEDSubsystem extends SubsystemBase {
         boolean shift1Active = !weAreInactiveFirst;
         
         if (matchTime > 130.0) return true;
-        if (matchTime > 105.0) return shift1Active;
-        if (matchTime > 80.0) return !shift1Active;
-        if (matchTime > 55.0) return shift1Active;
-        if (matchTime > 30.0) return !shift1Active;
+        if (matchTime > 105.0 + 2.0) return shift1Active;
+        if (matchTime > 80.0 + 2.0) return !shift1Active;
+        if (matchTime > 55.0 + 2.0) return shift1Active;
+        if (matchTime > 30.0 + 2.0) return !shift1Active;
         return true;
     }
 
@@ -87,13 +87,15 @@ public class LEDSubsystem extends SubsystemBase {
     private void applyLEDState(double matchTime) {
         boolean active = isOurHubActive(matchTime);
         double shiftRemaining = getShiftTimeRemaining(matchTime);
-
         if (active) {
             m_candle.setControl(m_solidGreen);
-        } else if (shiftRemaining <= 5.0) {
+        } //else if (shiftRemaining <= 2.0) {
+            //m_candle.setControl(m_solidGreen);
+        //}
+        else if (shiftRemaining <= 7.0) {
             m_candle.setControl(m_flashingGreen);
         } else {
-            m_candle.setControl(m_solidRed);
+            m_candle.setControl(m_flashingRed);
         }
     }
 

@@ -138,6 +138,7 @@ public class AutoCommand extends SubsystemBase {
         // This command disables auto-aim and stops the launcher command by interrupting it.
         return new InstantCommand(
             () -> drivetrain.setAutoAim(false));
+            
     }
 
     public Command RunIntake() {

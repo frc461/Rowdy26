@@ -45,7 +45,7 @@ public class RobotContainer {
   private final Launcher launcher = new Launcher();
   private final Spindexer spindexer = new Spindexer();
   private final PowerDistribution pdh = new PowerDistribution();
-  // private final LEDSubsystem teaganled = new LEDSubsystem();
+  private final LEDSubsystem teaganled = new LEDSubsystem();
 
   private static HubState hubState = new HubState();
 

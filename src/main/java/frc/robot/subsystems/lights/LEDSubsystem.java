@@ -24,7 +24,7 @@ public class LEDSubsystem extends SubsystemBase {
     private final CANBus kCANBus = new CANBus("rio");
     private final CANdle m_candle = new CANdle(15, kCANBus);
 
-    private final StrobeAnimation m_flashingGreen = new StrobeAnimation(0, 0)
+    private final StrobeAnimation m_flashingGreen = new StrobeAnimation(1234, 0)
         .withColor(new RGBWColor(0, 238, 0, 0))
         .withFrameRate(Hertz.of(5)); // Flashing approx 2 times a second
     private final SolidColor m_solidGreen = new SolidColor(1234, 0)

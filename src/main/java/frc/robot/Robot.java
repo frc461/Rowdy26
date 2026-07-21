@@ -19,7 +19,9 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    CommandScheduler.getInstance().cancelAll(); // - bandaid solution for cancelling commands that run without stopping, even when disabled, for some reason - George
+  }
 
   @Override
   public void disabledPeriodic() {}

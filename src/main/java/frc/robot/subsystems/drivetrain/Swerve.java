@@ -59,7 +59,7 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
     // --- AIMING & DASHBOARD VARIABLES ---
     private final Field2d m_field = new Field2d();
     public boolean isAutoAiming = false;
-    private final PIDController turnPID = new PIDController(0.5, 0.0, 0.005);
+    private final PIDController turnPID = new PIDController(0.3, 0.0, 0.005);
     
     // Memory-optimized X-Mode
     private final SwerveRequest.SwerveDriveBrake brakeRequest = new SwerveRequest.SwerveDriveBrake();
@@ -419,6 +419,7 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
             // Trigger released: Give rotation control back to the PathPlanner trajectory
             PPHolonomicDriveController.clearRotationFeedbackOverride();
         }
+
     }
 
     public double calculateAutoAimRotation() {
@@ -433,6 +434,9 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
         
         double currentHeading = MathUtil.inputModulus(currentPose.getRotation().getDegrees(), 0, 360);
         double rotationalVelocity = turnPID.calculate(currentHeading, solution.headingDegrees);
+
+        SmartDashboard.putNumber("Shooter/Target Heading", solution.headingDegrees);
+        SmartDashboard.putNumber("Shooter/Current Heading", currentHeading);
         
         return MathUtil.clamp(rotationalVelocity, -4.0, 4.0);
     }
@@ -440,6 +444,7 @@ public class Swerve extends TunerSwerveDrivetrain implements Subsystem {
     public boolean isAimLockedOn() {
         return turnPID.atSetpoint();
     }
+    
 
 }
 

@@ -6,8 +6,10 @@
     "Blue",
     "Red"
   ],
-  "autoFolders": [],
-  "defaultMaxVel": 5.0,
+  "autoFolders": [
+    "Trash"
+  ],
+  "defaultMaxVel": 4.0,
   "defaultMaxAccel": 2.5,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,

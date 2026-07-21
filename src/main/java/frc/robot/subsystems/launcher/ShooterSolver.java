@@ -10,7 +10,7 @@ import java.util.Optional;
 public class ShooterSolver {
 
     // --- TUNABLE CONSTANTS ---
-    public static double EFFICIENCY = 0.85;
+    public static double EFFICIENCY = 0.81;
 
     
     public static double HOOD_ANGLE_DEGREES = 0.0;
@@ -36,8 +36,8 @@ public class ShooterSolver {
     public static final double FIELD_LENGTH_METERS = 16.5417; 
     
     // Blue Alliance Hub Coordinates
-    public static final double BLUE_TARGET_X = 4.65; // 4.62 [m]
-    public static final double BLUE_TARGET_Y = 4.05; // 4.02 [m]
+    public static final double BLUE_TARGET_X = 4.58; // 4.62 [m]
+    public static final double BLUE_TARGET_Y = 4.35;// 4.02 [m]
 
     // Ball Physics
 
@@ -98,7 +98,7 @@ public class ShooterSolver {
             }
             
             if (robotY > 4.6){
-                currentTargetY = 6.5;
+                currentTargetY = 6.0;
             }else{
                 currentTargetY = 1.5;
             }
@@ -126,7 +126,7 @@ public class ShooterSolver {
         if (distanceToTarget > 4.25){ 
             retureHoodPose = Constants.LauncherConstants.FIFTY_DEG_HOOD_ANGLE;
             HOOD_ANGLE_DEGREES = 60.0;
-        }else if (distanceToTarget > 2 && distanceToTarget < 4.25){
+        }else if (distanceToTarget > 2.67 && distanceToTarget < 4.25){
             retureHoodPose = Constants.LauncherConstants.SIXTY_DEG_HOOD_ANGLE;
             HOOD_ANGLE_DEGREES = 60.0;
         }else{

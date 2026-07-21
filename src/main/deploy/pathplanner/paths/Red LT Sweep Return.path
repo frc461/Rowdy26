@@ -3,24 +3,24 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.177,
-        "y": 3.128131221064815
+        "x": 8.30278313253012,
+        "y": 3.41212048192771
       },
       "prevControl": null,
       "nextControl": {
-        "x": 11.314240723817163,
-        "y": 4.2957326991533265
+        "x": 9.810807228915662,
+        "y": 2.8766626506024076
       },
       "isLocked": false,
       "linkedName": "RedLTSweep"
     },
     {
       "anchor": {
-        "x": 12.815927710843374,
+        "x": 12.8,
         "y": 0.6364819277108438
       },
       "prevControl": {
-        "x": 8.684037089871612,
+        "x": 8.66810937902824,
         "y": -0.111840228245362
       },
       "nextControl": null,
@@ -34,9 +34,30 @@
       "rotationDegrees": -119.5196171533528
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.92,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 0.5,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Auto Aim Start",
+      "waypointRelativePos": 0.742431761786601,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,

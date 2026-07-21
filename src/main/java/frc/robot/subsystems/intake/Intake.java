@@ -45,7 +45,7 @@ public class Intake extends SubsystemBase{
         TalonFXConfiguration intakeconfig = new TalonFXConfiguration();
         IntakeKraken.getConfigurator().apply(new TalonFXConfiguration());
         intakeconfig.CurrentLimits.SupplyCurrentLimitEnable = true;
-        intakeconfig.CurrentLimits.SupplyCurrentLimit = 60;
+        intakeconfig.CurrentLimits.SupplyCurrentLimit = 30;
         intakeconfig.CurrentLimits.StatorCurrentLimitEnable = true;
         intakeconfig.CurrentLimits.StatorCurrentLimit = 80;
         
@@ -65,8 +65,8 @@ public class Intake extends SubsystemBase{
     }
 
     private final DigitalInput RightForwardLimitSwitch = new DigitalInput(0);
-    private final DigitalInput LeftForwardLimitSwitch = new DigitalInput(1);
-    private final DigitalInput RearLimitSwitch = new DigitalInput(2);
+    private final DigitalInput LeftForwardLimitSwitch = new DigitalInput(2);
+    private final DigitalInput RearLimitSwitch = new DigitalInput(1);
 
     public void setIntakeVoltage(double volts) {
         IntakeKraken.setControl(voltageControl.withOutput(volts));
@@ -99,6 +99,7 @@ public class Intake extends SubsystemBase{
             DeployKraken.setPosition(-70);
         }
     }
+    
 
     public void ExtendIntake() {
         DeployKraken.setControl(positionControl.withPosition(-70)
@@ -118,7 +119,7 @@ public class Intake extends SubsystemBase{
         SmartDashboard.putNumber("Intake Position", DeployKraken.getPosition().getValueAsDouble());
 
         SmartDashboard.putNumber("Intake Stator", IntakeKraken.getStatorCurrent().getValueAsDouble());
-                SmartDashboard.putNumber("Intake SUpply", IntakeKraken.getSupplyCurrent().getValueAsDouble());
+        SmartDashboard.putNumber("Intake SUpply", IntakeKraken.getSupplyCurrent().getValueAsDouble());
 
         CheckRearLimitSwitch();
         ResetExtension();

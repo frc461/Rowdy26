@@ -5,28 +5,33 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Extend Intake"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Red LT Exit for full sweep"
-                }
-              }
-            ]
+            "name": "Extend Intake"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Run Intake"
+            "name": "Shoot Trench Preset"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.05
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Stop Launcher"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red LT Exit for full sweep"
           }
         },
         {
@@ -44,19 +49,19 @@
         {
           "type": "named",
           "data": {
-            "name": "Auto Aim Shoot"
+            "name": "Shoot Trench Preset"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 7.0
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Auto Aim Stop"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Run Intake"
+            "name": "Stop Launcher"
           }
         },
         {
@@ -80,13 +85,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Auto Aim Shoot"
+            "name": "Shoot Trench Preset"
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "Auto Aim Stop"
+            "waitTime": 7.0
           }
         },
         {

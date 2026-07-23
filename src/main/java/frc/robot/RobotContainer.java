@@ -92,6 +92,8 @@ public class RobotContainer {
       NamedCommands.registerCommand("Auto Aim Shoot", autoCommand.AutoAimShoot());
       NamedCommands.registerCommand("Auto Aim Start", autoCommand.AutoAimStart());
       NamedCommands.registerCommand("Auto Aim Stop", autoCommand.AutoAimStop());
+      NamedCommands.registerCommand("Shoot Hub With Delay", autoCommand.AutoHubShootWithDelay());
+
 
 
       // NamedCommands.registerCommand("Enable Auto Aim", new InstantCommand(() -> drive.setAutoAim(true)));

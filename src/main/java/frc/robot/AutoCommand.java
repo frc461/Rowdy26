@@ -34,14 +34,20 @@ public class AutoCommand extends SubsystemBase {
     }
 
     public Command AutoHumanPlayerShoot() {
-        return runOnce(() -> {
+        return Commands.sequence(
+        runOnce(() -> {
             launcher.setFlywheelVelocity(Constants.LauncherConstants.TEMP_AUTO_RPM);
             launcher.setHoodPosition(Constants.LauncherConstants.TEMP_AUTO_START_HOOD_ANGLE);
             launcher.runFlyWheel();
             launcher.runHood();
-            spindexer.setVoltage(16);
-            intake.setIntakeVoltage(-16);
-            }
+            }),
+            Commands.waitSeconds(2.5), 
+
+        runOnce(() -> {
+            spindexer.setVoltage(16); 
+            intake.setIntakeVoltage(-16); 
+        })
+
         );
     }
 
@@ -69,6 +75,29 @@ public class AutoCommand extends SubsystemBase {
             }
         );
     }
+
+    public Command AutoHubShootWithDelay() {
+    return Commands.sequence(
+        runOnce(() -> { 
+            launcher.setFlywheelVelocity(Constants.LauncherConstants.HUB_RPM); 
+            launcher.setHoodPosition(Constants.LauncherConstants.HUB_HOOD_ANGLE); 
+            launcher.runFlyWheel(); 
+            launcher.runHood(); 
+            spindexer.setVoltage(-16);
+        }),
+        Commands.waitSeconds(1.75), 
+        runOnce(() -> {
+            spindexer.setVoltage(16); 
+            intake.setIntakeVoltage(-16); 
+        }),
+        Commands.waitSeconds(2.5), 
+
+        runOnce(() -> {
+            spindexer.setVoltage(-16); 
+            intake.setIntakeVoltage(-16); 
+        })
+    );
+}
 
     public Command AutoTowerShoot() {
         return runOnce(() -> {

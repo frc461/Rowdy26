@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.51436588006806,
-        "y": 7.641409586992765
+        "x": 12.751530782341797,
+        "y": 7.499084337349398
       },
       "isLocked": false,
-      "linkedName": "LeftTrenchStartPoint"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 13.056337349397587,
-        "y": 4.155204819277108
+        "x": 12.805,
+        "y": 7.378879518072289
       },
       "prevControl": {
-        "x": 13.1148161057215,
-        "y": 4.7794717774438915
+        "x": 12.31131413025275,
+        "y": 7.378879518072289
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ShootatHub"
+      "linkedName": "ShootForHumanTrench"
     }
   ],
   "rotationTargets": [],
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -104.03624346792633
   },
   "reversed": false,
-  "folder": "Red",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": -90.0

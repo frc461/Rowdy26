@@ -105,7 +105,7 @@ public class AutoCommand extends SubsystemBase {
             launcher.setHoodPosition(Constants.LauncherConstants.TOWER_HOOD_ANGLE);
             launcher.runFlyWheel();
             launcher.runHood();
-            spindexer.setVoltage(16);
+            spindexer.setVoltage(14);
             intake.setIntakeVoltage(-16);
 
             }
